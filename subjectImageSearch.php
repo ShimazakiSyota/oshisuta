@@ -1,0 +1,404 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
+
+		<title>検索結果一覧</title>
+
+<style type="text/css">
+
+.switch {
+    font-weight: bold;
+}
+
+
+.btn {
+    background:transparent url(btn.png) no-repeat 0 0;
+    display: block;
+    width:35px;
+    height: 35px;
+    position: absolute;
+    top:20px;
+    right:20px;
+    cursor: pointer;
+    z-index: 200;
+}
+.peke {
+    background-position: -35px 0;
+}
+.drawr {
+    display: none;
+    background-color:rgba(0,0,0,0.6);
+    position: absolute;
+    top: 0px;
+    right:0;
+    width:260px;
+    padding:60px 0 20px 20px;
+    z-index: 100;
+}
+#menu li {
+    width:260px;
+}
+#menu li a {
+    color:#fff;
+    display: block;
+    padding: 15px;
+}        
+
+</style>
+
+<script type="text/javascript">
+//ハンバーガーメニュー
+$(function($) {
+        WindowHeight = $(window).height();
+        $('.drawr').css('height', WindowHeight); //メニューをwindowの高さいっぱいにする
+
+        $(document).ready(function() {
+                $('.btn').click(function(){ //クリックしたら
+                        $('.drawr').animate({width:'toggle'}); //animateで表示・非表示
+                        $(this).toggleClass('peke'); //toggleでクラス追加・削除
+                });
+        });
+});
+
+//ページトップ
+$(document).ready(function() {
+  var pagetop = $('.pagetop');
+    $(window).scroll(function () {
+       if ($(this).scrollTop() > 100) {
+            pagetop.fadeIn();
+       } else {
+            pagetop.fadeOut();
+            }
+       });
+       pagetop.click(function () {
+           $('body, html').animate({ scrollTop: 0 }, 500);
+              return false;
+   });
+});
+</script>
+
+	</head>
+
+	<body>
+		<header>
+			<div id="header">
+				<!--タイトル-->
+				<h1><img src="//シゴト部"></h1>
+
+
+<?php
+require_once 'DBManager.php';
+
+//DB接続
+$con = connect();
+
+		//履歴
+		echo "<div><ul>";
+		echo "<li><a href=\"./topPage.php\">HOME</a></li>＞";
+		echo "<li><a href=\"./bunya.php\">分野別</a></li>＞";
+
+if (isset($_POST['sbjct'])) {//詳細ページからsbjctの値が入ってる
+
+	$tagid = $_POST['sbjct'];
+
+	//タグ確認
+	$tagList = tagCheck($tagid);
+
+	echo '<li>'.$tagList[1].'</li>';
+
+} else if (isset($_POST['bunya'])) {
+	//トップページからの値
+	$tagid = $_POST['bunya'];
+
+	//タグ確認
+	$tagList = tagCheck($tagid);
+
+} else if (isset($_POST['image'])) {
+	//トップページからの値
+	$tagid = $_POST['image'];
+
+	//タグ確認
+	$tagList = tagCheck($tagid);
+}
+
+?>
+				</ul></div>
+
+				<!--メインメニュー-->
+				<a class="btn"></a>
+				<div class="drawr">
+    				<ul id="menu" style="list-style:none;">
+    				<li><a href="topPage.php">HOME</a></li>
+    				<li><a href="bunya.php">分野から探す</a></li>
+    				<li><a href="image.php">イメージから探す</a></li>
+    				<li><a href="gojyu.php">五十音から探す</a></li>
+    				<li><a href="ranking.php">気になるランキング</a></li>
+    				<li><a href="recently.php">最近気になった仕事</a></li>
+    				<li><form action="freewordSearch.php" method="POST"><input type="text" name="message"><input type="submit"></form></li>
+    				</ul>
+
+			</div>
+		</header>
+
+	<main>
+		<div id="container">
+			<div id="form_search">
+
+<?php
+//----------------------------------------------------------------------------------------------------
+
+
+//上位タグIDかイメージタグIDをPOSTで受け取る
+$data = sbjctImgResult($tagid);
+
+
+//----------------------------------------------------------------------------------------------------
+
+//分野別の上位タグだったら
+if($tagList[2] == '0') {
+
+	echo '<h2>分野別で探す</h2>';
+
+	//下位タグSQL文セット
+	$Reasult = tagRelationSelect($tagid);
+
+	//セレクトタグ表示
+	echo '<form action="./subjectImageSearch.php" method="POST">';
+	echo '<select name="sbjct">';
+	echo '<option value="">選択してください</option>';
+
+	foreach ($Reasult as $valuex) {
+		$value = tagCheck($valuex[0]);
+		echo '<option value="'.$value[0]./*タグID*/'">'.$value[1]./*タグ名*/'</option>';
+	}
+
+	echo '</select>';
+	echo '<input type="submit" value="検索"></form></div>';
+
+
+
+//----------------------------------------------------------------------------------------------------
+
+//下位タグ
+/*} else if($tagList[2] == '1') {
+
+	echo '<h2>分野別で探す</h2>';
+
+	//下位タグSQL文セット
+	$Reasult = tagRelationSelect($tagid);
+
+	//セレクトタグ表示
+	echo '<form action="./subjectImageSearch.php" method="POST">';
+	echo '<select name="sbjct">';
+	echo '<option value="">選択してください</option>';
+
+	foreach ($Reasult as $valuex) {
+		$value = tagCheck($valuex[0]);
+		echo '<option value="'.$value[0].タグID'">'.$value[1].タグ名'</option>';
+	}
+
+	echo '</select>';
+	echo '<input type="submit" value="検索"></form></div>';
+
+*/
+
+//----------------------------------------------------------------------------------------------------
+
+//イメージだったら
+} else if ($tagList[2] == '2') {
+
+	echo '<h2>イメージで探す</h2>';
+
+	//イメージ名SQL文セット
+	$imgResult = tagSelectAllKubun('2');
+
+	//セレクトタグ表示
+	echo '<form action="./subjectImageSearch.php" method="POST">';
+	echo '<select name="image">';
+	echo '<option value="">選択してください</option>';
+
+	foreach ($imgResult as $value) {
+		echo '<option value="'.$value[0]./*タグID*/'">'.$value[1]./*タグ名*/'</option>';
+	}
+
+	echo '</select>';
+	echo '<input type="submit" value="検索"></form></div>';
+
+}
+
+//----------------------------------------------------------------------------------------------------
+
+echo '<div id="box_">';
+
+echo '<h2>';
+//データの数
+echo '検索結果'.$dataCount = count($data).'件';
+echo '</h2>';
+
+//１ページあたりの表示数
+$perNum = 10;
+//最大ページ数
+$maxPageNum = ceil($dataCount / $perNum);
+
+//URLにページ数が指定されてなければ１に
+$nowPageNum = empty($_GET["page"]) ? 1 : $_GET["page"];
+
+//次のページの値
+$nextPageNum = $nowPageNum + 1;
+
+//前のページの値
+$prevPageNum = $nowPageNum - 1;
+
+$page = $nowPageNum * 10 - 9 ;
+//
+//データを表示させる始点と終点
+$startPoint = ($nowPageNum == 1) ? 0 : ($nowPageNum - 1) * $perNum;
+$endPoint = $nowPageNum * $perNum;
+
+//何件から何件
+$aaaa;
+
+if($endPoint >= $dataCount){
+	$aaaa = 10 - ($endPoint - $dataCount);
+}
+else{
+	$aaaa = 10;
+}
+	echo '(';
+	echo $page;
+	echo '～';
+	echo $page + $aaaa - 1;
+	echo '件を表示)';
+	echo '<br />';
+
+?>
+
+		<ol>
+		<li><img src="//専門家インタビュー">専門家インタビュー</li>
+		<li><img src="//学生インタビュー">学生インタビュー</li>
+		<li><img src="//お仕事スタジアムレポート2016">お仕事スタジアムレポート2016</li>
+		</ol>
+	</div>
+
+	<div id="list_result">
+
+<?php
+
+if (!empty($data)){
+
+//結果表示
+for($i = $startPoint; $i < $endPoint; $i++){
+	if($i >= $dataCount) break;
+
+		echo "<div><dl>";
+		echo "<form name='Form".$i."' method='post' action='./jobdetail.php' style='display:inline;'>";
+		echo "<input type='hidden' name='jobid' value='".$data[$i][0]."'>";//職業ID
+		echo '<dt>';
+		echo '<a href="javascript:Form'.$i.'.submit()">'.$data[$i][1].'</a>';
+		echo '</dt>';//職業名
+		echo '</form>';
+		echo '<dd>';
+//		echo '<a href="javascript:Form'.$count.'.submit()"><img src="./"></a>';
+		echo '</dd>';//矢印
+		echo '<dd>'.$data[$i][2] .'</dd>';//一言キャッチコピー
+		echo '<dd>';
+		echo '<ol>';//アイコン
+
+
+		$stdnt = studentnull($data[$i][0]);
+		if (/*専門家*/$stdnt !== '0') {
+			echo '<li><img src="./"></li>';
+		}
+
+		$exprt = expertnull($data[$i][0]);
+		if (/*学生*/ $exprt !== '0') {
+			echo '<li><img src="./"></li>';
+		}
+
+		$wrkrp = workrpnull($data[$i][0]);
+		if (/*レポート*/$wrkrp !== '0') {
+			echo '<li><img src="./"></li>';
+		}
+	}
+		echo '</ol></dd>';
+		echo '</dl></div>';
+		echo '</div>';
+
+		echo '<div id="list_page"><ul>';
+
+	//最初のページ以外で「前へ」を表示
+	if($nowPageNum != 1){
+		echo '<li><a href="?page='.$prevPageNum.'"><img>前へ</a></li><br />';
+	}
+
+	//ページ数表示
+	for($p = 1; $p <= $maxPageNum; $p++) {
+		echo '<li><a href="?page='.$p.'">'.$p.'</a></li><br />';
+	}
+
+	//最後のページ以外で「次へ」を表示
+	if($nowPageNum < $maxPageNum){
+		echo '<li><a href="?page='.$nextPageNum.'"><img>次へ</a></li><br />';
+	}
+
+	echo '</ul></div>';
+
+}else{
+	echo '<div id="list_result">';
+	echo '検索結果0件';
+	echo '</div>';
+}
+
+?>
+
+			</div>
+		</main>
+
+<p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></p>
+
+<?php
+//メインメニュー
+//フリーワード
+echo "<form action=\"freewordSearch.php\" method=\"POST\">";
+echo "<input type=\"text\" name=\"message\">";
+echo "<input type=\"submit\">";
+echo "</form>";
+//分野画面遷移
+echo "<form action=\"bunya.php\" method=\"POST\">";
+echo "<input type=\"submit\"  value=\"分野から探す\">";
+echo "</form>";
+//イメージ画面遷移
+echo "<form action=\"image.php\" method=\"POST\">";
+echo "<input type=\"submit\"  value=\"イメージから探す\">";
+echo "</form>";
+//50音画面遷移
+echo "<form action=\"gojyu.php\" method=\"POST\">";
+echo "<input type=\"submit\"  value=\"五十音から探す\">";
+echo "</form>";
+//気になるランキング画面遷移
+echo "<form action=\"ranking.php\" method=\"POST\">";
+echo "<input type=\"submit\"  value=\"気になるランキング\">";
+echo "</form>";
+//最近気になった仕事画面遷移
+echo "<form action=\"recently.php\" method=\"POST\">";
+echo "<input type=\"submit\"  value=\"最近気になった仕事\">";
+echo "</form>";
+//HOME画面遷移
+echo "<form action=\"topPage.php\" method=\"POST\">";
+echo "<input type=\"submit\"  value=\"HOME\">";
+echo "</form>";
+?>
+
+		<small>Copyright (c) shigotobu.All Right Reserved.</small>
+
+	</body>
+
+</html>
