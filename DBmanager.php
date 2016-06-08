@@ -1104,4 +1104,4 @@ function schoolDelete($schoolID){//選択されたのタグの削除
             echo ('システムエラーが発生しました');
     }
 }
-?>  
+?>   
