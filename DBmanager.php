@@ -850,6 +850,7 @@ function sbjctImgResult($tagID){//分野とイメージ結果
             echo ('システムエラーが発生しました');
     }
 }
+///////////////////////////////////////////書き直し
 function asolist($jobID){//学校情報取得
 
     try {
@@ -859,7 +860,7 @@ function asolist($jobID){//学校情報取得
 			foreach($list as $data){
 				$list2 = getDepartment($data[0]);
 				$list3 = getSchool($list2[0]);
-				$array = array($list3[1],$list2[2],$list3[2]);
+				$array = array($list3[1],$list2[2],$list2[3]);
 				array_push($arr, $array);
 			}
 		return $arr;
@@ -867,6 +868,7 @@ function asolist($jobID){//学校情報取得
             echo ('システムエラーが発生しました');
     }
 }
+////////////////////////////////////////////////
 function getDepartmentID($jobid){//学校情報取得
 
     try {
