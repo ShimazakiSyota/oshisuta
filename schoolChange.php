@@ -51,8 +51,31 @@ echo "<center><H2>学校名：".$school['1']."</H2>";
 		echo "<form action=schoolUpdate.php method =POST onsubmit='return disp2()'>";
 		echo "<input type='hidden' NAME=schoolInfo[] value='".$_POST['selected']."'>";
 		echo "<div class='left'>学校名 : <INPUT TYPE=TEXT NAME=schoolInfo[] value = '".$school['1']."'><br /><br />";
-		echo "URL: <INPUT TYPE=TEXT NAME=schoolInfo[] value = '".$school['2']."'><br /><br /></div>";
-		
+
+				$selectedTagFrag = '0'; //最初のラジオボタン用のフラグ
+		for($i=0;$i<2;$i++){
+			if(0 == $school[2]){
+				if($selectedTagFrag == 0){ 
+				echo "<input type='radio' name='schoolInfo[]' value='0' checked='checked'>麻生<br />";
+				$selectedTagFrag ='1';
+				}else{
+				echo "<input type='radio' name='schoolInfo[]' value='1'>その他<br/>";
+				break;
+				}
+			}else if(1 == $school[2]){
+				if($selectedTagFrag == 0){ 
+				echo "<input type='radio' name='schoolInfo[]' value='0' >麻生<br />";
+				$selectedTagFrag ='1';
+				}else{
+				echo "<input type='radio' name='schoolInfo[]' value='1' checked='checked'>その他<br/>";
+				break;
+				}
+			}
+		}
+		echo"</div>";
+
+
+
 					echo "<div class='left'><H4>関連する学科を選択してください</H4>";
 					$SchoolAll = getDepartmentAll();
 					//１ループでタグ1つがチェックボックス形式で表示され、データが無くなるとループを抜けます。

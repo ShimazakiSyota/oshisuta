@@ -31,7 +31,9 @@ function disp(){
 
 		echo "<form action=schoolInsert.php method =POST onsubmit='return disp()'>";
 		echo "<div class='left'>学校名 : <INPUT TYPE=TEXT NAME=schoolInfo[] style='font-family:Tahoma; ime-mode:disabled;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。\n\r]+$' title='日本語で入力してください' required><br /><br />";
-		echo "URL: <INPUT TYPE=TEXT NAME=schoolInfo[] style='font-family:Tahoma; ime-mode:disabled;' pattern='/^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/',schoolInfo[] title='URLを入力してください' required><br /><br />";
+				echo "<input type='radio' name='schoolInfo[]' value='0' checked='checked'>麻生<br />";
+				echo "<input type='radio' name='schoolInfo[]' value='1'>その他<br/>";
+//		echo "URL: <INPUT TYPE=TEXT NAME=schoolInfo[] style='font-family:Tahoma; ime-mode:disabled;' pattern='/^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/',schoolInfo[] title='URLを入力してください' required><br /><br />";
 		
 					echo "<H4>関連する学科を選択してください</H4>";
 					$SchoolAll = getDepartmentAll();

@@ -33,9 +33,9 @@ echo "</center>";
 				foreach($schoolAll as $data){
 				if($selectedTagFrag =='0'){ 
 				echo "<div class='left'><input type='radio' name='selected' value='".$data[0]."' checked='checked'>". $data[2] ."<br />";$selectedTagFrag ='1';}
-				else  { echo "<input type='radio' name='selected' value='".$data[0]."'>". $data[2]."<br></div>";}
+				else  { echo "<input type='radio' name='selected' value='".$data[0]."'>". $data[2]."<br>";}
 				}
-echo "<br /><center><input type =submit value=選択></center>";
+echo "</div><br /><center><input type =submit value=選択></center>";
 				echo "</form>";
  //データベース切断
 dconnect($con);

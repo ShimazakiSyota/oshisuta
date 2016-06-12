@@ -31,7 +31,8 @@ function disp(){
 
 		echo "<form action=departmentInsert.php method =POST onsubmit='return disp()'>";
 		echo "<center>学科名 : <INPUT TYPE=TEXT NAME='name' style='font-family:Tahoma; ime-mode:disabled;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。\n\r]+$' title='日本語で入力してください' required><br /><br /></center>";
-		
+		echo "<center>URL: <INPUT TYPE=TEXT NAME=url style='font-family:Tahoma; ime-mode:disabled;' pattern='/^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/',schoolInfo[] title='URLを入力してください' required><br /><br /></center>";
+
 					echo "<div class='left'><H4>この学科の属する学校を選択してください</H4>";
 					$SchoolAll = getSchoolAll();
 					//１ループでタグ1つがチェックボックス形式で表示され、データが無くなるとループを抜けます。

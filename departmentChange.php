@@ -51,7 +51,7 @@ echo "<center><H2>学科名：".$school[2]."</H2>";
 		echo "<form action=departmentUpdate.php method =POST onsubmit='return disp2()'>";
 		echo "<input type='hidden' NAME=schoolInfo[] value='".$_POST['selected']."'>";
 		echo "<div class='left'>学科名 : <INPUT TYPE=TEXT NAME=schoolInfo[] value = '".$school['2']."'><br /><br />";
-
+		echo "URL : <INPUT TYPE=TEXT NAME=schoolInfo[] value = '".$school['3']."'><br /><br />";
 					echo "<H4>この学科の属する学校を選択してください</H4>";
 					$SchoolAll = getSchoolAll();
 					//１ループでタグ1つがチェックボックス形式で表示され、データが無くなるとループを抜けます。

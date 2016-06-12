@@ -986,10 +986,12 @@ function jobmgDelete2($id){//選択されたのタグの、タグ職業関連を
             echo ('システムエラーが発生しました');
     }
 }
-function schoolInsert($schoolInfo){//お仕事登録
+////////////////////////////////////////書き直し
+//学校登録
+function schoolInsert($schoolInfo){
     try {
 	//SQL文をセット//
-		$result_flag = mysql_query("INSERT INTO school (SNAME,URL) VALUES ('$schoolInfo[0]','$schoolInfo[1]')");
+		$result_flag = mysql_query("INSERT INTO school (SNAME,FLAG) VALUES ('$schoolInfo[0]','$schoolInfo[1]')");
 			if (!$result_flag) {
 	    	die('INSERTクエリーが失敗しました。'.mysql_error());
 			}
@@ -998,10 +1000,12 @@ function schoolInsert($schoolInfo){//お仕事登録
             echo ('システムエラーが発生しました');
     }
 }
-function departmentInsert($name,$school){//お仕事登録
+/////////////////////////////////////////
+/////////////////////////////////////////書き直し
+function departmentInsert($name,$school){//学科の登録
     try {
 	//SQL文をセット//
-		$result_flag = mysql_query("INSERT INTO department (SCHOOLID,DNAME) VALUES ('$school','$name')");
+		$result_flag = mysql_query("INSERT INTO department (SCHOOLID,DNAME,URL) VALUES ('$school','$name','$url')");
 			if (!$result_flag) {
 	    	die('INSERTクエリーが失敗しました。'.mysql_error());
 			}
@@ -1010,6 +1014,7 @@ function departmentInsert($name,$school){//お仕事登録
             echo ('システムエラーが発生しました');
     }
 }
+/////////////////////////////////////////
 function SchoolRelationUpdate($departmentID,$schoolID){
 	try{
 		$result_flag = mysql_query("UPDATE department SET SCHOOLID = '$schoolID' WHERE DEPARTMENTID = '$departmentID'");
@@ -1020,9 +1025,11 @@ function SchoolRelationUpdate($departmentID,$schoolID){
             echo ('システムエラーが発生しました');
     }
 }
+//////////////////////////////////////////////////////書き直し
+//学校の変更
 function schoolUpdate($school){
 	try{
-		$result_flag = mysql_query("UPDATE school SET SNAME = '$school[1]' , URL = '$school[2]' WHERE SCHOOLID = '$school[0]'");
+		$result_flag = mysql_query("UPDATE school SET SNAME = '$school[1]' , FLAG = '$school[2]' WHERE SCHOOLID = '$school[0]'");
 			if (!$result_flag) {
 	    	die('UPDATEクエリーが失敗しました。'.mysql_error());
 			}
@@ -1030,10 +1037,13 @@ function schoolUpdate($school){
             echo ('システムエラーが発生しました');
     }
 }
+///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////書き直し
+//学科の変更
 function departmentUpdate($school){
 	try{
 	jobmgDelete2($school[0]);
-		$result_flag = mysql_query("UPDATE department SET DNAME = '$school[1]' , SCHOOLID = '$school[2]' WHERE DEPARTMENTID = '$school[0]'");
+		$result_flag = mysql_query("UPDATE department SET DNAME = '$school[1]' , URL = '$school[2]',SCHOOLID = '$school[3]' WHERE DEPARTMENTID = '$school[0]'");
 			if (!$result_flag) {
 	    	die('UPDATEクエリーが失敗しました。'.mysql_error());
 			}
@@ -1041,6 +1051,7 @@ function departmentUpdate($school){
             echo ('システムエラーが発生しました');
     }
 }
+//////////////////////////////////////////////////////
 function recently($re){//最近気になった仕事
 
     try {

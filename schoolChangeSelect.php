@@ -30,9 +30,9 @@ sessionCheck($_SESSION['id'],$_SESSION['pass']);
 				foreach($schoolAll as $data){
 				if($selectedTagFrag =='0'){ 
 				echo "<div class='left'><input type='radio' name='selected' value='".$data[0]."' checked='checked'>". $data[1] ."<br />";$selectedTagFrag ='1';}
-				else  { echo "<input type='radio' name='selected' value='".$data[0]."'>". $data[1]."<br></div>";}
+				else  { echo "<input type='radio' name='selected' value='".$data[0]."'>". $data[1]."<br>";}
 				}
-echo "<br /><center><input type =submit value=変更>";
+echo "</div><br /><center><input type =submit value=変更>";
 				echo "</form></center>";
  //データベース切断
 dconnect($con);

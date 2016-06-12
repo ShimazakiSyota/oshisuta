@@ -14,7 +14,7 @@
 			sessionCheck($_SESSION['id'],$_SESSION['pass']);//セッションの確認
 
 			//職業を追加する
-			$schoolID = departmentInsert($_POST['name'],$_POST['school']);
+			$schoolID = departmentInsert($_POST['name'],$_POST['school'],$_POST['url']);
 			
 				if(isset($_POST['RenkeiJob'])){
 					foreach( $_POST['RenkeiJob'] as $value ){
