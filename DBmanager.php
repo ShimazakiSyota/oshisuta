@@ -50,7 +50,7 @@ function tagSelectAllKubun($kubun){//指定されたタグ区分に該当する�
 
     try {
 	//SQL文をセット//
-		$queryset = mysql_query('SELECT * FROM tag where TAGDIV ='.$kubun.'ORDER BY tagid DESC');
+		$queryset = mysql_query('SELECT * FROM tag where TAGDIV ='.$kubun.' ORDER BY tagid DESC');
 		$arr = array();
 		while ($data = mysql_fetch_array($queryset)){
 		array_push($arr, $data);
