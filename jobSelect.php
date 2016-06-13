@@ -28,7 +28,7 @@
 
 		//職業詳細を選択したとき
 		if($_POST['KanriJobType'] == 0){
-			echo "<form action='./jobChange.php' method = 'POST'>";
+			echo "<form action='./jobKakunin.php' method = 'POST'>";
 				$selectedTagFrag = '0'; //最初のラジオボタン用のフラグ
 				//１ループでタグ1つがボタン形式で表示され、データが無くなるとループを抜けます。
 				//while ($data = $jobAll){

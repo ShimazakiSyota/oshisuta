@@ -35,11 +35,11 @@ function disp(){
 
 	if ($_POST['jobUpd'] == 0){
 		echo "<form action=jobInsert.php method =POST enctype='multipart/form-data' onsubmit='return disp()'>";
-		echo "<center>職業名 : <input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma; ime-mode:disabled;' pattern='^[ぁ-んァ-ヶー一-龠]+$' title='日本語で入力してください' required><br /><br />";
-		echo "職業名【ふりがな】: <input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma; ime-mode:disabled;' pattern='^[ぁ-ん]+$' title='ひらがなで入力してください' required><br /><br />";
-		echo "職業名【英語】：<input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma; ime-mode:disabled;' pattern='^[A-Za-z]+$' title='英語で入力してください' required><br /><br />";
-		echo "一行キャッチコピー：<input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma; ime-mode:disabled;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。\n\r]+$' title='入力してください' required><br /><br />";
-		echo "紹介文：<input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma; ime-mode:disabled;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。\n\r]+$' title='入力してください' required><br /><br />";
+		echo "<center>職業名 : <input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma;' pattern='^[ぁ-んァ-ヶー一-龠]+$' title='日本語で入力してください' required><br /><br />";
+		echo "職業名【ふりがな】: <input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma;' pattern='^[ぁ-んー一-]+$' title='ひらがなで入力してください' required><br /><br />";
+		echo "職業名【英語】：<input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma; ime-mode:disabled;' pattern='^[A-Za-z\s]+$' title='英語で入力してください' required><br /><br />";
+		echo "一行キャッチコピー：<input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
+		echo "紹介文：<input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
 		echo "写真1：<input type='file' name='upfile' size='30' /><br /><br />";
 		echo "写真2：<input type='file' name='upfile2' size='30' /><br /><br /></center>";
 
@@ -73,7 +73,7 @@ function disp(){
 			if ($_POST['jobUpd'] == 2) { echo "専門家のコメント : ";}
 			if ($_POST['jobUpd'] == 3) { echo "レポート : ";}
 			
-		echo "<br /><textarea name=report cols=50 rows=5 style='font-family:Tahoma; ime-mode:disabled;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。\n\r]+$' title='文字を入力してください' required></textarea><br /><br />";
+		echo "<br /><textarea name=report cols=50 rows=5 style='font-family:Tahoma; ime-mode:disabled;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！ \n\r\s]+$' title='文字を入力してください' required></textarea><br /><br />";
 		echo "写真：<input type='file' name='upfile' size='30' /><br /><br />";
 		echo "<H2>追加する職業を選択してください。</H2></center>";
 		//１ループでタグ1つがボタン形式で表示され、データが無くなるとループを抜けます。
