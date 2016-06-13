@@ -1117,4 +1117,55 @@ function schoolDelete($schoolID){//選択されたのタグの削除
             echo ('システムエラーが発生しました');
     }
 }
+
+////////職業複数コメントテーブル取得///////////////////////
+function cstviewlist($stid){//学生インタビュー情報取得
+
+    try {
+	//SQL文をセット//00
+		$queryset = mysql_query('SELECT * FROM studentview WHERE STUDENTID ='.$stid);
+		$arr = array();
+		while ($data = mysql_fetch_array($queryset)){
+		array_push($arr, $data);
+		}
+		return $arr;
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+
+
+
+function cjobstadiumlist($workid){//お仕事スタジアムレポート情報取得
+
+    try {
+	//SQL文をセット//00
+		$queryset = mysql_query('SELECT * FROM workrpdate WHERE WORKID ='.$workid);
+		$arr = array();
+		while ($data = mysql_fetch_array($queryset)){
+		array_push($arr, $data);
+		}
+		return $arr;
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+
+function cexpertlist($exid){//専門家情報取得
+
+    try {
+	//SQL文をセット//00
+		$queryset = mysql_query('SELECT * FROM expartview WHERE EXPERTID ='.$exid);
+		$arr = array();
+		while ($data = mysql_fetch_array($queryset)){
+		array_push($arr, $data);
+		}
+		return $arr;
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
 ?>   
