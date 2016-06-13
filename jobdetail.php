@@ -298,6 +298,55 @@ $(document).ready(function() {
 		echo  "<br />";
 
 
+//---------------------------------------------------------------------------------------------------
+
+	//関連タグ表示SQL実行
+	echo "<div id=\"box_tag\">";
+
+	echo "<h4>分野:</h4>";
+	//関数
+	$quryset = lowtagName($jobid);
+
+	echo "<div id =\"box_genre\">";
+	echo "<ol>";
+	$cnt=1;
+	foreach($quryset as $data) {
+	echo"<ul style=\"list-style:none;\">";
+	$cnt++;
+		echo "<li class=\"btn_tag\">";
+		echo "<form  name='Form".$cnt."' method='post' action='./subjectImageSearch.php' style=\"display:inline;\">";
+		echo "<input type='hidden' name='sbjct' value=".$data[0].">";
+		echo "<li><a href='javascript:Form".$cnt.".submit()'>".$data[1]."</a></li></form>";
+
+		echo "</li>";
+		echo "</ul>";
+	}
+	echo "</ol>";
+	echo "</div>";
+
+
+	echo "<h4>イメージ:</h4>";
+	//関数
+	$quryset = imageName($jobid);
+
+	echo "<div id =\"box_image\">";
+	echo "<ol>";
+	foreach($quryset as $data) {
+		echo"<ul style=\"list-style:none;\">";
+	$cnt++;
+
+		echo "<li class=\"btn_tag\">";
+		echo "<form  name='Form".$cnt."' method='post' action='./subjectImageSearch.php' style=\"display:inline;\">";
+		echo "<input type='hidden' name='sbjct' value=".$data[0].">";
+		echo "<li><a href='javascript:Form".$cnt.".submit()'>".$data[1]."</a></li></form>";
+
+
+		echo "</li>";
+		echo "</ul>";
+	}
+	echo "</ol>";
+	echo "</div>";
+	echo "</div>";
 
 
 
@@ -309,86 +358,163 @@ $(document).ready(function() {
 
 
 	echo "<div id=\"box_content\">";
-	//専門家の写真コメント取得
-	$quryset = expertlist($jobid);
+	//お仕事スタジアムレポートDBに対してSQL実行//
+
 	echo "<ul style=\"list-style:none;\">";
 
+	echo "<br />";
+
+	echo "<img src=\"./photo/test.png\">";//お仕事スタジアム2016夏(イメージ)
+	echo "<br />";
+	echo "<img class=\"main_v\" src=\"./photo/test.png\">";//お仕事スタジアムメイン画像
+	echo "<br />";
+
+	echo "<li  id=\"btn_report\" class=\"switch\"><img src=\"./photo/test.png\"></li>";//アコーディオンclick画像
+
+    	echo "<div id=\"box_report\" class=\"contentWrap displayNone\">";
+	//１ループで１行データが取り出され、データが無くなるとループを抜けます。
+
+		//ここで日付を出す
+	$rpmain = jobstadiumlist($jobid);
+
+	foreach ( $rpmain as $data){
+
+
+		echo "<p class=\"title\">";
+		echo $data[3]."<br />";//大見出し(p title)
+		echo "</p>";
+       		echo "<img class=\"main_v\"  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
+		echo "<p class=\"date\">";
+		echo $data[4]."<br />";//取材日(p date)
+		echo "</p>";
+	$quryset=cjobstadiumlist($data[0]);
+		foreach ($quryset as $cdata){
+
+			if (isset($cdata[0])) {
+       					echo "<img class=\"artwork\" height='100' src='./create_image.php?id=".$cdata[2] ."' /><br />";//お仕事スタジアム内容中の画像(main_v)?
+			}
+			echo "<h4>";
+			echo  $cdata[1] ."<br />";//小見出し
+			echo "</h4>";
+		echo "<p class=\"txt_box\">";
+		echo  $cdata[2] ."<br />";//お仕事スタジアムレポート
+		echo "</p>";
+
+		}
+		echo "<p class=\"interviewer\">";
+		echo $data[5]."<br />";//取材者名(p interviewer)
+}		echo "</p>";
+		echo "<p class = \"btn_close\">";
+		echo "<a>";
+		echo "<img src=\"./photo/close.png\">";
+		echo "</a>";
+		echo "</p>";
+		echo "</div>";
+
+
+//---------------------------------------------------------------------------------------------------
+
+	//学生インタビューDBに対してSQL実行//
+
+
+	$stmain = stviewlist($jobid);
+
+
+	echo "<br />";
+	echo "<li id=\"btn_student\" class=\"switch\" ><img src=\"./photo/test.png\"></li>";//アコーディオンclick画像
+
+    	echo "<div id=\"box_student\" class=\"contentWrap displayNone\">";
+
+	foreach ( $stmain as $data){
+		echo "<p class=\"title\">";
+		echo $data[3]."<br />";//大見出し(p title)
+		echo "</p>";
+       		echo "<img class=\"main_v\"  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
+
+		echo "<p class=\"position\">";
+		echo $data[4]."<br />";//学生HN(p position)
+		echo "</p>";
+	//１ループで１行データが取り出され、データが無くなるとループを抜けます。
+
+	$quryset=cstviewlist($data[0]);
+	foreach ( $quryset as $cdata){
+
+			if (isset($cdata[0])) {
+       				echo "<img class=\"artwork\"  height='100' src='./create_image.php?id=".$data[3] ."' />";//内容中の専門家写真
+			}
+			echo "<h4>";
+			echo  $cdata[1] ."<br />";//学生見出し
+			echo "</h4>";
+
+			echo "<p id=\"text_interview\">";
+			echo  $cdata[2]."<br />";//コメント
+			echo "</p>";
+		}
+		echo "<p class=\"date\">";
+		echo $data[7]."<br />";//インタビュー当時(p date)
+		echo $data[5]."<br />";//取材日(p date)
+		echo "</p>";
+		echo "<p class=\"interviewer\">";
+		echo $data[6]."<br />";//取材者名(p interviewer)
+		echo "</p>";
+		}
+
+		echo "<p class = \"btn_close\">";
+		echo "<a>";
+		echo "<img src=\"./photo/close.png\">";
+		echo "</a>";
+		echo "</p>";
+		echo "</div>";
+
+
+//---------------------------------------------------------------------------------------------------
+
+	//専門家の写真コメント取得
+	$exmain = expertlist($jobid);
 
 	echo "<br />";
 	echo "<li id=\"btn_pro\" class=\"switch\" ><img src=\"./photo/test.png\"></li>";//imgタグの内容を書き換える
 	echo "</li>";
 
     	echo "<div id=\"box_pro\" class=\"contentWrap displayNone\">";
+	foreach ( $exmain as $data){
+		echo "<p class=\"title\">";
+		echo $data[3]."<br />";//大見出し(p title)
+		echo "</p>";
+       		echo "<img class=main_v  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
+		echo "<p class=\"position\">";
+		echo $data[4]."<br />";//専門家名(p position)
+		echo "</p>";
+		echo "<p class=\"date\">";
+		echo $data[5]."<br />";//取材日(p date)
+		echo "</p>";
+
+	$quryset=cexpertlist($data[0]);
 
 	//１ループで１行データが取り出され、データが無くなるとループを抜けます。
-	foreach ( $quryset as $data){
+	foreach ( $quryset as $cdata){
 
-       		echo "<img height='100' src='./create_image.php?id=".$data[3] ."' />";//専門家画像
-		echo "<p id=\"text_interview\">";
-		echo  $data[1]."<br />";//専門家コメント
+			if (isset($cdata[0])) {
+       				echo "<img class=artwork  height='100' src='./create_image.php?id=".$data[3] ."' />";//内容中の専門家写真
+			}
+			echo "<h4>";
+			echo  $cdata[1] ."<br />";//学生見出し
+			echo "</h4>";
+
+			echo "<p id=\"text_interview\">";
+			echo  $cdata[2]."<br />";//コメント
+			echo "</p>";
+		}
+		echo "<p class=\"interviewer\">";
+		echo $data[6];//取材者名(p interviewer)
 		echo "</p>";
-	}
-
+		}
 		echo "<p class = \"btn_close\">";
 		echo "<a>";
 		echo "<img src=\"./photo/close.png\">";//アコーディオン用のclose画像にimgタグの内容を書き換える
 		echo "</a>";
 		echo "</p>";
 
-		echo "</div>";
-//---------------------------------------------------------------------------------------------------
-
-	//学生インタビューDBに対してSQL実行//
-
-
-	$quryset = stviewlist($jobid);
-
-	echo "<br />";
-	echo "<li id=\"btn_student\" class=\"switch\" ><img src=\"./photo/test.png\"></li>";
-
-    	echo "<div id=\"box_student\" class=\"contentWrap displayNone\">";
-
-//	echo "<div id=\"box_student\">";
-	//１ループで１行データが取り出され、データが無くなるとループを抜けます。
-		foreach ($quryset as $data){
-
-       		echo "<img height='100' src='./create_image.php?id=".$data[3] ."' />";//学生写真
-		echo "<p id=\"test_interview\">";
-		echo  $data[2] ."<br />";//学生コメント
-		echo "</p>";
-		}
-		echo "<p class = \"btn_close\">";
-		echo "<a>";
-		echo "<img src=\"./photo/close.png\">";
-		echo "</a>";
-		echo "</p>";
-		echo "</div>";
-
-
-//---------------------------------------------------------------------------------------------------
-	//お仕事スタジアムレポートDBに対してSQL実行//
-
-
-	$quryset = jobstadiumlist($jobid);
-
-	echo "<br />";
-
-	echo "<li  id=\"btn_report\" class=\"switch\"><img src=\"./photo/test.png\"></li>";
-
-    	echo "<div id=\"box_report\" class=\"contentWrap displayNone\">";
-	//１ループで１行データが取り出され、データが無くなるとループを抜けます。
-		
-		foreach ($quryset as $data){
-       		echo "<img height='100' src='./create_image.php?id=".$data[2] ."' />";//お仕事スタジアム画像
-		echo "<p id=\"test_interview\">";
-		echo  $data[3] ."<br />";//お仕事スタジアムレポート
-		echo "</p>";
-		}
-		echo "<p class = \"btn_close\">";
-		echo "<a>";
-		echo "<img src=\"./photo/close.png\">";
-		echo "</a>";
-		echo "</p>";
 		echo "</div>";
 
 
@@ -446,48 +572,6 @@ $(document).ready(function() {
 		echo  "<br />";
 
 
-//---------------------------------------------------------------------------------------------------
-
-	//関連タグ表示SQL実行
-	echo "<div id=\"box_tag\">";
-
-	echo "<form action=\"./subjectImageSearch.php\" method=\"post\">";//ページ遷移先指定
-	echo "<h4>分野:</h4>";
-	//関数
-	$quryset = lowtagName($jobid);
-
-	echo "<div id =\"box_genre\">";
-	echo "<ol>";
-	foreach($quryset as $data) {
-	echo"<ul style=\"list-style:none;\">";
-
-		echo "<li class=\"btn_tag\">";
-		echo "<button type=\"submit\" name=\"sbjct\" value=".$data[0].">".$data[1]."</button>";//分野
-		echo "</li>";
-		echo "</ul>";
-	}
-	echo "</ol>";
-	echo "</div>";
-
-	echo "<form action=\"subjectImageSearch.php\" method=\"post\">";
-
-	echo "<h4>イメージ:</h4>";
-	//関数
-	$quryset = imageName($jobid);
-
-	echo "<div id =\"box_image\">";
-	echo "<ol>";
-	foreach($quryset as $data) {
-		echo"<ul style=\"list-style:none;\">";
-
-		echo "<li class=\"btn_tag\">";
-		echo "<button type=\"submit\" name=\"image\" value=".$data[0].">".$data[1]."</button>";//イメージ
-		echo "</li>";
-		echo "</ul>";
-	}
-	echo "</ol>";
-	echo "</div>";
-	echo "</div>";
 
 //---------------------------------------------------------------------------------------------------
 
@@ -496,8 +580,8 @@ $(document).ready(function() {
 
 //---------------------------------------------------------------------------------------------------
 ?>
-//トップ
-<p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></p>//ページトップ移動
+<!--トップ-->
+<p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></p><!--ページトップ移動-->
 <?php
 //メニューボタン
 //フリーワード
@@ -537,7 +621,6 @@ echo "</form>";
 
 
 
-<!----アコーディオンidのcloseは複数使うためclassに変更しました---->
 
 
 
