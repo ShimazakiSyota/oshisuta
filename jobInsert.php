@@ -14,7 +14,7 @@
 			sessionCheck($_SESSION['id'],$_SESSION['pass']);//セッションの確認
 
 			//職業を追加する
-			$jobID = jobInsert($_POST['jobInfo'],$_FILES['upfile'],$_FILES['upfile2']);
+			$jobID = jobInsert($_POST['jobInfo'],$_FILES['upfile']);
 				if(isset($_POST['Renkei'])){
 					foreach( $_POST['Renkei'] as $value ){
 					tjrRelation($value,$jobID);

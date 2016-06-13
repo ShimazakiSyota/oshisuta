@@ -62,10 +62,6 @@ echo "<form action='./jobChange.php' method='post'><br /><br />";
    		if($jobKanri['JIMAGE'] != 0) {
        		echo "画像1：<img height='100' img src='./create_image.php?id=".$jobKanri['JIMAGE']."' />";
 		}
-	//画像がある場合のみ
-   		if($jobKanri['JIMAGE2'] != 0) {
-       		echo "画像2：<img height='100' img src='./create_image.php?id=".$jobKanri['JIMAGE2']."' />";
-		}
 		echo "</center>";
 		
 		echo "<div class='left'>";

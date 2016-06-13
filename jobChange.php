@@ -68,14 +68,8 @@ echo "<form action='./jobUpdate.php' method='post' enctype='multipart/form-data'
    		if($jobKanri['JIMAGE'] != 0) {
        		echo "画像1：<img height='100' src='./create_image.php?id=".$jobKanri['JIMAGE']."' />";
 		}
-	//画像がある場合のみ
-   		if($jobKanri['JIMAGE2'] != 0) {
-       		echo "画像2：<img height='100' src='./create_image.php?id=".$jobKanri['JIMAGE2']."' />";
-		}
 		echo "<H4>変更する場合は画像を選択してください</H4>";
-		echo "写真1：<input type='file' name='upfile' size='30' /><br /><br />";
-		echo "写真2：<input type='file' name='upfile2' size='30' /><br /><br /></center>";
-
+		echo "写真1：<input type='file' name='upfile' size='30' /><br /><br /></center>";
 echo "<div class='left'><H3>連携させる中分類タグを選択してください</H3>";
 
 //１ループでタグ1つがチェックボックス形式で表示され、データが無くなるとループを抜けます。
@@ -130,8 +124,6 @@ echo "<H3>関連する学科を選択してください</H3>";
 
 	echo "<input type='hidden' name='jobID' value ='".$jobKanri[0]."'>";
 	echo "<input type='hidden' name='jobInfo[]' value ='".$jobKanri['JIMAGE']."'>";
-	echo "<input type='hidden' name='jobInfo[]' value ='".$jobKanri['JIMAGE2']."'>";
-
 
 echo "<br /></div><center><input type=submit value=変更><br /><br />";
 echo"</form>";

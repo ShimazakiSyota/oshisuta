@@ -1166,5 +1166,16 @@ function cexpertlist($exid){//専門家情報取得
             echo ('システムエラーが発生しました');
     }
 }
+//////////////////j仕事テーブルの画像IDの変更
+function jobFileIDUpdate ($jobID,$fileID){
+    try {
+		$result_flag = mysql_query("UPDATE job SET JIMAGE = '$fileID' WHERE JOBID = '$jobID'");
+			if (!$result_flag) {
+	    	die('UPDATEクエリーが失敗しました。'.mysql_error());
+			}
+		}catch (Exception $e) {
+   	    echo ('システムエラーが発生しました');
+    }
+}
 
 ?>   

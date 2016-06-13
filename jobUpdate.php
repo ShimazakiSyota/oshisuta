@@ -38,13 +38,14 @@
 
 	//画像の更新
 	if (is_uploaded_file($_FILES["upfile"]["tmp_name"])) {
-		picUpd($_FILES['upfile'],$_POST['jobInfo']['5']);
+		if(($_POST['jobInfo']['5']) == 0){
+		$fileID = picSet($_FILES['upfile']);
+			jobFileIDUpdate($_POST['jobID'],$fileID);
+		}else{
+			picUpd($_FILES['upfile'],$_POST['jobInfo']['5']);
+		}
 	}
 	
-	if (is_uploaded_file($_FILES["upfile2"]["tmp_name"])) {
-		picUpd($_FILES['upfile2'],$_POST['jobInfo']['6']);
-	}
-
 			echo "職業情報を更新しました";
 			
 			dconnect($con); //データベース切断

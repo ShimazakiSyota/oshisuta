@@ -40,9 +40,7 @@ function disp(){
 		echo "職業名【英語】：<input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma; ime-mode:disabled;' pattern='^[A-Za-z\s]+$' title='英語で入力してください' required><br /><br />";
 		echo "一行キャッチコピー：<input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
 		echo "紹介文：<input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
-		echo "写真1：<input type='file' name='upfile' size='30' /><br /><br />";
-		echo "写真2：<input type='file' name='upfile2' size='30' /><br /><br /></center>";
-
+		echo "写真1：<input type='file' name='upfile' size='30' /><br /><br /></center>";
 
 			echo "<div class='left'><H4>連携させたい中分類タグを選択してください</H4>";
 					$tagAll = tagSelectAllKubun("1");	//指定された区分のタグ全てを取得
