@@ -23,18 +23,20 @@
 
 			$tagAll = tagSelectAllKubun( $_POST['kanriTaguType']);	//指定された区分のタグ全てを取得
 
-			echo "<form action='./tagKanri.php' method = 'POST'>";
+			echo "<form action='./tagKakunin.php' method = 'POST'>";
 			
 				$selectedTagFrag = '0'; //最初のラジオボタン用のフラグ
 				//１ループでタグ1つがボタン形式で表示され、データが無くなるとループを抜けます。
 				echo "<h3>";
 				foreach($tagAll as $data){
-if($selectedTagFrag =='0'){ echo "<div class='left'><input type='radio' name='selectedTag' value='".$data[0]."' checked='checked'>". $data[1]."<br>"; $selectedTagFrag ='1';}
+					echo "<div class='left'>";
+if($selectedTagFrag =='0'){ echo "<input type='radio' name='selectedTag' value='".$data[0]."' checked='checked'>". $data[1]."<br>"; $selectedTagFrag ='1';}
 					else  { echo "<input type='radio' name='selectedTag' value='".$data[0]."'>". $data[1]."<br>";}
 					//↑ラジオボタンの表示
+					echo "</div>";
 				}
 				echo "</h3>";
-			echo "</div><center><input type='submit' value='変更'/>";
+			echo "<center><input type='submit' value='変更'/>";
 			echo "</form>";
 			
 			dconnect($con); //データベース切断

@@ -50,7 +50,7 @@ function tagSelectAllKubun($kubun){//指定されたタグ区分に該当する�
 
     try {
 	//SQL文をセット//
-		$queryset = mysql_query('SELECT * FROM tag where TAGDIV ='.$kubun.'ORDER BY tagid DESC');
+		$queryset = mysql_query('SELECT * FROM tag where TAGDIV ='.$kubun.' ORDER BY tagid DESC');
 		$arr = array();
 		while ($data = mysql_fetch_array($queryset)){
 		array_push($arr, $data);
@@ -707,12 +707,11 @@ function getcoment($jobID,$school){//コメント変更用情報取得
     }
 }
 
-function jobInsert($jobInfo,$upfile,$upfile2){//お仕事登録
+function jobInsert($jobInfo,$upfile){//お仕事登録
     try {
 	$fileID = picSet($upfile);
-	$fileID2 = picSet($upfile2);
 	//SQL文をセット//
-		$result_flag = mysql_query("INSERT INTO job (JOBNAME,JOBJPN,JOBENG,JOBCC,JOBINTRO,JIMAGE,JIMAGE2) VALUES ('$jobInfo[0]','$jobInfo[1]','$jobInfo[2]','$jobInfo[3]','$jobInfo[4]','$fileID','$fileID2')");
+		$result_flag = mysql_query("INSERT INTO job (JOBNAME,JOBJPN,JOBENG,JOBCC,JOBINTRO,JIMAGE,JIMAGE2) VALUES ('$jobInfo[0]','$jobInfo[1]','$jobInfo[2]','$jobInfo[3]','$jobInfo[4]','$fileID')");
 			if (!$result_flag) {
 	    	die('INSERTクエリーが失敗しました。'.mysql_error());
 			}
