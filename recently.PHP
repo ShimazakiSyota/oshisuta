@@ -142,46 +142,103 @@ $con = connect();
 
 	}
 
-
+//SQL文セット
 $arr = recently($tid);
 
-//メニューボタン
+//件数
+$dataCount = count($arr);
+
+//１ページあたりの表示数
+//20個ずつ
+$perNum = 20;
+//最大ページ数
+$maxPageNum = ceil($dataCount / $perNum);
+
+//URLにページ数が指定されてなければ１に
+$nowPageNum = empty($_GET["page"]) ? 1 : $_GET["page"];
+
+//次のページの値
+$nextPageNum = $nowPageNum + 1;
+
+//前のページの値
+$prevPageNum = $nowPageNum - 1;
+
+$page = $nowPageNum * 20 - 19 ;
+//
+//データを表示させる始点と終点
+$startPoint = ($nowPageNum == 1) ? 0 : ($nowPageNum - 1) * $perNum;
+$endPoint = $nowPageNum * $perNum;
+
+//何件から何件
+$aaaa;
+
+if($endPoint >= $dataCount){
+	$aaaa = 20 - ($endPoint - $dataCount);
+}
+else{
+	$aaaa = 20;
+}
+	echo '(';
+	echo $page;
+	echo '～';
+	echo $page + $aaaa - 1;
+	echo '件を表示)';
+	echo '<br />';
 
 
-echo "<p id=\"mv\">";
-//echo "<img>";
-echo "</p>";
-echo "<div id=\"box.rank\">";
-echo "<h2>";
-echo "</h2>";
-echo "<table>";
+if (!empty($arr)){
+
+	for($i = $startPoint; $i < $endPoint; $i++){
+		if($i >= $dataCount) break;
+
+
+
 //最近気になった仕事
-$count = 0;
-foreach($arr as $data1){
-$count++;
-	echo "<li id=\"list\">";
-	echo "<form name='Form".$count."' method='post' action='jobdetail.php'>";
-	echo "<input type='hidden' name='jobid' value=".$data1[0].">";
-	echo "<a href='javascript:Form".$count.".submit()'>".$data1[1]."</a>";
-	echo "</form>";
-	echo "</li>";
+		echo "<li id=\"list\">";
+		echo "<form name='Form".$i."' method='post' action='jobdetail.php'>";
+		echo "<input type='hidden' name='jobid' value=".$arr[$i][0].">";
+		echo "<a href='javascript:Form".$i.".submit()'>".$arr[$i][1]."</a>";
+		echo "</form>";
+		echo "</li>";
+	}
 
+
+		
+	echo '<div id="list_page"><ul>';
+
+	//最初のページ以外で「前へ」を表示
+	if($nowPageNum != 1){
+		echo '<li><a href="?page='.$prevPageNum.'"><img>前へ</a></li><br />';
+	}
+
+	//ページ数表示
+	for($p = 1; $p <= $maxPageNum; $p++) {
+		echo '<li><a href="?page='.$p.'">'.$p.'</a></li><br />';
+	}
+
+	//最後のページ以外で「次へ」を表示
+	if($nowPageNum < $maxPageNum){
+		echo '<li><a href="?page='.$nextPageNum.'"><img>次へ</a></li><br />';
+	}
+
+	echo '</ul></div>';
+
+}else{
+	echo '<div id="list_result">';
+	echo '検索結果0件';
+	echo '</div>';
 }
 
-echo "</table>";
-echo "</div>";
-echo "<p id=\"date\">";
-echo "</p>";
+
 
 
 //先頭に戻る
 echo '<p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></p>';
-echo '<p><small>Copyright (c) shigotobu.All Right Reserved.</small></p>';
 
 
 //メニューボタン
 //フリーワード
-echo "<form action=\"freeword.php\" method=\"POST\">";
+echo "<form action=\"freewordSearch.php\" method=\"POST\">";
 echo "<input type=\"text\" name=\"message\">";
 echo "<input type=\"submit\">";
 echo "</form>";
@@ -216,6 +273,9 @@ echo "</form>";
 dconnect($con);
 
 ?>
+
+<p><small>Copyright (c) shigotobu.All Right Reserved.</small></p>
+
+
 	</body>
 </html>
-
