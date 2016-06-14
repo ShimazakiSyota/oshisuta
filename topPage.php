@@ -638,10 +638,6 @@ $(function($) {
 
 <?php
 
-
-
-session_start();
-
 require_once 'DBmanager.php';
 	$con = connect();
 	//ランキング検索
@@ -716,9 +712,12 @@ require_once 'DBmanager.php';
 	echo "<b>分野別から探す</b>";
 	$BigTadList = tagSelectAllKubun('0');
 	foreach( $BigTadList as $value ){
-	echo "<form action='./subjectImageSearch.php' method = 'POST'>";
+	echo "<form name='Form1' action='./subjectImageSearch.php' method = 'POST'>";
 	echo "<li id=\"btn_z\">";
-		echo "<button type='submit' name='bunya' value='".$value[0]."'>".$value[1]."</button><br>";
+	echo "<input type='hidden' name='bunya' value=".$value[0].">";
+	echo "<a href='javascript:Form1.submit()'>";
+	echo "<img height='100' img src='./create_image.php?id=".$value[3]."' /></a>";
+//	echo "<button type='submit' name='bunya' value='".$value[0]."'>".$value[1]."</button><br>";
 	echo "</li>";
 	}
 	echo "</ul>";
