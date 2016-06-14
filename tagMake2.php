@@ -3,6 +3,16 @@
 		<div class="head">
 		<title>タグ追加</title>
 			<link href="kanristyle.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+//ポップアップのソース
+function disp2(){
+	// 「OK」時の処理開始 ＋ 確認ダイアログの表示
+        var flag = confirm ( "この内容で更新してよろしいですか？");
+        /* send_flg が TRUEなら送信、FALSEなら送信しない */
+        return flag;
+}
+</script>
+
 	</head>
 <body>
 		<h1>タグ追加</h1>
@@ -29,8 +39,10 @@
 				echo "</H2></center>";//タグ区分表示
 
 
-			echo "<div class='left'><form action='./tagMakeKakunin.php' method = 'POST'>";
-			
+			echo "<div class='left'><form action='./tagInsert.php' method = 'POST' enctype='multipart/form-data' onsubmit='return disp2()'>";
+					if($_POST['tagKubun']==0){
+					echo "TOPページで表示するアイコンを選択してください：<br><input type='file' name='upfile' size='30' /><br /><br />";
+					}
 				if ($_POST['tagKubun'] == '1') {//中分類タグなら
 					echo "<H3>連携させたい大分類タグを選択してください</H3>";
 					$tagAll = tagSelectAllKubun("0");	//指定された区分のタグ全てを取得
@@ -58,10 +70,10 @@
 					}
 				}
 
-			echo "<input type='hidden' name='tagName' value='".$_POST['tagName']."'>";
-			echo "<input type='hidden' name='tagKubun' value='".$_POST['tagKubun']."'>";
+			echo "<input type='hidden' name='tagZyoho[]' value='".$_POST['tagName']."'>";
+			echo "<input type='hidden' name='tagZyoho[]' value='".$_POST['tagKubun']."'>";
 			
-			echo "</div><center><input type='submit' value='確認画面へ'/>";
+			echo "</div><center><input type='submit' value='タグを追加する'/>";
 			echo "</form>";
 			
 			dconnect($con); //データベース切断

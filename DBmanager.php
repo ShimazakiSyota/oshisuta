@@ -1177,5 +1177,16 @@ function jobFileIDUpdate ($jobID,$fileID){
    	    echo ('システムエラーが発生しました');
     }
 }
+//////////////////j仕事テーブルの画像IDの変更
+function tagFileIDUpdate ($tagID,$fileID){
+    try {
+		$result_flag = mysql_query("UPDATE tag SET TIMAGE = '$fileID' WHERE TAGID = '$tagID'");
+			if (!$result_flag) {
+	    	die('UPDATEクエリーが失敗しました。'.mysql_error());
+			}
+		}catch (Exception $e) {
+   	    echo ('システムエラーが発生しました');
+    }
+}
 
 ?>   

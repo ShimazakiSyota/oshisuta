@@ -40,7 +40,12 @@ function disp(){
 
 
 			if ($tagKanri[2] != 2){
-				if ($tagKanri[2] == 0){echo "<h2>連携中分類タグ</h2>";}
+				if ($tagKanri[2] == 0){
+				echo "<h2>TOPページで表示するアイコン</h2>";
+				echo "<img height='100' img src='./create_image.php?id=".$tagKanri[3]."' />";
+				
+				echo "<h2>連携中分類タグ</h2>";
+				}
 				else{echo "<h2>連携大分類タグ</h2>";}
 					$renkeitag = tagRelationSelect($tagKanri[0]);
 					$nullflag = 0;

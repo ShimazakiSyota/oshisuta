@@ -19,6 +19,12 @@ function disp(){
         /* send_flg が TRUEなら送信、FALSEなら送信しない */
         return flag;
 }
+function disp2(){
+	// 「OK」時の処理開始 ＋ 確認ダイアログの表示
+        var flag = confirm ( "この内容で更新してよろしいですか？");
+        /* send_flg が TRUEなら送信、FALSEなら送信しない */
+        return flag;
+}
 </script>
 
 			<?php
@@ -38,9 +44,20 @@ function disp(){
 				echo "<button type='submit' name='tagID' value='".$tagKanri[0][0]."'>このタグを削除する</button>";
 				echo "</form>";
 
-			echo "<form action='./tagKanriKakunin.php' method = 'POST'>";
-			echo "タグ名：<input type='text' name='tagName' size='20' value='".$tagKanri[0][1]."'><br></center>";
-			echo "<div class='left'>";
+			echo "<form action='./tagUpdate.php' method = 'POST'  enctype='multipart/form-data' onsubmit='return disp2()'>";
+			echo "<input type='hidden' name='tagZyoho[]' value ='".$tagKanri[0][0]."'>";
+
+			echo "タグ名：<input type='text' name='tagZyoho[]' size='20' value='".$tagKanri[0][1]."'><br>";
+			if ($tagKanri[0][2] == 0) {
+				if($tagKanri[0][3] != 0) {
+				echo "<h2>TOPページで表示するアイコン</h2>";
+				echo "<img height='100' img src='./create_image.php?id=".$tagKanri[0][3]."' />";
+				}
+					echo "<H4>変更する場合は画像を選択してください</H4>";
+					echo "写真1：<input type='file' name='upfile' size='30' /><br /><br />";
+			}
+
+			echo "</center><div class='left'>";
 			if ($tagKanri[0][2] == 1) {echo "<H3>連携させる大分類";}//タグの種類が中分類タグなら
 	else	if ($tagKanri[0][2] == 0) {echo "<H3>連携させる中分類";}//タグの種類が大分類タグなら
 			if ($tagKanri[0][2] != 2) {echo "タグを選択してください</H3>";//タグの種類が感覚タグ以外なら
@@ -85,8 +102,7 @@ function disp(){
 				echo "<br>";
 				}
 			}
-			echo "<input type='hidden' name='tagID' value ='".$tagKanri[0][0]."'>";
-			echo "<input type='hidden' name='tagKubun' value ='".$tagKanri[0][2]."'>";
+			echo "<input type='hidden' name='tagZyoho[]' value ='".$tagKanri[0][2]."'>";
 			echo "</div><center><input type='submit' value='変更'/></form>";
 			
 			dconnect($con); //データベース切断

@@ -17,6 +17,7 @@
 
 			//選択されたタグを更新する
 			tagUpdate($_POST['tagZyoho']);
+			
 			if ($_POST['tagZyoho'][2] != 2) {
 			trDelete($_POST['tagZyoho'][0]);
 				if(isset($_POST['kanrenTag'])){
@@ -33,7 +34,18 @@
 					}
 				}
 			}
-
+	//画像の更新
+if ($_POST['tagZyoho'][2] == 0) {
+	$tag = tagCheck($_POST['tagZyoho'][0]);
+	if (is_uploaded_file($_FILES["upfile"]["tmp_name"])) {
+		if(($tag[3]) == 0){
+		$fileID = picSet($_FILES['upfile']);
+			tagFileIDUpdate($_POST['tagZyoho'][0],$fileID);
+		}else{
+			picUpd($_FILES['upfile'],$tag[3]);
+		}
+	}
+}
 			echo $_POST['tagZyoho'][1]."タグを更新しました";
 			
 			dconnect($con); //データベース切断
