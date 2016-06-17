@@ -30,9 +30,11 @@
 				}
 			}
 	//画像の更新
-	if (is_uploaded_file($_FILES["upfile"]["tmp_name"])) {
+	if(isset($_FILES["upfile"])){
+		if (is_uploaded_file($_FILES["upfile"]["tmp_name"])) {
 		$fileID = picSet($_FILES['upfile']);
 			tagFileIDUpdate($tagID,$fileID);
+		}
 	}
 			echo $_POST['tagZyoho'][0]."タグを追加しました";
 			
