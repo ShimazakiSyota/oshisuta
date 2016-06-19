@@ -1003,7 +1003,7 @@ function schoolInsert($schoolInfo){
 }
 /////////////////////////////////////////
 /////////////////////////////////////////書き直し
-function departmentInsert($name,$school){//学科の登録
+function departmentInsert($name,$school,$url){//学科の登録
     try {
 	//SQL文をセット//
 		$result_flag = mysql_query("INSERT INTO department (SCHOOLID,DNAME,URL) VALUES ('$school','$name','$url')");
