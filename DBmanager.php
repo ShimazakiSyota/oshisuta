@@ -386,7 +386,7 @@ function jobstadiumlist($jobid){//お仕事スタジアムレポート情報取�
 
     try {
 	//SQL文をセット//00
-		$queryset = mysql_query('SELECT * FROM workｒｐ WHERE JOBID ='.$jobid);
+		$queryset = mysql_query('SELECT * FROM workrp WHERE JOBID ='.$jobid);
 		$arr = array();
 		while ($data = mysql_fetch_array($queryset)){
 		array_push($arr, $data);
