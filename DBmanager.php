@@ -154,6 +154,11 @@ function jobRelationSelect($tagId){//選択されたのタグに関連する職�
 function tagDelete($tagId){//選択されたのタグの削除
 
     try {
+		//SQL文をセット//
+		$tag = tagCheck($tagId);
+		if($tag[3] != 0){
+		picDelete($tag[3]);
+		}
 	//SQL文をセット//
 		$result_flag = mysql_query('DELETE FROM tag WHERE TAGID ='.$tagId);
 		trDelete($tagId);
@@ -1188,5 +1193,19 @@ function tagFileIDUpdate ($tagID,$fileID){
    	    echo ('システムエラーが発生しました');
     }
 }
+
+function picDelete($picID){//選択されたのタグの削除
+
+    try {
+	//SQL文をセット//
+		$result_flag = mysql_query('DELETE FROM image WHERE IMAID ='.$picID);
+			if (!$result_flag) {
+	    	die('DELETEクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
 
 ?>   
