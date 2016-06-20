@@ -657,9 +657,9 @@ require_once 'DBmanager.php';
 
 	echo "<li id=\"list_rank1\">";
 //	echo "<img>";
-	echo "<form name='Form1' method='post' action='jobdetail.php'>";
+	echo "<form name='Form".$ci."' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[0][0].">";
-	echo "<a href='javascript:Form1.submit()'>".$ranking[0][1]."</a>";
+	echo "<a href='javascript:Form".$ci.".submit()'>".$ranking[0][1]."</a>";
 	echo "</form>";
 	echo "</li>";
 
@@ -669,9 +669,9 @@ require_once 'DBmanager.php';
 
 	echo "<li id=\"list_rank2\">";
 //	echo "<img>";
-	echo "<form name='Form2' method='post' action='jobdetail.php'>";
+	echo "<form name='Form".$ci."' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[1][0].">";
-	echo "<a href='javascript:Form2.submit()'>".$ranking[1][1]."</a>";
+	echo "<a href='javascript:Form".$ci.".submit()'>".$ranking[1][1]."</a>";
 	echo "</form>";
 	echo "</li>";
 
@@ -681,9 +681,9 @@ require_once 'DBmanager.php';
 
 	echo "<li id=\"list_rank3\">";
 //	echo "<img>";
-	echo "<form name='Form3' method='post' action='jobdetail.php'>";
+	echo "<form name='Form".$ci."' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[2][0].">";
-	echo "<a href='javascript:Form3.submit()'>".$ranking[2][1]."</a>";
+	echo "<a href='javascript:Form".$ci.".submit()'>".$ranking[2][1]."</a>";
 	echo "</form>";
 	echo "</li>";
 
@@ -704,7 +704,7 @@ require_once 'DBmanager.php';
    echo "<img>";
    echo "</h2>";
 
-
+$b=1;
 	//分野検索
 	echo "<div id=\"box_genre\">";
 	echo "<ul>";
@@ -712,17 +712,18 @@ require_once 'DBmanager.php';
 	echo "<b>分野別から探す</b>";
 	$BigTadList = tagSelectAllKubun('0');
 	foreach( $BigTadList as $value ){
-	echo "<form name='Form1' action='./subjectImageSearch.php' method = 'POST'>";
+	$b++;
+	echo "<form name='Form2".$b."' action='./subjectImageSearch.php' method = 'POST'>";
 	echo "<li id=\"btn_z\">";
 	echo "<input type='hidden' name='bunya' value=".$value[0].">";
-	echo "<a href='javascript:Form1.submit()'>";
+	echo "<a href='javascript:Form2".$b.".submit()'>";
 	echo "<img height='100' img src='./create_image.php?id=".$value[3]."' /></a>";
 //	echo "<button type='submit' name='bunya' value='".$value[0]."'>".$value[1]."</button><br>";
 	echo "</li>";
+	echo "</form>";
 	}
 	echo "</ul>";
 	echo "</div>";
-	echo "</form>";
 
 
 	
