@@ -412,6 +412,58 @@ $(document).ready(function() {
 		echo "</div>";
 
 
+
+
+//---------------------------------------------------------------------------------------------------
+
+	//専門家の写真コメント取得
+	$exmain = expertlist($jobid);
+
+	echo "<br />";
+	echo "<li id=\"btn_pro\" class=\"switch\" ><img src=\"./photo/test.png\"></li>";//imgタグの内容を書き換える
+	echo "</li>";
+
+    	echo "<div id=\"box_pro\" class=\"contentWrap displayNone\">";
+	foreach ( $exmain as $data){
+		echo "<p class=\"title\">";
+		echo $data[3]."<br />";//大見出し(p title)
+		echo "</p>";
+       		echo "<img class=main_v  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
+		echo "<p class=\"position\">";
+		echo $data[4]."<br />";//専門家名(p position)
+		echo "</p>";
+		echo "<p class=\"date\">";
+		echo $data[5]."<br />";//取材日(p date)
+		echo "</p>";
+
+	$quryset=cexpertlist($data[0]);
+
+	//１ループで１行データが取り出され、データが無くなるとループを抜けます。
+	foreach ( $quryset as $cdata){
+
+			if (isset($cdata[0])) {
+       				echo "<img class=artwork  height='100' src='./create_image.php?id=".$data[3] ."' />";//内容中の専門家写真
+			}
+			echo "<h4>";
+			echo  $cdata[1] ."<br />";//学生見出し
+			echo "</h4>";
+
+			echo "<p id=\"text_interview\">";
+			echo  $cdata[2]."<br />";//コメント
+			echo "</p>";
+		}
+		echo "<p class=\"interviewer\">";
+		echo $data[6];//取材者名(p interviewer)
+		echo "</p>";
+		}
+		echo "<p class = \"btn_close\">";
+		echo "<a>";
+		echo "<img src=\"./photo/close.png\">";//アコーディオン用のclose画像にimgタグの内容を書き換える
+		echo "</a>";
+		echo "</p>";
+
+		echo "</div>";
+
 //---------------------------------------------------------------------------------------------------
 
 	//学生インタビューDBに対してSQL実行//
@@ -465,58 +517,6 @@ $(document).ready(function() {
 		echo "</a>";
 		echo "</p>";
 		echo "</div>";
-
-
-//---------------------------------------------------------------------------------------------------
-
-	//専門家の写真コメント取得
-	$exmain = expertlist($jobid);
-
-	echo "<br />";
-	echo "<li id=\"btn_pro\" class=\"switch\" ><img src=\"./photo/test.png\"></li>";//imgタグの内容を書き換える
-	echo "</li>";
-
-    	echo "<div id=\"box_pro\" class=\"contentWrap displayNone\">";
-	foreach ( $exmain as $data){
-		echo "<p class=\"title\">";
-		echo $data[3]."<br />";//大見出し(p title)
-		echo "</p>";
-       		echo "<img class=main_v  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
-		echo "<p class=\"position\">";
-		echo $data[4]."<br />";//専門家名(p position)
-		echo "</p>";
-		echo "<p class=\"date\">";
-		echo $data[5]."<br />";//取材日(p date)
-		echo "</p>";
-
-	$quryset=cexpertlist($data[0]);
-
-	//１ループで１行データが取り出され、データが無くなるとループを抜けます。
-	foreach ( $quryset as $cdata){
-
-			if (isset($cdata[0])) {
-       				echo "<img class=artwork  height='100' src='./create_image.php?id=".$data[3] ."' />";//内容中の専門家写真
-			}
-			echo "<h4>";
-			echo  $cdata[1] ."<br />";//学生見出し
-			echo "</h4>";
-
-			echo "<p id=\"text_interview\">";
-			echo  $cdata[2]."<br />";//コメント
-			echo "</p>";
-		}
-		echo "<p class=\"interviewer\">";
-		echo $data[6];//取材者名(p interviewer)
-		echo "</p>";
-		}
-		echo "<p class = \"btn_close\">";
-		echo "<a>";
-		echo "<img src=\"./photo/close.png\">";//アコーディオン用のclose画像にimgタグの内容を書き換える
-		echo "</a>";
-		echo "</p>";
-
-		echo "</div>";
-
 
 //---------------------------------------------------------------------------------------------------
 	//気になるボタン表示
