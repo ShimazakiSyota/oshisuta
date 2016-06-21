@@ -14,7 +14,7 @@
 			sessionCheck($_SESSION['id'],$_SESSION['pass']);//セッションの確認
 			date_default_timezone_set('Asia/Tokyo');
 
-		$jobid = $_POST['report'];
+		$jobid = $_POST['expert'];
 		$time = date("Y-m-d H:i:s");
 		$KanriName = sessionName($_SESSION['id'],$_SESSION['pass']);
 			//専門家詳細
