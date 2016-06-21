@@ -631,7 +631,11 @@ $(function($) {
     <li><a href="gojyu.php">五十音から探す</a></li>
     <li><a href="ranking.php">気になるランキング</a></li>
     <li><a href="recently.php">最近気になった仕事</a></li>
-    <li><a href="freeword.php">フリーワード</a></li>
+    <li><form action="freewordSearch.php" method="POST">
+	<input type="search" name="message" pattern="[^\\x22\\x27]*"  required >
+	<input type="submit">
+	</form>
+	</li>
     </ul>
 </div>
 
@@ -748,8 +752,8 @@ $b=1;
 	echo "<div id=\"box_keyword\">";
 	echo "<h3>";
 	echo "</h3>";
-	echo "<form action=\"freewordSearch.PHP\" method=\"POST\">";
-	echo "<input type=\"text\" name=\"message\" pattern='' title='' required>";
+	echo "<form action=\"freewordSearch.php\" method=\"POST\">";
+	echo "<input type=\"search\" name=\"message\" pattern='[^\\x22\\x27]*'  required >";
 	echo "<input type=\"submit\">";
 	echo "</form>";
 	echo "</div>";
@@ -794,7 +798,7 @@ echo '<p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></
 //フリーワード
 
 echo "<form action=\"freewordSearch.php\" method=\"POST\">";
-echo "<input type=\"text\" name=\"message\">";
+echo "<input type=\"search\" name=\"message\" pattern='[^\\x22\\x27]*'  required >";
 echo "<input type=\"submit\">";
 echo "</form>";
 //分野画面遷移

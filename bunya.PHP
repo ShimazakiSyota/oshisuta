@@ -160,7 +160,7 @@ echo '<p><small>Copyright (c) shigotobu.All Right Reserved.</small></p>';
 
 //メニューボタン
 //フリーワード
-echo "<form action=\"freeword.php\" method=\"POST\">";
+echo "<form action=\"freewordSearch.php\" method=\"POST\">";
 echo "<input type=\"search\" name=\"message\" pattern='[^\\x22\\x27]*'  required >";
 echo "<input type=\"submit\">";
 echo "</form>";
