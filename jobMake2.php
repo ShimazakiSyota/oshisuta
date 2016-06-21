@@ -30,17 +30,23 @@ function disp(){
 	sessionCheck($_SESSION['id'],$_SESSION['pass']);//セッションの確認
 
 	$jobAll = jobAll($_POST['jobUpd']);
+if($_POST['jobUpd'] != 0){
+	$jobKanri = joblist ($_POST['selectedJob']);
+}
+
+
 
 	mb_regex_encoding("UTF-8"); 
 
-	if ($_POST['jobUpd'] == 0){
+	if ($_POST['jobUpd'] == 0){//職業詳細
 		echo "<form action=jobInsert.php method =POST enctype='multipart/form-data' onsubmit='return disp()'>";
-		echo "<center>職業名 : <input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma;' pattern='^[ぁ-んァ-ヶー一-龠]+$' title='日本語で入力してください' required><br /><br />";
-		echo "職業名【ふりがな】: <input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma;' pattern='^[ぁ-んー一-]+$' title='ひらがなで入力してください' required><br /><br />";
+		echo "<center>職業名 : <input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='日本語で入力してください' required><br /><br />";
+		echo "職業名【ふりがな】: <input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んー一-]+$' title='ひらがなで入力してください' required><br /><br />";
 		echo "職業名【英語】：<input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma; ime-mode:disabled;' pattern='^[A-Za-z\s]+$' title='英語で入力してください' required><br /><br />";
-		echo "一行キャッチコピー：<input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
-		echo "紹介文：<input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
-		echo "写真1：<input type='file' name='upfile' size='30' /><br /><br /></center>";
+		echo "一行キャッチコピー：<input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
+		echo "紹介文：<input type='text' size='15' NAME='jobInfo[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
+		echo "写真1：<input type='file' name='upfile' size='30' /><br /><br />";
+
 
 			echo "<div class='left'><H4>連携させたい中分類タグを選択してください</H4>";
 					$tagAll = tagSelectAllKubun("1");	//指定された区分のタグ全てを取得
@@ -65,23 +71,62 @@ function disp(){
 			echo "<br /></div>";
 	}else{
 
+			if ($_POST['jobUpd'] == 1) {//学生インタビュー
+				echo "<center><form action='interviewInsert.php' method ='POST' enctype='multipart/form-data' onsubmit='return disp()'>";
+				echo "<input type='hidden' name='interview[]' value ='".$jobKanri[0]."'>";
+				echo "見出し:<input type='text' size='20' NAME='interview[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
+				echo "写真：<input type='file' name='upfile' size='30' /><br /><br />";		
+				echo "インタビュー時 <br /><input type='text' size='20' NAME='interview[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />"; 
+				echo "学生名:<input type='text' size='20' NAME='interview[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
+			for ($i=0; $i<10; $i++){echo "<h4>コメント追加</h4>";
+				echo "写真：<input type='file' name='upfile1[]' size='30' /><br /><br />";		
+				echo "Q:<input type='text' size='20' NAME='interview2[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' ><br /><br />";
+				echo "A:<textarea name='interview3[]' cols='50' rows='5' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' ></textarea><br /><br />";
+			}
+				echo "取材日：<input type='text' size='20' NAME='interview[]' ><br /><br />";		
+				echo "取材者：<input type='text' size='20' NAME='interview[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
+				echo "<br /></div><center><input type =submit value=追加>";
+				echo "</form>";
+			}
 
-		echo "<center><form action=commentInsert.php method =POST enctype='multipart/form-data' onsubmit='return disp()'>";
-			if ($_POST['jobUpd'] == 1) { echo "学生インタビュー : ";}
-			if ($_POST['jobUpd'] == 2) { echo "専門家のコメント : ";}
-			if ($_POST['jobUpd'] == 3) { echo "レポート : ";}
-			
-		echo "<br /><textarea name=report cols=50 rows=5 style='font-family:Tahoma; ime-mode:disabled;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！ \n\r\s]+$' title='文字を入力してください' required></textarea><br /><br />";
-		echo "写真：<input type='file' name='upfile' size='30' /><br /><br />";
-		echo "<H2>追加する職業を選択してください。</H2></center>";
-		//１ループでタグ1つがボタン形式で表示され、データが無くなるとループを抜けます。
-				foreach($jobAll as $data){
-				echo "<div class='left'><input type='radio' name='selectedJob' value='".$data[0]."'>". $data[1] ."<br /></div>";
-				}
-		echo "<input type='hidden' name='school' value='".$_POST['jobUpd']."'>";
+			if ($_POST['jobUpd'] == 2) { //専門家
+				echo "<center><form action='exprtcomment.php' method ='POST' enctype='multipart/form-data' onsubmit='return disp()'>";
+				echo "<input type='hidden' name='expert[]' value ='".$jobKanri[0]."'>";
+				echo "見出し:<input type='text' size='20' NAME='expert[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />"; 
+				echo "写真：<input type='file' name='upfile2' size='30' /><br /><br />";						
+				echo "専門家名 <br /><input type='text' size='20' NAME='expert[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
+			for ($i=0; $i<10; $i++){"<h4>コメント追加</h4>";
+				echo "写真：<input type='file' name='upfile3[]' size='30' /><br /><br />";		
+				echo "Q:<input type='text' size='20' NAME='expert2[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' ><br /><br />";
+				echo "A:<textarea name='expert3[]' cols='50' rows='5' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' ></textarea><br /><br />";
+			}
+				echo "取材日：<input type='text' size='20' NAME='expert[]' ><br /><br />";		
+				echo "取材者：<input type='text' size='20' NAME='expert[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
+				echo "<br /></div><center><input type =submit value=追加>";
+				echo "</form>";
+
+						
+			}
+			if ($_POST['jobUpd'] == 3) {//レポート
+				echo "<center><form action='reportInsert.php' method ='POST' enctype='multipart/form-data' onsubmit='return disp()'>";
+				echo "<input type='hidden' name='report[]' value ='".$jobKanri[0]."'>";
+				echo "見出し:<input type='text' size='20' NAME='report[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
+				echo "写真：<input type='file' name='upfile4' size='30' /><br /><br />";		
+			for ($i=0; $i<10; $i++){"<h4>コメント追加</h4>";
+				echo "写真：<input type='file' name='upfile5[]' size='30' /><br /><br />";
+				echo "見出し：<input type='text' size='20' NAME='report2[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' ><br /><br />";		
+				echo "<textarea name='report3[]' cols='50' rows='5' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' ></textarea><br /><br />";
+			}
+				echo "取材日：<input type='text' size='20' NAME='report[]' ><br /><br />";		
+				echo "取材者：<input type='text' size='20' NAME='report[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
+				echo "<br /></div><center><input type =submit value=追加>";
+				echo "</form>";
+
+						
 	}
-		echo "<br /></div><center><input type =submit value=追加>";
-		echo "</form>";
+}
+
+
 
 //データベース切断
 dconnect($con);

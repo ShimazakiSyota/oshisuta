@@ -1173,4 +1173,113 @@ function tagFileIDUpdate ($tagID,$fileID){
     }
 }
 
+////////////////////////////////////////書き直し
+function interviewInsert($interview,$upfile,$time,$KanriName){//学生インタビュー登録
+    try {
+	$fileID = picSet($upfile);
+	//SQL文をセット//
+		$result_flag = mysql_query("INSERT INTO studentiv (JOBID,IHEAD,IATTIME,STNAME,IDATE,INAME,SIMAGE,IUPTIME,IUPNAME) VALUES ('$interview[0]','$interview[1]','$interview[2]','$interview[3]','$interview[4]','$interview[5]','$fileID','$time','$KanriName')");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+		return mysql_insert_id();
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+///////////////////////////////////////////書き直し
+function expertInsert($expert,$upfile2,$time,$KanriName){//専門家登録
+    try {
+	$fileID = picSet($upfile2);
+	//SQL文をセット//
+		$result_flag = mysql_query("INSERT INTO expert (JOBID,EHEAD,EXNAME,EDATE,ENAME,EIMAGE,EUPTIME,EUPNAME) VALUES ('$expert[0]','$expert[1]','$expert[2]','$expert[3]','$expert[4]','$fileID','$time','$KanriName')");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+		return mysql_insert_id();
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+///////////////////////////////////////////書き直し
+function reportInsert($report,$upfile4,$time,$KanriName){//レポート登録
+    try {
+	$fileID = picSet($upfile4);
+	//SQL文をセット//
+		$result_flag = mysql_query("INSERT INTO workrp (JOBID,WHEAD,WDATE,WNAME,WIMAGE,WUPTIME,WUPNAME) VALUES ('$report[0]','$report[1]','$report[2]','$report[3]','$fileID','$time','$KanriName')");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+		return mysql_insert_id();
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+
+///////////////////////////////////////////書き直し
+function studentviewInsert($interview2,$interview3,$upfile1,$interview){//学生インタビューの登録　コメント
+    try {
+	for ($i=0;(isset($interview2[$i]) && $interview2[$i] != ""); $i++){
+		if (is_uploaded_file($_FILES["upfile1"]["tmp_name"][$i])) {
+		$fileID = picSet2($upfile1,$i);
+		//SQL文をセット//
+		$result_flag = mysql_query("INSERT INTO studentview (ICHEAD,INTERVIEW,SVIMAGE,STUDENTID) VALUES ('$interview2[$i]','$interview3[$i]','$fileID','$interview')");
+		}else{
+		$result_flag = mysql_query("INSERT INTO studentview (ICHEAD,INTERVIEW,SVIMAGE,STUDENTID) VALUES ('$interview2[$i]','$interview3[$i]','0','$interview')");
+		}
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+		}
+		return mysql_insert_id();
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+///////////////////////////////////////////書き直し
+function expartviewInsert($expert2,$upfile3,$expert){//専門家の登録　コメント
+    try {
+	for ($i=0;(isset($expert2[$i]) && $expert2[$i] != ""); $i++){
+		if (is_uploaded_file($_FILES["upfile3"]["tmp_name"][$i])) {
+			$fileID = picSet2($upfile3,$i);
+			//SQL文をセット//
+			$result_flag = mysql_query("INSERT INTO expertview (ECHEAD,EXPERTCOM,EVIMAGE,EXPERTID) VALUES ('$expert2[$i]','$expert3[$i]','$fileID','expert')");
+			}else{
+			$result_flag = mysql_query("INSERT INTO expertview (ECHEAD,EXPERTCOM,EVIMAGE,EXPERTID) VALUES ('$expert2[$i]','$expert3[$i]','0','expert')");
+		}
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+		}
+		return mysql_insert_id();
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+///////////////////////////////////////////書き直し
+function workrpdateInsert($report2,$upfile5,$work){//お仕事スタジアムレポート登録　コメント
+    try {
+	for ($i=0;(isset($report2[$i]) && $report2[$i] != ""); $i++){
+		if (is_uploaded_file($_FILES["upfile5"]["tmp_name"][$i])) {
+			$fileID = picSet2($upfile5,$i);
+			//SQL文をセット//
+			$result_flag = mysql_query("INSERT INTO workrpdate (WCHEAD,REPORT,WIMAGE,WORKID) VALUES ('$report2[$i]','$report3[$i]','$fileID','work')");
+			}else{
+			$result_flag = mysql_query("INSERT INTO workrpdate (WCHEAD,REPORT,WIMAGE,WORKID) VALUES ('$report2[$i]','$report3[$i]','0','work')");
+		}
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+		}
+		return mysql_insert_id();
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
 ?>   
