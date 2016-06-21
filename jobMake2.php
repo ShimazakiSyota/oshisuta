@@ -69,6 +69,9 @@ if($_POST['jobUpd'] != 0){
 					echo "<input name='RenkeiSchool[]' type='checkbox' value='".$data[0]."'>". $data[2]."<br>";
 					}
 			echo "<br /></div>";
+			echo "<br /></div><center><input type='submit' value='追加'>";
+			echo "</form>";
+
 	}else{
 
 			if ($_POST['jobUpd'] == 1) {//学生インタビュー
@@ -90,12 +93,12 @@ if($_POST['jobUpd'] != 0){
 			}
 
 			if ($_POST['jobUpd'] == 2) { //専門家
-				echo "<center><form action='exprtcomment.php' method ='POST' enctype='multipart/form-data' onsubmit='return disp()'>";
+				echo "<center><form action='expertInsert.php' method ='POST' enctype='multipart/form-data' onsubmit='return disp()'>";
 				echo "<input type='hidden' name='expert[]' value ='".$jobKanri[0]."'>";
 				echo "見出し:<input type='text' size='20' NAME='expert[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />"; 
 				echo "写真：<input type='file' name='upfile2' size='30' /><br /><br />";						
 				echo "専門家名 <br /><input type='text' size='20' NAME='expert[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
-			for ($i=0; $i<10; $i++){"<h4>コメント追加</h4>";
+			for ($i=0; $i<10; $i++){echo"<h4>コメント追加</h4>";
 				echo "写真：<input type='file' name='upfile3[]' size='30' /><br /><br />";		
 				echo "Q:<input type='text' size='20' NAME='expert2[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' ><br /><br />";
 				echo "A:<textarea name='expert3[]' cols='50' rows='5' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' ></textarea><br /><br />";
@@ -112,7 +115,7 @@ if($_POST['jobUpd'] != 0){
 				echo "<input type='hidden' name='report[]' value ='".$jobKanri[0]."'>";
 				echo "見出し:<input type='text' size='20' NAME='report[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
 				echo "写真：<input type='file' name='upfile4' size='30' /><br /><br />";		
-			for ($i=0; $i<10; $i++){"<h4>コメント追加</h4>";
+			for ($i=0; $i<10; $i++){echo"<h4>コメント追加</h4>";
 				echo "写真：<input type='file' name='upfile5[]' size='30' /><br /><br />";
 				echo "見出し：<input type='text' size='20' NAME='report2[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' ><br /><br />";		
 				echo "<textarea name='report3[]' cols='50' rows='5' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' ></textarea><br /><br />";
@@ -125,8 +128,6 @@ if($_POST['jobUpd'] != 0){
 						
 	}
 }
-			echo "<br /></div><center><input type='submit' value='追加'>";
-			echo "</form>";
 
 
 //データベース切断
