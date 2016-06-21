@@ -112,7 +112,7 @@ $(function($) {
     <li><a href="ranking.php">気になるランキング</a></li>
     <li><a href="recently.php">最近気になった仕事</a></li>
     <li><form action="freewordSearch.php" method="POST">
-	<input type="search" name="message" pattern='[^\\x22\\x27]*'  required >
+	<input type="search" name="message" pattern="[^\\x22\\x27]*"  required >
 	<input type="submit">
 	</form>
 	</li>
