@@ -1295,4 +1295,34 @@ function workrpdateInsert($report2,$upfile5,$work){//お仕事スタジアムレ
     }
 }
 
+function picSet2($upfile,$i){//画像の設定
+
+    try {
+    //バイナリデータ
+    $fp = fopen($upfile["tmp_name"][$i], "rb");
+    $imgdat = fread($fp, filesize($upfile["tmp_name"][$i]));
+    fclose($fp);
+    $imgdat = addslashes($imgdat);
+
+    //拡張子
+    $dat = pathinfo($upfile["name"][$i]);
+    $extension = $dat['extension'];
+
+    // MIMEタイプ
+    if ( $extension == "jpg" || $extension == "jpeg" ) $mime = "image/jpeg";
+    else if( $extension == "gif" ) $mime = "image/gif";
+    else if ( $extension == "png" ) $mime = "image/png";
+	
+	//
+		$result_flag = mysql_query("INSERT INTO `image` (`IMAGE`, `MIME`) VALUES ('$imgdat', '$mime')");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+	return mysql_insert_id();
+
+    }catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
 ?>   
