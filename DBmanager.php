@@ -154,11 +154,6 @@ function jobRelationSelect($tagId){//選択されたのタグに関連する職�
 function tagDelete($tagId){//選択されたのタグの削除
 
     try {
-		//SQL文をセット//
-		$tag = tagCheck($tagId);
-		if($tag[3] != 0){
-		picDelete($tag[3]);
-		}
 	//SQL文をセット//
 		$result_flag = mysql_query('DELETE FROM tag WHERE TAGID ='.$tagId);
 		trDelete($tagId);
@@ -391,7 +386,7 @@ function jobstadiumlist($jobid){//お仕事スタジアムレポート情報取�
 
     try {
 	//SQL文をセット//00
-		$queryset = mysql_query('SELECT * FROM workrp WHERE JOBID ='.$jobid);
+		$queryset = mysql_query('SELECT * FROM workｒｐ WHERE JOBID ='.$jobid);
 		$arr = array();
 		while ($data = mysql_fetch_array($queryset)){
 		array_push($arr, $data);
@@ -473,42 +468,13 @@ function kie($fkie){//フリーワード検索
     }
 }
 
+
+////////////////////////////////////書き直し
+
 function order($arry){//50音検索
 
    try {
-	$sql ="SELECT JOBID,JOBNAME,JOBCC FROM job";
-
-	$where = " WHERE ";
-	foreach($arry as $data){
-		$where .= "JOBJPN LIKE '".$data."%'";
-
-		$where .= " OR ";
-
-	}
-        //最後の余分なORを消す。
-	$where = substr($where, 0, -3);
-
-		$sql .= $where;
-		$sql .= ";";
-	$queryset = mysql_query($sql);
-		$arr = array();
-
-			while ($data = mysql_fetch_array($queryset)){
-
-			array_push($arr, $data);
-			}
-	return $arr;
-    } catch (Exception $e) {
-            echo ('システムエラーが発生しました');
-    }
-}
-
-function orders($sss){//50音検索
-
-   try {
-	$sql ="SELECT JOBID,JOBNAME,JOBCC FROM job WHERE JOBJPN LIKE '".$sss."%'";
-
-
+	$sql ="SELECT JOBID,JOBNAME,JOBCC FROM job WHERE JOBJPN LIKE '".$arry."%'";
 
 	$queryset = mysql_query($sql);
 		$arr = array();
@@ -522,12 +488,17 @@ function orders($sss){//50音検索
             echo ('システムエラーが発生しました');
     }
 }
+
+
+
+/////////////////////////////////////書き直し
+
 
 
 
 function studentnull($jobid){//学生インタビューがあるかないか(ある場合1以上、ない場合" "を返す)
    try {
-		$queryset = mysql_query('SELECT COUNT(JOBID) FROM studentiv WHERE JOBID ='.$jobid);
+		$queryset = mysql_query('SELECT JOBID FROM studentiv WHERE JOBID ='.$jobid);
 			$arr = array();
 			while ($data = mysql_fetch_array($queryset)){
 			array_push($arr, $data);
@@ -537,10 +508,13 @@ function studentnull($jobid){//学生インタビューがあるかないか(あ
             echo ('システムエラーが発生しました');
     }
 }
+
+/////////////////////////////////////書き直し
+
 
 function expertnull($jobid){//専門家があるかないか(ある場合1以上、ない場合" "を返す)
    try {
-		$queryset = mysql_query('SELECT COUNT(JOBID) FROM expert WHERE JOBID ='.$jobid);
+		$queryset = mysql_query('SELECT JOBID FROM expert WHERE JOBID ='.$jobid);
 			$arr = array();
 			while ($data = mysql_fetch_array($queryset)){
 			array_push($arr, $data);
@@ -551,9 +525,14 @@ function expertnull($jobid){//専門家があるかないか(ある場合1以上
     }
 }
 
+
+
+/////////////////////////////////////書き直し
+
+
 function workrpnull($jobid){//学生インタビューがあるかないか(ある場合1以上、ない場合" "を返す)
    try {
-		$queryset = mysql_query('SELECT COUNT(JOBID) FROM workｒｐ WHERE JOBID ='.$jobid);
+		$queryset = mysql_query('SELECT JOBID FROM workrp WHERE JOBID ='.$jobid);
 			$arr = array();
 			while ($data = mysql_fetch_array($queryset)){
 			array_push($arr, $data);
@@ -1193,19 +1172,5 @@ function tagFileIDUpdate ($tagID,$fileID){
    	    echo ('システムエラーが発生しました');
     }
 }
-
-function picDelete($picID){//選択されたのタグの削除
-
-    try {
-	//SQL文をセット//
-		$result_flag = mysql_query('DELETE FROM image WHERE IMAID ='.$picID);
-			if (!$result_flag) {
-	    	die('DELETEクエリーが失敗しました。'.mysql_error());
-			}
-    } catch (Exception $e) {
-            echo ('システムエラーが発生しました');
-    }
-}
-
 
 ?>   

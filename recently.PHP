@@ -148,6 +148,14 @@ $arr = recently($tid);
 //件数
 $dataCount = count($arr);
 
+echo '<div id="box_">';
+
+echo '<h2>';
+//データの数
+echo $dataCount.'件';
+echo '</h2>';
+
+
 //１ページあたりの表示数
 //20個ずつ
 $perNum = 20;

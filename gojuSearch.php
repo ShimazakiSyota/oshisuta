@@ -54,6 +54,11 @@
 
 </style>
 
+<?php
+//セッション
+session_start();
+?>
+
 <script type="text/javascript">
 //ハンバーガーメニュー
 $(function($) {
@@ -402,54 +407,28 @@ require_once 'DBmanager.php';
 //DB接続
 $con = connect();
 
-//----------------------------------------------------------------------------------------------------
 
-//メニューボタン
-if (isset($_POST['gyou'])){//値が入ってる 
-	$gyou = $_POST['gyou'];
-	if ($gyou == 'a') {
-		$g = array("あ","い","う","え","お");
-
-	} else if ($gyou == 'k') {
-		$g = array("か","き","く","け","こ","が","ぎ","ぐ","げ","ご");
-
-	} else if ($gyou == 's') {
-
-		$g = array("さ","し","す","せ","そ","ざ","じ","ず","ぜ","ぞ");
-
-	} else if ($gyou == 't') {
-		$g = array("た","ち","つ","て","と","だ","ぢ","づ","で","ど");
-
-	} else if ($gyou == 'n') {
-		$g = array("な","に","ぬ","ね","の");
-
-	} else if ($gyou == 'h') {
-		$g = array("は","ひ","ふ","へ","ほ","ば","び","ぶ","べ","ぼ");
-
-	} else if ($gyou == 'm') {
-		$g = array("ま","み","む","め","も");
-
-	} else if ($gyou == 'y') {
-		$g = array("や","ゆ","よ");
-
-	} else if ($gyou == 'r') {
-		$g = array("ら","り","る","れ","ろ");
-
-	} else if ($gyou == 'w') {
-		$g = array("わ","を","ん");
-	}
-	$data = order($g);
-}
 
 //----------------------------------------------------------------------------------------------------
 
 if (isset($_POST['slct'])) {
-	$on = $_POST['slct'];
 
-	$data = orders($on);
+//POSTで受け取り
+	$_SESSION['select'] = $_POST['slct'];
+
+
 }
+	$on = $_SESSION['select'];
+
+
+	$data = order($on);
+
 
 //----------------------------------------------------------------------------------------------------
+
+
+if (!empty($data)){
+
 
 echo '<div id="box_">';
 
@@ -507,7 +486,6 @@ else{
 
 <?php
 
-if (!empty($data)){
 
 //結果表示
 for($i = $startPoint; $i < $endPoint; $i++){
@@ -570,6 +548,11 @@ for($i = $startPoint; $i < $endPoint; $i++){
 	echo '検索結果0件';
 	echo '</div>';
 }
+
+//DB切断
+	dconnect($con);
+
+
 
 ?>
 

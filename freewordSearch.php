@@ -119,23 +119,42 @@ require_once 'DBmanager.php';
 //DB接続
 $con = connect();
 
+//セッション
+session_start();
+
+if (isset($_POST['message'])) {
+
 //フリーワードをPOSTで受け取る
-$freeword = $_POST['message'];
+$_SESSION['memo'] = $_POST['message'];
+
+}
+
+$freeword = $_SESSION['memo'];
+
+
 
 //フリーワードSQL文セット
 $data = kie($freeword);
 
+//件数
+$dataCount = count($data);
+
+
 //----------------------------------------------------------------------------------------------------
+
+if (!empty($data)){
 
 echo '<div id="box_">';
 
 echo '<h2>';
 //データの数
-echo '検索結果'.$dataCount = count($data).'件';
+echo '検索結果'.$dataCount.'件';
 echo '</h2>';
 
 //１ページあたりの表示数
+//10件ずつ
 $perNum = 10;
+
 //最大ページ数
 $maxPageNum = ceil($dataCount / $perNum);
 
@@ -170,20 +189,17 @@ else{
 	echo '件を表示)';
 	echo '<br />';
 
-?>
 
-		<ol>
-		<li><img src="//専門家インタビュー">専門家インタビュー</li>
-		<li><img src="//学生インタビュー">学生インタビュー</li>
-		<li><img src="//お仕事スタジアムレポート2016">お仕事スタジアムレポート2016</li>
-		</ol>
-	</div>
+echo		'<ol>';
+echo		'<li><img src="//専門家インタビュー">専門家インタビュー</li>';
+echo		'<li><img src="//学生インタビュー">学生インタビュー</li>';
+echo		'<li><img src="//お仕事スタジアムレポート2016">お仕事スタジアムレポート2016</li>';
+echo		'</ol>';
+echo	'</div>';
 
-	<div id="list_result">
+echo	'<div id="list_result">';
 
-<?php
 
-if (!empty($data)){
 
 //結果表示
 for($i = $startPoint; $i < $endPoint; $i++){
@@ -204,17 +220,23 @@ for($i = $startPoint; $i < $endPoint; $i++){
 
 
 		$stdnt = studentnull($data[$i][0]);
-		if (/*専門家*/$stdnt !== '0') {
+		$stdnt1 = count($stdnt);
+
+		if (/*専門家*/$stdnt1 !== 0) {
 			echo '<li><img src="./"></li>';
 		}
 
 		$exprt = expertnull($data[$i][0]);
-		if (/*学生*/ $exprt !== '0') {
+		$exprt1 = count($exprt);
+
+		if (/*学生*/ $exprt1 !== 0) {
 			echo '<li><img src="./"></li>';
 		}
 
 		$wrkrp = workrpnull($data[$i][0]);
-		if (/*レポート*/$wrkrp !== '0') {
+		$wrkrp1 = count($wrkrp);
+
+		if (/*レポート*/$wrkrp1 !== 0) {
 			echo '<li><img src="./"></li>';
 		}
 	}
@@ -246,6 +268,11 @@ for($i = $startPoint; $i < $endPoint; $i++){
 	echo '検索結果0件';
 	echo '</div>';
 }
+
+
+//DB切断
+	dconnect($con);
+
 
 ?>
 
