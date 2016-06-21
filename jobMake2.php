@@ -125,7 +125,8 @@ if($_POST['jobUpd'] != 0){
 						
 	}
 }
-
+			echo "<br /></div><center><input type='submit' value='追加'>";
+			echo "</form>";
 
 
 //データベース切断
