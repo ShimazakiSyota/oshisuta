@@ -449,10 +449,12 @@ function kie($fkie){//フリーワード検索
 	if (strlen($text1)>0){
 		//受け取ったキーワードの全角スペースを半角スペースに変換する
 		$text2 = str_replace("　", " ", $text1);
+		//'を に変える
+		$text3 = str_replace("'", " ", $text2);
 
 		//キーワードを空白で分割する
 
-		$array1 = explode(" ",$text2);
+		$array1 = explode(" ",$text3);
 		//分割された個々のキーワードをSQLの条件where句に反映する
 		$where = " WHERE ";
 		for($i = 0; $i < count($array1);$i++){
