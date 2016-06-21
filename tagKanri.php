@@ -41,7 +41,7 @@ function disp2(){
 			
 			echo "<center><H2>タグ名：".$tagKanri[0][1]."</H2>";//タグ名表示
 				echo "<form action='./tagDelete.php' method = 'POST'  onsubmit='return disp()'>";
-				echo "<button type='submit' name='tagID' value='".$tagKanri[0][0]."'>このタグを削除する</button>";
+				echo "<button class='del' type='submit' name='tagID' value='".$tagKanri[0][0]."'>このタグを削除する</button>";
 				echo "</form>";
 
 			echo "<form action='./tagUpdate.php' method = 'POST'  enctype='multipart/form-data' onsubmit='return disp2()'>";

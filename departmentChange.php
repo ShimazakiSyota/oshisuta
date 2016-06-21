@@ -45,8 +45,8 @@ $school = getDepartment($_POST['selected']);
 //学科名表示
 echo "<center><H2>学科名：".$school[2]."</H2>";
 	echo "<form action='./departmentDelete.php' method='POST' onsubmit='return disp()'>";
-	echo "<button type='submit' name='departmentID' value='".$school[0]."'>この学科タグを削除する</button></center>";
-	echo "</form>";
+	echo "<button class='del' type='submit' name='departmentID' value='".$school[0]."'>この学科タグを削除する</button></center>";
+	echo "</form><br>";
 
 		echo "<form action=departmentUpdate.php method =POST onsubmit='return disp2()'>";
 		echo "<input type='hidden' NAME=schoolInfo[] value='".$_POST['selected']."'>";

@@ -45,7 +45,7 @@ $school = getSchool($_POST['selected']);
 //学校名表示
 echo "<center><H2>学校名：".$school['1']."</H2>";
 	echo "<form action='./schoolDelete.php' method='POST' onsubmit='return disp()'>";
-	echo "<button type='submit' name='schoolID' value='".$school[0]."'>この学校タグを削除する</button></center>";
+	echo "<button class='del' type='submit' name='schoolID' value='".$school[0]."'>この学校タグを削除する</button></center>";
 	echo "</form>";
 
 		echo "<form action=schoolUpdate.php method =POST onsubmit='return disp2()'>";

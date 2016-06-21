@@ -53,7 +53,7 @@ $jobKanri4 = getDepartmentAll();
 //職業名表示
 echo "<center><H2>職業名：".$jobKanri[1]."</H2>";
 	echo "<form action='./jobDelete.php' method='POST' onsubmit='return disp()'>";
-	echo "<button type='submit' name='jobID' value='".$jobKanri[0]."'>この職業を削除する</button>";
+	echo "<button class='del' type='submit' name='jobID' value='".$jobKanri[0]."'>この職業を削除する</button>";
 	echo "</form>";
 
 //職業詳細取得
