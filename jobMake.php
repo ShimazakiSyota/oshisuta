@@ -22,14 +22,11 @@
 	
 ?>
 	<center>
-		<form action=jobMake2.php method=post>
-			<br /><select name="jobUpd">
-			<option value="0">職業詳細</option><br />
-			<option value="1">学生インタビュー</option><br />
-			<option value="2">専門家のコメント</option><br />
-			<option value="3">レポート</option><br /><br />
-			</select>
-			<input type="submit" value="送信"/>
+		<form action="./jobMake2.php" method="post">
+			<button type='submit' name='jobUpd' value="0"><h1>職業詳細<h1></button><br /><br />
+			<button type='submit' name='jobUpd' value="1"><h1>学生インタビュー</h1></button><br /><br />
+			<button type='submit' name='jobUpd' value="2"><h1>専門家のコメント</h1></button><br /><br />
+			<button type='submit' name='jobUpd' value="3"><h1>レポート</h1></button><br /><br />
 		</form>
 
 	</center>
