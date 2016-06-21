@@ -749,7 +749,7 @@ $b=1;
 	echo "<h3>";
 	echo "</h3>";
 	echo "<form action=\"freewordSearch.PHP\" method=\"POST\">";
-	echo "<input type=\"text\" name=\"message\">";
+	echo "<input type=\"text\" name=\"message\" pattern='' title='' required>";
 	echo "<input type=\"submit\">";
 	echo "</form>";
 	echo "</div>";
