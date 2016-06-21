@@ -46,6 +46,19 @@ function sessionCheck($id,$pass){//セッション確認、ログイン認証
     }
 }
 
+////////////////////////////////////////////追加
+function sessionName($id,$pass){//セッション確認、ログイン認証
+;
+    try {
+	//SQL文をセット//
+	$queryset = mysql_query('SELECT NAME FROM user where ID = '.$id.' AND PASS ='.$pass);
+		$data = mysql_fetch_array($queryset);
+		return $data;
+    } catch (Exception $e) {
+		echo ('システムエラーが発生しました');	
+    }
+}
+
 function tagSelectAllKubun($kubun){//指定されたタグ区分に該当するすべてのタグを取得
 
     try {
