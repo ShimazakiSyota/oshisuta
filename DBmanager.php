@@ -46,6 +46,19 @@ function sessionCheck($id,$pass){//セッション確認、ログイン認証
     }
 }
 
+////////////////////////////////////////////追加
+function sessionName($id,$pass){//セッション確認、ログイン認証
+;
+    try {
+	//SQL文をセット//
+	$queryset = mysql_query('SELECT NAME FROM user where ID = '.$id.' AND PASS ='.$pass);
+		$data = mysql_fetch_array($queryset);
+		return $data;
+    } catch (Exception $e) {
+		echo ('システムエラーが発生しました');	
+    }
+}
+
 function tagSelectAllKubun($kubun){//指定されたタグ区分に該当するすべてのタグを取得
 
     try {
@@ -154,11 +167,6 @@ function jobRelationSelect($tagId){//選択されたのタグに関連する職�
 function tagDelete($tagId){//選択されたのタグの削除
 
     try {
-		//SQL文をセット//
-		$tag = tagCheck($tagId);
-		if($tag[3] != 0){
-		picDelete($tag[3]);
-		}
 	//SQL文をセット//
 		$result_flag = mysql_query('DELETE FROM tag WHERE TAGID ='.$tagId);
 		trDelete($tagId);
@@ -395,7 +403,7 @@ function jobstadiumlist($jobid){//お仕事スタジアムレポート情報取�
 
     try {
 	//SQL文をセット//00
-		$queryset = mysql_query('SELECT * FROM workrp WHERE JOBID ='.$jobid);
+		$queryset = mysql_query('SELECT * FROM workｒｐ WHERE JOBID ='.$jobid);
 		$arr = array();
 		while ($data = mysql_fetch_array($queryset)){
 		array_push($arr, $data);
@@ -445,10 +453,12 @@ function kie($fkie){//フリーワード検索
 	if (strlen($text1)>0){
 		//受け取ったキーワードの全角スペースを半角スペースに変換する
 		$text2 = str_replace("　", " ", $text1);
+		//'を に変える
+		$text3 = str_replace("'", " ", $text2);
 
 		//キーワードを空白で分割する
 
-		$array1 = explode(" ",$text2);
+		$array1 = explode(" ",$text3);
 		//分割された個々のキーワードをSQLの条件where句に反映する
 		$where = " WHERE ";
 		for($i = 0; $i < count($array1);$i++){
@@ -477,42 +487,13 @@ function kie($fkie){//フリーワード検索
     }
 }
 
+
+////////////////////////////////////書き直し
+
 function order($arry){//50音検索
 
    try {
-	$sql ="SELECT JOBID,JOBNAME,JOBCC FROM job";
-
-	$where = " WHERE ";
-	foreach($arry as $data){
-		$where .= "JOBJPN LIKE '".$data."%'";
-
-		$where .= " OR ";
-
-	}
-        //最後の余分なORを消す。
-	$where = substr($where, 0, -3);
-
-		$sql .= $where;
-		$sql .= ";";
-	$queryset = mysql_query($sql);
-		$arr = array();
-
-			while ($data = mysql_fetch_array($queryset)){
-
-			array_push($arr, $data);
-			}
-	return $arr;
-    } catch (Exception $e) {
-            echo ('システムエラーが発生しました');
-    }
-}
-
-function orders($sss){//50音検索
-
-   try {
-	$sql ="SELECT JOBID,JOBNAME,JOBCC FROM job WHERE JOBJPN LIKE '".$sss."%'";
-
-
+	$sql ="SELECT JOBID,JOBNAME,JOBCC FROM job WHERE JOBJPN LIKE '".$arry."%'";
 
 	$queryset = mysql_query($sql);
 		$arr = array();
@@ -526,12 +507,17 @@ function orders($sss){//50音検索
             echo ('システムエラーが発生しました');
     }
 }
+
+
+
+/////////////////////////////////////書き直し
+
 
 
 
 function studentnull($jobid){//学生インタビューがあるかないか(ある場合1以上、ない場合" "を返す)
    try {
-		$queryset = mysql_query('SELECT COUNT(JOBID) FROM studentiv WHERE JOBID ='.$jobid);
+		$queryset = mysql_query('SELECT JOBID FROM studentiv WHERE JOBID ='.$jobid);
 			$arr = array();
 			while ($data = mysql_fetch_array($queryset)){
 			array_push($arr, $data);
@@ -541,10 +527,13 @@ function studentnull($jobid){//学生インタビューがあるかないか(あ
             echo ('システムエラーが発生しました');
     }
 }
+
+/////////////////////////////////////書き直し
+
 
 function expertnull($jobid){//専門家があるかないか(ある場合1以上、ない場合" "を返す)
    try {
-		$queryset = mysql_query('SELECT COUNT(JOBID) FROM expert WHERE JOBID ='.$jobid);
+		$queryset = mysql_query('SELECT JOBID FROM expert WHERE JOBID ='.$jobid);
 			$arr = array();
 			while ($data = mysql_fetch_array($queryset)){
 			array_push($arr, $data);
@@ -555,9 +544,14 @@ function expertnull($jobid){//専門家があるかないか(ある場合1以上
     }
 }
 
+
+
+/////////////////////////////////////書き直し
+
+
 function workrpnull($jobid){//学生インタビューがあるかないか(ある場合1以上、ない場合" "を返す)
    try {
-		$queryset = mysql_query('SELECT COUNT(JOBID) FROM workｒｐ WHERE JOBID ='.$jobid);
+		$queryset = mysql_query('SELECT JOBID FROM workrp WHERE JOBID ='.$jobid);
 			$arr = array();
 			while ($data = mysql_fetch_array($queryset)){
 			array_push($arr, $data);
@@ -1197,18 +1191,143 @@ function tagFileIDUpdate ($tagID,$fileID){
     }
 }
 
-function picDelete($picID){//選択されたのタグの削除
-
+////////////////////////////////////////書き直し
+function interviewInsert($interview,$upfile,$time,$KanriName){//学生インタビュー登録
     try {
+	$fileID = picSet($upfile);
 	//SQL文をセット//
-		$result_flag = mysql_query('DELETE FROM image WHERE IMAID ='.$picID);
+		$result_flag = mysql_query("INSERT INTO studentiv (JOBID,IHEAD,IATTIME,STNAME,IDATE,INAME,SIMAGE,IUPTIME,IUPNAME) VALUES ('$interview[0]','$interview[1]','$interview[2]','$interview[3]','$interview[4]','$interview[5]','$fileID','$time','$KanriName')");
 			if (!$result_flag) {
-	    	die('DELETEクエリーが失敗しました。'.mysql_error());
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
 			}
+		return mysql_insert_id();
     } catch (Exception $e) {
             echo ('システムエラーが発生しました');
     }
 }
 
+///////////////////////////////////////////書き直し
+function expertInsert($expert,$upfile2,$time,$KanriName){//専門家登録
+    try {
+	$fileID = picSet($upfile2);
+	//SQL文をセット//
+		$result_flag = mysql_query("INSERT INTO expert (JOBID,EHEAD,EXNAME,EDATE,ENAME,EIMAGE,EUPTIME,EUPNAME) VALUES ('$expert[0]','$expert[1]','$expert[2]','$expert[3]','$expert[4]','$fileID','$time','$KanriName')");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+		return mysql_insert_id();
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+///////////////////////////////////////////書き直し
+function reportInsert($report,$upfile4,$time,$KanriName){//レポート登録
+    try {
+	$fileID = picSet($upfile4);
+	//SQL文をセット//
+		$result_flag = mysql_query("INSERT INTO workrp (JOBID,WHEAD,WDATE,WNAME,WIMAGE,WUPTIME,WUPNAME) VALUES ('$report[0]','$report[1]','$report[2]','$report[3]','$fileID','$time','$KanriName')");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+		return mysql_insert_id();
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+
+///////////////////////////////////////////書き直し
+function studentviewInsert($interview2,$interview3,$upfile1,$interview){//学生インタビューの登録　コメント
+    try {
+	for ($i=0;(isset($interview2[$i]) && $interview2[$i] != ""); $i++){
+		if (is_uploaded_file($_FILES["upfile1"]["tmp_name"][$i])) {
+		$fileID = picSet2($upfile1,$i);
+		//SQL文をセット//
+		$result_flag = mysql_query("INSERT INTO studentview (ICHEAD,INTERVIEW,SVIMAGE,STUDENTID) VALUES ('$interview2[$i]','$interview3[$i]','$fileID','$interview')");
+		}else{
+		$result_flag = mysql_query("INSERT INTO studentview (ICHEAD,INTERVIEW,SVIMAGE,STUDENTID) VALUES ('$interview2[$i]','$interview3[$i]','0','$interview')");
+		}
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+		}
+		return mysql_insert_id();
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+///////////////////////////////////////////書き直し
+function expartviewInsert($expert2,$upfile3,$expert){//専門家の登録　コメント
+    try {
+	for ($i=0;(isset($expert2[$i]) && $expert2[$i] != ""); $i++){
+		if (is_uploaded_file($_FILES["upfile3"]["tmp_name"][$i])) {
+			$fileID = picSet2($upfile3,$i);
+			//SQL文をセット//
+			$result_flag = mysql_query("INSERT INTO expertview (ECHEAD,EXPERTCOM,EVIMAGE,EXPERTID) VALUES ('$expert2[$i]','$expert3[$i]','$fileID','expert')");
+			}else{
+			$result_flag = mysql_query("INSERT INTO expertview (ECHEAD,EXPERTCOM,EVIMAGE,EXPERTID) VALUES ('$expert2[$i]','$expert3[$i]','0','expert')");
+		}
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+		}
+		return mysql_insert_id();
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+///////////////////////////////////////////書き直し
+function workrpdateInsert($report2,$upfile5,$work){//お仕事スタジアムレポート登録　コメント
+    try {
+	for ($i=0;(isset($report2[$i]) && $report2[$i] != ""); $i++){
+		if (is_uploaded_file($_FILES["upfile5"]["tmp_name"][$i])) {
+			$fileID = picSet2($upfile5,$i);
+			//SQL文をセット//
+			$result_flag = mysql_query("INSERT INTO workrpdate (WCHEAD,REPORT,WIMAGE,WORKID) VALUES ('$report2[$i]','$report3[$i]','$fileID','work')");
+			}else{
+			$result_flag = mysql_query("INSERT INTO workrpdate (WCHEAD,REPORT,WIMAGE,WORKID) VALUES ('$report2[$i]','$report3[$i]','0','work')");
+		}
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+		}
+		return mysql_insert_id();
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+function picSet2($upfile,$i){//画像の設定
+
+    try {
+    //バイナリデータ
+    $fp = fopen($upfile["tmp_name"][$i], "rb");
+    $imgdat = fread($fp, filesize($upfile["tmp_name"][$i]));
+    fclose($fp);
+    $imgdat = addslashes($imgdat);
+
+    //拡張子
+    $dat = pathinfo($upfile["name"][$i]);
+    $extension = $dat['extension'];
+
+    // MIMEタイプ
+    if ( $extension == "jpg" || $extension == "jpeg" ) $mime = "image/jpeg";
+    else if( $extension == "gif" ) $mime = "image/gif";
+    else if ( $extension == "png" ) $mime = "image/png";
+	
+	//
+		$result_flag = mysql_query("INSERT INTO `image` (`IMAGE`, `MIME`) VALUES ('$imgdat', '$mime')");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+	return mysql_insert_id();
+
+    }catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
 
 ?>   

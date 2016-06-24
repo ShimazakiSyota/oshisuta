@@ -241,18 +241,18 @@ $(document).ready(function() {
 		echo "<li><a href=\"./topPage.php\">HOME</a></li>＞";
 		echo "<li><a href=\"./bunya.php\">分野別</a></li>＞";
 		$quryset = lowtagName($jobid);
-
+		if(isset($quryset[0][1])){
 		echo "<form  name='Form1' method='post' action='./subjectImageSearch.php' style=\"display:inline;\">";
 		echo "<input type='hidden' name='sbjct' value=".$quryset[0][0].">";
-		echo "<li><a href='javascript:Form1.submit()'>".$quryset[0][1]."</a></li>";
-
+		echo "<li><a href='javascript:Form1.submit()'>".$quryset[0][1]."＞</a></li>";
+		}
 //---------------------------------------------------------------------------------------------------
 	//職業情報取得
 	$data = joblist($jobid);
 
 		//１ループで１行データが取り出され、データが無くなるとループを抜けます。
 		//階層表示職業名
-		echo  "＞<li>".$data[1] ."</li><br />";//職業名
+		echo  "<li>".$data[1] ."</li><br />";//職業名
 		echo "</ul></div>";
 		echo "</form>";
 
@@ -390,7 +390,7 @@ $(document).ready(function() {
 	$quryset=cjobstadiumlist($data[0]);
 		foreach ($quryset as $cdata){
 
-			if (isset($cdata[0])) {
+			if ($cdata[0]!==0) {
        					echo "<img class=\"artwork\" height='100' src='./create_image.php?id=".$cdata[2] ."' /><br />";//お仕事スタジアム内容中の画像(main_v)?
 			}
 			echo "<h4>";
@@ -441,7 +441,7 @@ $(document).ready(function() {
 	//１ループで１行データが取り出され、データが無くなるとループを抜けます。
 	foreach ( $quryset as $cdata){
 
-			if (isset($cdata[0])) {
+			if ($cdata[0]!==0) {
        				echo "<img class=artwork  height='100' src='./create_image.php?id=".$data[3] ."' />";//内容中の専門家写真
 			}
 			echo "<h4>";
@@ -491,7 +491,7 @@ $(document).ready(function() {
 	$quryset=cstviewlist($data[0]);
 	foreach ( $quryset as $cdata){
 
-			if (isset($cdata[0])) {
+			if ($cdata[0]!==0) {
        				echo "<img class=\"artwork\"  height='100' src='./create_image.php?id=".$data[3] ."' />";//内容中の専門家写真
 			}
 			echo "<h4>";

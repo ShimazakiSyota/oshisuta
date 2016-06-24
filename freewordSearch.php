@@ -119,23 +119,42 @@ require_once 'DBmanager.php';
 //DB接続
 $con = connect();
 
+//セッション
+session_start();
+
+if (isset($_POST['message'])) {
+
 //フリーワードをPOSTで受け取る
-$freeword = $_POST['message'];
+$_SESSION['memo'] = $_POST['message'];
+
+}
+
+$freeword = $_SESSION['memo'];
+
+
 
 //フリーワードSQL文セット
 $data = kie($freeword);
 
+//件数
+$dataCount = count($data);
+
+
 //----------------------------------------------------------------------------------------------------
+
+if (!empty($data)){
 
 echo '<div id="box_">';
 
 echo '<h2>';
 //データの数
-echo '検索結果'.$dataCount = count($data).'件';
+echo '検索結果'.$dataCount.'件';
 echo '</h2>';
 
 //１ページあたりの表示数
+//10件ずつ
 $perNum = 10;
+
 //最大ページ数
 $maxPageNum = ceil($dataCount / $perNum);
 
@@ -170,20 +189,17 @@ else{
 	echo '件を表示)';
 	echo '<br />';
 
-?>
 
-		<ol>
-		<li><img src="//専門家インタビュー">専門家インタビュー</li>
-		<li><img src="//学生インタビュー">学生インタビュー</li>
-		<li><img src="//お仕事スタジアムレポート2016">お仕事スタジアムレポート2016</li>
-		</ol>
-	</div>
+echo		'<ol>';
+echo		'<li><img src="//専門家インタビュー">専門家インタビュー</li>';
+echo		'<li><img src="//学生インタビュー">学生インタビュー</li>';
+echo		'<li><img src="//お仕事スタジアムレポート2016">お仕事スタジアムレポート2016</li>';
+echo		'</ol>';
+echo	'</div>';
 
-	<div id="list_result">
+echo	'<div id="list_result">';
 
-<?php
 
-if (!empty($data)){
 
 //結果表示
 for($i = $startPoint; $i < $endPoint; $i++){
@@ -204,17 +220,23 @@ for($i = $startPoint; $i < $endPoint; $i++){
 
 
 		$stdnt = studentnull($data[$i][0]);
-		if (/*専門家*/$stdnt !== '0') {
+		$stdnt1 = count($stdnt);
+
+		if (/*専門家*/$stdnt1 !== 0) {
 			echo '<li><img src="./"></li>';
 		}
 
 		$exprt = expertnull($data[$i][0]);
-		if (/*学生*/ $exprt !== '0') {
+		$exprt1 = count($exprt);
+
+		if (/*学生*/ $exprt1 !== 0) {
 			echo '<li><img src="./"></li>';
 		}
 
 		$wrkrp = workrpnull($data[$i][0]);
-		if (/*レポート*/$wrkrp !== '0') {
+		$wrkrp1 = count($wrkrp);
+
+		if (/*レポート*/$wrkrp1 !== 0) {
 			echo '<li><img src="./"></li>';
 		}
 	}
@@ -247,47 +269,73 @@ for($i = $startPoint; $i < $endPoint; $i++){
 	echo '</div>';
 }
 
+
+//DB切断
+	dconnect($con);
+
+
 ?>
 
 			</div>
 		</main>
 
+
+<!--先頭に戻る-->
 <p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></p>
+	
 
-<?php
-//メインメニュー
-//フリーワード
-echo "<form action=\"freewordSearch.php\" method=\"POST\">";
-echo "<input type=\"text\" name=\"message\">";
-echo "<input type=\"submit\">";
-echo "</form>";
-//分野画面遷移
-echo "<form action=\"bunya.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"分野から探す\">";
-echo "</form>";
-//イメージ画面遷移
-echo "<form action=\"image.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"イメージから探す\">";
-echo "</form>";
-//50音画面遷移
-echo "<form action=\"gojyu.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"五十音から探す\">";
-echo "</form>";
-//気になるランキング画面遷移
-echo "<form action=\"ranking.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"気になるランキング\">";
-echo "</form>";
-//最近気になった仕事画面遷移
-echo "<form action=\"recently.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"最近気になった仕事\">";
-echo "</form>";
-//HOME画面遷移
-echo "<form action=\"topPage.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"HOME\">";
-echo "</form>";
-?>
+<!--フリーワード-->
+<form action="freewordSearch.php" method="POST">
+<input type="text" name="message">
+<input type="submit">
+</form>
 
-		<small>Copyright (c) shigotobu.All Right Reserved.</small>
+<!--分野画面遷移-->
+<form action="bunya.PHP" method="POST">
+<input type="submit"  value="分野から探す">
+</form>
+
+<!--イメージ画面遷移-->
+<form action="image.PHP" method="POST">
+<input type="submit"  value="イメージから探す">
+</form>
+
+<!--50音画面遷移-->
+<form action="gojyu.PHP" method="POST">
+<input type="submit"  value="五十音から探す">
+</form>
+
+<!--気になるランキング画面遷移-->
+<form action="ranking.PHP" method=\"POST\">
+<input type="submit"  value="気になるランキング">
+</form>
+
+<!--最近気になった仕事画面遷移-->
+<form action="recently.PHP" method="POST">
+<input type="submit"  value="最近気になった仕事">
+</form>
+
+<!--HOME画面遷移-->
+<form action="topPage.PHP" method="POST">
+<input type="submit"  value="HOME">
+</form>
+
+<!--サイトについて-->
+<a href="">サイトについて</a>
+
+<!--メンバー-->
+<a href="">メンバー</a>
+
+<!--サポート会社-->
+<a href="">サポート会社</a>
+
+<!--お問い合わせ-->
+<a href="">お問い合わせ</a>
+
+<p>将来なりたい仕事、決まっていますか？シゴト部では、進路で悩んでいる高校生向けに２００以上のお仕事を分かりやすく紹介！たくさんのお仕事の中からあなたの気になるお仕事を探しましょう！</p>
+
+
+<p><small>Copyright (c) shigotobu.All Right Reserved.</small></p>
 
 	</body>
 

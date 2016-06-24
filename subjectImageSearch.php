@@ -54,6 +54,12 @@
 
 </style>
 
+<?php
+//セッション
+session_start();
+
+?>
+
 <script type="text/javascript">
 //ハンバーガーメニュー
 $(function($) {
@@ -97,6 +103,7 @@ $(document).ready(function() {
 <?php
 require_once 'DBManager.php';
 
+
 //DB接続
 $con = connect();
 
@@ -105,29 +112,65 @@ $con = connect();
 		echo "<li><a href=\"./topPage.php\">HOME</a></li>＞";
 		echo "<li><a href=\"./bunya.php\">分野別</a></li>＞";
 
+
+
+
+
+
 if (isset($_POST['sbjct'])) {//詳細ページからsbjctの値が入ってる
 
-	$tagid = $_POST['sbjct'];
+	$_SESSION['subject'] = $_POST['sbjct'];
+
+}
+
+if (isset($_POST['bunya'])) {
+	//トップページからの値
+	$_SESSION['bny'] = $_POST['bunya'];
+
+}
+
+if (isset($_POST['image'])) {
+	//トップページからの値
+	$_SESSION['img'] = $_POST['image'];
+
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+if (isset($_SESSION['subject'])){//詳細からのセッション
+
+	$tagid = $_SESSION['subject'];
 
 	//タグ確認
 	$tagList = tagCheck($tagid);
 
 	echo '<li>'.$tagList[1].'</li>';
 
-} else if (isset($_POST['bunya'])) {
+
+}
+
+if (isset($_SESSION['bny'])) {
 	//トップページからの値
-	$tagid = $_POST['bunya'];
+	$tagid = $_SESSION['bny'];
 
 	//タグ確認
 	$tagList = tagCheck($tagid);
 
-} else if (isset($_POST['image'])) {
+}
+
+if (isset($_SESSION['img'])) {
 	//トップページからの値
-	$tagid = $_POST['image'];
+	$tagid = $_SESSION['img'];
 
 	//タグ確認
 	$tagList = tagCheck($tagid);
 }
+
+
+
+
 
 ?>
 				</ul></div>
@@ -156,9 +199,6 @@ if (isset($_POST['sbjct'])) {//詳細ページからsbjctの値が入ってる
 //----------------------------------------------------------------------------------------------------
 
 
-//上位タグIDかイメージタグIDをPOSTで受け取る
-$data = sbjctImgResult($tagid);
-
 
 //----------------------------------------------------------------------------------------------------
 
@@ -172,6 +212,7 @@ if($tagList[2] == '0') {
 
 	//セレクトタグ表示
 	echo '<form action="./subjectImageSearch.php" method="POST">';
+//	echo '<input type="hidden" name="">';
 	echo '<select name="sbjct">';
 	echo '<option value="">選択してください</option>';
 
@@ -187,30 +228,6 @@ if($tagList[2] == '0') {
 
 //----------------------------------------------------------------------------------------------------
 
-//下位タグ
-/*} else if($tagList[2] == '1') {
-
-	echo '<h2>分野別で探す</h2>';
-
-	//下位タグSQL文セット
-	$Reasult = tagRelationSelect($tagid);
-
-	//セレクトタグ表示
-	echo '<form action="./subjectImageSearch.php" method="POST">';
-	echo '<select name="sbjct">';
-	echo '<option value="">選択してください</option>';
-
-	foreach ($Reasult as $valuex) {
-		$value = tagCheck($valuex[0]);
-		echo '<option value="'.$value[0].タグID'">'.$value[1].タグ名'</option>';
-	}
-
-	echo '</select>';
-	echo '<input type="submit" value="検索"></form></div>';
-
-*/
-
-//----------------------------------------------------------------------------------------------------
 
 //イメージだったら
 } else if ($tagList[2] == '2') {
@@ -236,11 +253,19 @@ if($tagList[2] == '0') {
 
 //----------------------------------------------------------------------------------------------------
 
+//検索結果
+$data = sbjctImgResult($tagid);
+
+//件数
+$dataCount = count($data);
+
+if (!empty($data)){
+
 echo '<div id="box_">';
 
 echo '<h2>';
 //データの数
-echo '検索結果'.$dataCount = count($data).'件';
+echo '検索結果'.$dataCount.'件';
 echo '</h2>';
 
 //１ページあたりの表示数
@@ -292,7 +317,6 @@ else{
 
 <?php
 
-if (!empty($data)){
 
 //結果表示
 for($i = $startPoint; $i < $endPoint; $i++){
@@ -314,17 +338,23 @@ for($i = $startPoint; $i < $endPoint; $i++){
 
 
 		$stdnt = studentnull($data[$i][0]);
-		if (/*専門家*/$stdnt !== '0') {
+		$stdnt1 = count($stdnt);
+
+		if (/*専門家*/$stdnt1 !== 0) {
 			echo '<li><img src="./"></li>';
 		}
 
 		$exprt = expertnull($data[$i][0]);
-		if (/*学生*/ $exprt !== '0') {
+		$exprt1 = count($exprt);
+
+		if (/*学生*/ $exprt1 !== 0) {
 			echo '<li><img src="./"></li>';
 		}
 
 		$wrkrp = workrpnull($data[$i][0]);
-		if (/*レポート*/$wrkrp !== '0') {
+		$wrkrp1 = count($wrkrp);
+
+		if (/*レポート*/$wrkrp1 !== 0) {
 			echo '<li><img src="./"></li>';
 		}
 	}
@@ -356,6 +386,10 @@ for($i = $startPoint; $i < $endPoint; $i++){
 	echo '検索結果0件';
 	echo '</div>';
 }
+
+//DB切断
+	dconnect($con);
+
 
 ?>
 

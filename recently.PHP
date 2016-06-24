@@ -109,7 +109,7 @@ $(function($) {
     <li><a href="ranking.php">気になるランキング</a></li>
     <li><a href="recently.php">最近気になった仕事</a></li>
     <li><form action="freewordSearch.php" method="POST">
-	<input type="text" name="message">
+	<input type="search" name="message" pattern="[^\\x22\\x27]*"  required >
 	<input type="submit">
 	</form>
 	</li>
@@ -147,6 +147,14 @@ $arr = recently($tid);
 
 //件数
 $dataCount = count($arr);
+
+echo '<div id="box_">';
+
+echo '<h2>';
+//データの数
+echo $dataCount.'件';
+echo '</h2>';
+
 
 //１ページあたりの表示数
 //20個ずつ
@@ -239,7 +247,7 @@ echo '<p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></
 //メニューボタン
 //フリーワード
 echo "<form action=\"freewordSearch.php\" method=\"POST\">";
-echo "<input type=\"text\" name=\"message\">";
+echo "<input type=\"search\" name=\"message\" pattern='[^\\x22\\x27]*'  required >";
 echo "<input type=\"submit\">";
 echo "</form>";
 //分野画面遷移
