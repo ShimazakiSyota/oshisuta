@@ -287,10 +287,6 @@ function maxTag(){//最終更新したタグのID取得
 function jDelete($jobID){//選択されたのタグの削除
 
     try {
-		$job = joblist($jobID);
-		if($job[6] != 0){
-		picDelete($job[6]);
-		}
 	//SQL文をセット//
 		$result_flag = mysql_query('DELETE FROM job WHERE JOBID ='.$jobID);
 		jtrDelete($jobID);
@@ -403,7 +399,7 @@ function jobstadiumlist($jobid){//お仕事スタジアムレポート情報取�
 
     try {
 	//SQL文をセット//00
-		$queryset = mysql_query('SELECT * FROM workｒｐ WHERE JOBID ='.$jobid);
+		$queryset = mysql_query('SELECT * FROM workrp WHERE JOBID ='.$jobid);
 		$arr = array();
 		while ($data = mysql_fetch_array($queryset)){
 		array_push($arr, $data);
@@ -662,7 +658,7 @@ function comentInsert($school,$text,$jid,$upfile){//タグの追加
 			$result_flag = mysql_query("INSERT INTO expert (EXPERTCM,JOBID,EIMAGE) VALUES ('$text','$jid','$fileID')");
 		}
 		if($school==3){
-			$result_flag = mysql_query("INSERT INTO workｒｐ (REPORT,JOBID,WIMAGE) VALUES ('$text','$jid','$fileID')");
+			$result_flag = mysql_query("INSERT INTO workrp (REPORT,JOBID,WIMAGE) VALUES ('$text','$jid','$fileID')");
 		}
 		if (!$result_flag) {
 	    	die('INSERTクエリーが失敗しました。'.mysql_error());
@@ -682,7 +678,7 @@ function comentUpdate($school,$text,$textid){
 		$result_flag = mysql_query("UPDATE expert SET EXPERTCM = '$text' WHERE EXPERTID = '$textid'");
 		}
 		if($school==3){
-		$result_flag = mysql_query("UPDATE work r ｐ SET REPORT = '$text' WHERE WORKID = '$textid'");
+		$result_flag = mysql_query("UPDATE workrp SET REPORT = '$text' WHERE WORKID = '$textid'");
 		}
 			if (!$result_flag) {
 	    	die('UPDATEクエリーが失敗しました。'.mysql_error());
@@ -699,7 +695,7 @@ function getcoment($jobID,$school){//コメント変更用情報取得
 	$queryset;
 		if($school==1){$queryset = mysql_query('SELECT * FROM studentiv WHERE JOBID ='.$jobID);}
 		if($school==2){$queryset = mysql_query('SELECT * FROM expert WHERE JOBID ='.$jobID);}
-		if($school==3){$queryset = mysql_query('SELECT * FROM workｒｐ WHERE JOBID ='.$jobID);}
+		if($school==3){$queryset = mysql_query('SELECT * FROM workrp WHERE JOBID ='.$jobID);}
 		while ($data = mysql_fetch_array($queryset)){
 		array_push($arr, $data);
 		}
@@ -714,7 +710,7 @@ function jobInsert($jobInfo,$upfile){//お仕事登録
     try {
 	$fileID = picSet($upfile);
 	//SQL文をセット//
-		$result_flag = mysql_query("INSERT INTO job (JOBNAME,JOBJPN,JOBENG,JOBCC,JOBINTRO,JIMAGE) VALUES ('$jobInfo[0]','$jobInfo[1]','$jobInfo[2]','$jobInfo[3]','$jobInfo[4]','$fileID')");
+		$result_flag = mysql_query("INSERT INTO job (JOBNAME,JOBJPN,JOBENG,JOBCC,JOBINTRO,JIMAGE,JIMAGE2) VALUES ('$jobInfo[0]','$jobInfo[1]','$jobInfo[2]','$jobInfo[3]','$jobInfo[4]','$fileID')");
 			if (!$result_flag) {
 	    	die('INSERTクエリーが失敗しました。'.mysql_error());
 			}
@@ -958,7 +954,7 @@ function jobSchoolRelationInsert($jobID,$departmentID){//タグ職業関連の�
 	$result_flag = mysql_query("INSERT INTO jobmg (JOBID, DEPARTMENTID) VALUES ('$jobID','$departmentID')");
 		
 			if (!$result_flag) {
-	    	die('INSERTクエリーが失敗しました2。'.mysql_error());
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
 			}
     } catch (Exception $e) {
             echo ('システムエラーが発生しました');
@@ -1041,6 +1037,7 @@ function schoolUpdate($school){
             echo ('システムエラーが発生しました');
     }
 }
+///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////書き直し
 //学科の変更
 function departmentUpdate($school){
