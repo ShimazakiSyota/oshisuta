@@ -4,6 +4,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
+
+
+<?php
+if(!isset($_SESSION)){
+session_start();
+}
+?>
+
+
 <script type="text/javascript">
 
 //ページトップ
@@ -631,16 +640,13 @@ $(function($) {
     <li><a href="gojyu.php">五十音から探す</a></li>
     <li><a href="ranking.php">気になるランキング</a></li>
     <li><a href="recently.php">最近気になった仕事</a></li>
-    <li><form action="freewordSearch.php" method="POST">
-	<input type="search" name="message" pattern="[^\\x22\\x27]*"  required >
-	<input type="submit">
-	</form>
-	</li>
+    <li><a href="freeword.php">フリーワード</a></li>
     </ul>
 </div>
 
 
 <?php
+session_destroy();
 
 require_once 'DBmanager.php';
 	$con = connect();
@@ -717,7 +723,8 @@ $b=1;
 	$BigTadList = tagSelectAllKubun('0');
 	foreach( $BigTadList as $value ){
 	$b++;
-	echo "<form name='Form2".$b."' action='./subjectImageSearch.php' method = 'POST'>";
+echo $value[1];
+	echo "<form name='Form2".$b."' action='./subjectImageSearch.php' method ='POST'>";
 	echo "<li id=\"btn_z\">";
 	echo "<input type='hidden' name='bunya' value=".$value[0].">";
 	echo "<a href='javascript:Form2".$b.".submit()'>";
@@ -739,7 +746,7 @@ $b=1;
 	echo "<b>イメージから探す</b>";
 	$ImageList = tagSelectAllKubun('2');
 	foreach( $ImageList as $value ){
-	echo "<form action='./subjectImageSearch.php' method = 'POST'>";
+	echo "<form action='./subjectImageSearch2.php' method = 'POST'>";
 	echo "<li>";
 	echo "<button type='submit' name='image' value='".$value[0]."'>".$value[1]."</button><br>";
 	echo "</li>";
@@ -752,8 +759,8 @@ $b=1;
 	echo "<div id=\"box_keyword\">";
 	echo "<h3>";
 	echo "</h3>";
-	echo "<form action=\"freewordSearch.php\" method=\"POST\">";
-	echo "<input type=\"search\" name=\"message\" pattern='[^\\x22\\x27]*'  required >";
+	echo "<form action=\"freewordSearch.PHP\" method=\"POST\">";
+	echo "<input type=\"text\" name=\"message\">";
 	echo "<input type=\"submit\">";
 	echo "</form>";
 	echo "</div>";
@@ -790,44 +797,63 @@ $b=1;
 
 
 	dconnect($con);
-
-//先頭に戻る
-echo '<p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></p>';
-	
-//メニューボタン
-//フリーワード
-
-echo "<form action=\"freewordSearch.php\" method=\"POST\">";
-echo "<input type=\"search\" name=\"message\" pattern='[^\\x22\\x27]*'  required >";
-echo "<input type=\"submit\">";
-echo "</form>";
-//分野画面遷移
-echo "<form action=\"bunya.PHP\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"分野から探す\">";
-echo "</form>";
-//イメージ画面遷移
-echo "<form action=\"image.PHP\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"イメージから探す\">";
-echo "</form>";
-//50音画面遷移
-echo "<form action=\"gojyu.PHP\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"五十音から探す\">";
-echo "</form>";
-//気になるランキング画面遷移
-echo "<form action=\"ranking.PHP\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"気になるランキング\">";
-echo "</form>";
-//最近気になった仕事画面遷移
-echo "<form action=\"recently.PHP\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"最近気になった仕事\">";
-echo "</form>";
-//HOME画面遷移
-echo "<form action=\"topPage.PHP\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"HOME\">";
-echo "</form>";
-
-
 ?>
+
+<!--先頭に戻る-->
+<p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></p>
+	
+
+<!--フリーワード-->
+<form action="freewordSearch.php" method="POST">
+<input type="text" name="message" pattern='[^\\x22\\x27]*'  required>
+<input type="submit">
+</form>
+
+<!--分野画面遷移-->
+<form action="bunya.PHP" method="POST">
+<input type="submit"  value="分野から探す">
+</form>
+
+<!--イメージ画面遷移-->
+<form action="image.PHP" method="POST">
+<input type="submit"  value="イメージから探す">
+</form>
+
+<!--50音画面遷移-->
+<form action="gojyu.PHP" method="POST">
+<input type="submit"  value="五十音から探す">
+</form>
+
+<!--気になるランキング画面遷移-->
+<form action="ranking.PHP" method=\"POST\">
+<input type="submit"  value="気になるランキング">
+</form>
+
+<!--最近気になった仕事画面遷移-->
+<form action="recently.PHP" method="POST">
+<input type="submit"  value="最近気になった仕事">
+</form>
+
+<!--HOME画面遷移-->
+<form action="topPage.PHP" method="POST">
+<input type="submit"  value="HOME">
+</form>
+
+<!--サイトについて-->
+<a href="">サイトについて</a>
+
+<!--メンバー-->
+<a href="">メンバー</a>
+
+<!--サポート会社-->
+<a href="">サポート会社</a>
+
+<!--お問い合わせ-->
+<a href="">お問い合わせ</a>
+
+<p>将来なりたい仕事、決まっていますか？シゴト部では、進路で悩んでいる高校生向けに２００以上のお仕事を分かりやすく紹介！たくさんのお仕事の中からあなたの気になるお仕事を探しましょう！</p>
+
+
 <p><small>Copyright (c) shigotobu.All Right Reserved.</small></p>
 
 </BODY>

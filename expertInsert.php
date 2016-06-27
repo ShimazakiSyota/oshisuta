@@ -1,31 +1,30 @@
 <html>
 	<head>
 		<meta http-equiv="REFRESH" content="10000000000;URL=./jobTop.php">
-		<title>�E�ƒǉ�</title>
+		<title>職業追加</title>
 	</head>
 	<body>
 			<?php
 
-			session_start(); //session�J�n
+			session_start(); //session開始
 
-			require_once 'DBmanager.php'; //DB�}�l�[�W���[�̓ǂݍ���
-			$con = connect(); //�f�[�^�x�[�X�ڑ�
+			require_once 'DBmanager.php'; //DBマネージャーの読み込み
+			$con = connect(); //データベース接続
 
-			sessionCheck($_SESSION['id'],$_SESSION['pass']);//�Z�b�V�����̊m�F
+			sessionCheck($_SESSION['id'],$_SESSION['pass']);//セッションの確認
 			date_default_timezone_set('Asia/Tokyo');
 
 		$jobid = $_POST['expert'];
 		$time = date("Y-m-d H:i:s");
 		$KanriName = sessionName($_SESSION['id'],$_SESSION['pass']);
-			//���Əڍ�
+			//専門家詳細
 			$expert = expertInsert($_POST['expert'],$_FILES['upfile2'],$time,$KanriName[0]);
+			//専門家コメントの追加
+			$xyz = expartviewInsert($_POST['expert2'],$_POST['expert3'],$_FILES['upfile3'],$expert);
 
-			//���ƃR�����g�̒ǉ�
-			$xyz = studentviewInsert($_POST['expert2'],$_POST['expert3'],$_FILES['upfile3'],$expert);
+		echo "コメントを追加しました";
 
-		echo "�R�����g��ǉ����܂���";
-
-		dconnect($con); //�f�[�^�x�[�X�ؒf
+		dconnect($con); //データベース切断
 			?>
 	</body>
 </html>

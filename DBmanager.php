@@ -1256,15 +1256,15 @@ function studentviewInsert($interview2,$interview3,$upfile1,$interview){//学生
 }
 
 ///////////////////////////////////////////書き直し
-function expartviewInsert($expert2,$upfile3,$expert){//専門家の登録　コメント
+function expartviewInsert($expert2,$expert3,$upfile3,$expert){//専門家の登録　コメント
     try {
 	for ($i=0;(isset($expert2[$i]) && $expert2[$i] != ""); $i++){
 		if (is_uploaded_file($_FILES["upfile3"]["tmp_name"][$i])) {
 			$fileID = picSet2($upfile3,$i);
 			//SQL文をセット//
-			$result_flag = mysql_query("INSERT INTO expertview (ECHEAD,EXPERTCOM,EVIMAGE,EXPERTID) VALUES ('$expert2[$i]','$expert3[$i]','$fileID','expert')");
+			$result_flag = mysql_query("INSERT INTO expartview (ECHEAD,EXPERTCOM,EVIMAGE,EXPERTID) VALUES ('$expert2[$i]','$expert3[$i]','$fileID','$expert')");
 			}else{
-			$result_flag = mysql_query("INSERT INTO expertview (ECHEAD,EXPERTCOM,EVIMAGE,EXPERTID) VALUES ('$expert2[$i]','$expert3[$i]','0','expert')");
+			$result_flag = mysql_query("INSERT INTO expartview (ECHEAD,EXPERTCOM,EVIMAGE,EXPERTID) VALUES ('$expert2[$i]','$expert3[$i]','0','$expert')");
 		}
 			if (!$result_flag) {
 	    	die('INSERTクエリーが失敗しました。'.mysql_error());
@@ -1277,15 +1277,15 @@ function expartviewInsert($expert2,$upfile3,$expert){//専門家の登録　コ�
 }
 
 ///////////////////////////////////////////書き直し
-function workrpdateInsert($report2,$upfile5,$work){//お仕事スタジアムレポート登録　コメント
+function workrpdateInsert($report2,$report3,$upfile5,$work){//お仕事スタジアムレポート登録　コメント
     try {
 	for ($i=0;(isset($report2[$i]) && $report2[$i] != ""); $i++){
 		if (is_uploaded_file($_FILES["upfile5"]["tmp_name"][$i])) {
 			$fileID = picSet2($upfile5,$i);
 			//SQL文をセット//
-			$result_flag = mysql_query("INSERT INTO workrpdate (WCHEAD,REPORT,WIMAGE,WORKID) VALUES ('$report2[$i]','$report3[$i]','$fileID','work')");
+			$result_flag = mysql_query("INSERT INTO workrpdate (WHEAD,REPORT,WIMAGE,WORKID) VALUES ('$report2[$i]','$report3[$i]','$fileID','$work')");
 			}else{
-			$result_flag = mysql_query("INSERT INTO workrpdate (WCHEAD,REPORT,WIMAGE,WORKID) VALUES ('$report2[$i]','$report3[$i]','0','work')");
+			$result_flag = mysql_query("INSERT INTO workrpdate (WHEAD,REPORT,WIMAGE,WORKID) VALUES ('$report2[$i]','$report3[$i]','0','$work')");
 		}
 			if (!$result_flag) {
 	    	die('INSERTクエリーが失敗しました。'.mysql_error());

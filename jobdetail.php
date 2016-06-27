@@ -226,7 +226,7 @@ $(document).ready(function() {
     <li><a href="ranking.php">気になるランキング</a></li>
     <li><a href="recently.php">最近気になった仕事</a></li>
     <li><form action="freewordSearch.php" method="POST">
-	<input type="text" name="message">
+	<input type="text" name="message" pattern='[^\\x22\\x27]*'  required>
 	<input type="submit">
 	</form>
 	</li>
@@ -244,7 +244,7 @@ $(document).ready(function() {
 		if(isset($quryset[0][1])){
 		echo "<form  name='Form1' method='post' action='./subjectImageSearch.php' style=\"display:inline;\">";
 		echo "<input type='hidden' name='sbjct' value=".$quryset[0][0].">";
-		echo "<li><a href='javascript:Form1.submit()'>".$quryset[0][1]."＞</a></li>";
+		echo "<li><a href='javascript:Form1.submit()'>".$quryset[0][1]."</a></li>＞";
 		}
 //---------------------------------------------------------------------------------------------------
 	//職業情報取得
@@ -336,8 +336,8 @@ $(document).ready(function() {
 	$cnt++;
 
 		echo "<li class=\"btn_tag\">";
-		echo "<form  name='Form".$cnt."' method='post' action='./subjectImageSearch.php' style=\"display:inline;\">";
-		echo "<input type='hidden' name='sbjct' value=".$data[0].">";
+		echo "<form  name='Form".$cnt."' method='post' action='./subjectImageSearch2.php' style=\"display:inline;\">";
+		echo "<input type='hidden' name='image' value=".$data[0].">";
 		echo "<li><a href='javascript:Form".$cnt.".submit()'>".$data[1]."</a></li></form>";
 
 
@@ -383,15 +383,18 @@ $(document).ready(function() {
 		echo "<p class=\"title\">";
 		echo $data[3]."<br />";//大見出し(p title)
 		echo "</p>";
+			if ($data[2]!=0) {
+
        		echo "<img class=\"main_v\"  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
+}
 		echo "<p class=\"date\">";
 		echo $data[4]."<br />";//取材日(p date)
 		echo "</p>";
 	$quryset=cjobstadiumlist($data[0]);
 		foreach ($quryset as $cdata){
 
-			if ($cdata[0]!==0) {
-       					echo "<img class=\"artwork\" height='100' src='./create_image.php?id=".$cdata[2] ."' /><br />";//お仕事スタジアム内容中の画像(main_v)?
+			if ($cdata[0]!=0) {
+       					echo "<img class=\"artwork\" height='100' src='./create_image.php?id=".$cdata[0] ."' /><br />";//お仕事スタジアム内容中の画像(main_v)?
 			}
 			echo "<h4>";
 			echo  $cdata[1] ."<br />";//小見出し
@@ -428,12 +431,12 @@ $(document).ready(function() {
 		echo "<p class=\"title\">";
 		echo $data[3]."<br />";//大見出し(p title)
 		echo "</p>";
-       		echo "<img class=main_v  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
+			if ($data[2]!=0) {
+
+       		echo "<img class=\"main_v\"  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
+}
 		echo "<p class=\"position\">";
 		echo $data[4]."<br />";//専門家名(p position)
-		echo "</p>";
-		echo "<p class=\"date\">";
-		echo $data[5]."<br />";//取材日(p date)
 		echo "</p>";
 
 	$quryset=cexpertlist($data[0]);
@@ -441,8 +444,8 @@ $(document).ready(function() {
 	//１ループで１行データが取り出され、データが無くなるとループを抜けます。
 	foreach ( $quryset as $cdata){
 
-			if ($cdata[0]!==0) {
-       				echo "<img class=artwork  height='100' src='./create_image.php?id=".$data[3] ."' />";//内容中の専門家写真
+			if ($cdata[0]!=0) {
+       				echo "<img class=artwork  height='100' src='./create_image.php?id=".$cdata[0] ."' />";//内容中の専門家写真
 			}
 			echo "<h4>";
 			echo  $cdata[1] ."<br />";//学生見出し
@@ -452,6 +455,10 @@ $(document).ready(function() {
 			echo  $cdata[2]."<br />";//コメント
 			echo "</p>";
 		}
+		echo "<p class=\"date\">";
+		echo $data[5]."<br />";//取材日(p date)
+		echo "</p>";
+
 		echo "<p class=\"interviewer\">";
 		echo $data[6];//取材者名(p interviewer)
 		echo "</p>";
@@ -481,7 +488,10 @@ $(document).ready(function() {
 		echo "<p class=\"title\">";
 		echo $data[3]."<br />";//大見出し(p title)
 		echo "</p>";
+			if ($data[2] != 0) {
+
        		echo "<img class=\"main_v\"  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
+}
 
 		echo "<p class=\"position\">";
 		echo $data[4]."<br />";//学生HN(p position)
@@ -491,8 +501,8 @@ $(document).ready(function() {
 	$quryset=cstviewlist($data[0]);
 	foreach ( $quryset as $cdata){
 
-			if ($cdata[0]!==0) {
-       				echo "<img class=\"artwork\"  height='100' src='./create_image.php?id=".$data[3] ."' />";//内容中の専門家写真
+			if ($cdata[0] != 0) {
+       				echo "<img class=\"artwork\"  height='100' src='./create_image.php?id=".$cdata[0] ."' />";//内容中の専門家写真
 			}
 			echo "<h4>";
 			echo  $cdata[1] ."<br />";//学生見出し
@@ -580,52 +590,66 @@ $(document).ready(function() {
 
 //---------------------------------------------------------------------------------------------------
 ?>
-<!--トップ-->
-<p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></p><!--ページトップ移動-->
-<?php
-//メニューボタン
-//フリーワード
-echo "<form action=\"freewordSearch.php\" method=\"POST\">";
-echo "<input type=\"text\" name=\"message\">";
-echo "<input type=\"submit\">";
-echo "</form>";
-//分野画面遷移
-echo "<form action=\"bunya.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"分野から探す\">";
-echo "</form>";
-//イメージ画面遷移
-echo "<form action=\"image.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"イメージから探す\">";
-echo "</form>";
-//50音画面遷移
-echo "<form action=\"gojyu.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"五十音から探す\">";
-echo "</form>";
-//気になるランキング画面遷移
-echo "<form action=\"ranking.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"気になるランキング\">";
-echo "</form>";
-//最近気になった仕事画面遷移
-echo "<form action=\"recently.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"最近気になった仕事\">";
-echo "</form>";
-//HOME画面遷移
-echo "<form action=\"topPage.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"HOME\">";
-echo "</form>";
-	?>
 
+
+<!--先頭に戻る-->
+<p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></p>
+	
+
+<?php
+//フリーワード
+echo '<form action="freewordSearch.php" method="POST">';
+echo '<input type="search" name="message" pattern="[^\\x22\\x27]*"  required >';
+echo '<input type="submit">';
+echo '</form>';
+?>
+
+<!--分野画面遷移-->
+<form action="bunya.PHP" method="POST">
+<input type="submit"  value="分野から探す">
+</form>
+
+<!--イメージ画面遷移-->
+<form action="image.PHP" method="POST">
+<input type="submit"  value="イメージから探す">
+</form>
+
+<!--50音画面遷移-->
+<form action="gojyu.PHP" method="POST">
+<input type="submit"  value="五十音から探す">
+</form>
+
+<!--気になるランキング画面遷移-->
+<form action="ranking.PHP" method=\"POST\">
+<input type="submit"  value="気になるランキング">
+</form>
+
+<!--最近気になった仕事画面遷移-->
+<form action="recently.PHP" method="POST">
+<input type="submit"  value="最近気になった仕事">
+</form>
+
+<!--HOME画面遷移-->
+<form action="topPage.PHP" method="POST">
+<input type="submit"  value="HOME">
+</form>
+
+<!--サイトについて-->
+<a href="">サイトについて</a>
+
+<!--メンバー-->
+<a href="">メンバー</a>
+
+<!--サポート会社-->
+<a href="">サポート会社</a>
+
+<!--お問い合わせ-->
+<a href="">お問い合わせ</a>
+
+<p>将来なりたい仕事、決まっていますか？シゴト部では、進路で悩んでいる高校生向けに２００以上のお仕事を分かりやすく紹介！たくさんのお仕事の中からあなたの気になるお仕事を探しましょう！</p>
 
 
 <p><small>Copyright (c) shigotobu.All Right Reserved.</small></p>
-
-
-
-
-
-
-
-
 </body>
 </html>
 

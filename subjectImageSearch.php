@@ -117,31 +117,18 @@ $con = connect();
 
 
 
-if (isset($_POST['sbjct'])) {//詳細ページからsbjctの値が入ってる
+if (isset($_POST['sbjct'])) {//検索ページ、詳細ページからsbjctの値が入ってる
+
 
 	$_SESSION['subject'] = $_POST['sbjct'];
 
-}
-
-if (isset($_POST['bunya'])) {
-	//トップページからの値
-	$_SESSION['bny'] = $_POST['bunya'];
-
-}
-
-if (isset($_POST['image'])) {
-	//トップページからの値
-	$_SESSION['img'] = $_POST['image'];
-
-}
-
-
-
-///////////////////////////////////////////////////////////////////////////////
-
-if (isset($_SESSION['subject'])){//詳細からのセッション
-
 	$tagid = $_SESSION['subject'];
+
+	$sbjct = tagRelationSelect($_SESSION['subject']);
+
+	$_SESSION['subject1'] = $sbjct[0][0];
+
+	$tid = $_SESSION['subject1'];
 
 	//タグ確認
 	$tagList = tagCheck($tagid);
@@ -149,25 +136,33 @@ if (isset($_SESSION['subject'])){//詳細からのセッション
 	echo '<li>'.$tagList[1].'</li>';
 
 
-}
+} else if (isset($_SESSION['subject'])){//詳細からのセッション
 
-if (isset($_SESSION['bny'])) {
+	$tagid = $_SESSION['subject'];
+
+	$tid = $_SESSION['subject1'];
+
+	//タグ確認
+	$tagList = tagCheck($tagid);
+	echo '<li>'.$tagList[1].'</li>';
+
+} else if (isset($_POST['bunya'])) {
+
+	//トップページからの値
+	$_SESSION['bny'] = $_POST['bunya'];
+
+	$tagid = $_SESSION['bny'];
+
+	$tid = $_SESSION['bny'];
+
+
+} else if (isset($_SESSION['bny'])) {
 	//トップページからの値
 	$tagid = $_SESSION['bny'];
 
-	//タグ確認
-	$tagList = tagCheck($tagid);
+	$tid = $_SESSION['bny'];
 
 }
-
-if (isset($_SESSION['img'])) {
-	//トップページからの値
-	$tagid = $_SESSION['img'];
-
-	//タグ確認
-	$tagList = tagCheck($tagid);
-}
-
 
 
 
@@ -185,7 +180,7 @@ if (isset($_SESSION['img'])) {
     				<li><a href="gojyu.php">五十音から探す</a></li>
     				<li><a href="ranking.php">気になるランキング</a></li>
     				<li><a href="recently.php">最近気になった仕事</a></li>
-    				<li><form action="freewordSearch.php" method="POST"><input type="text" name="message"><input type="submit"></form></li>
+    				<li><form action="freewordSearch.php" method="POST"><input type="text" name="message" pattern='[^\\x22\\x27]*'  required><input type="submit"></form></li>
     				</ul>
 
 			</div>
@@ -203,12 +198,13 @@ if (isset($_SESSION['img'])) {
 //----------------------------------------------------------------------------------------------------
 
 //分野別の上位タグだったら
-if($tagList[2] == '0') {
 
 	echo '<h2>分野別で探す</h2>';
 
 	//下位タグSQL文セット
-	$Reasult = tagRelationSelect($tagid);
+	$Reasult = tagRelationSelect($tid);
+
+
 
 	//セレクトタグ表示
 	echo '<form action="./subjectImageSearch.php" method="POST">';
@@ -224,32 +220,6 @@ if($tagList[2] == '0') {
 	echo '</select>';
 	echo '<input type="submit" value="検索"></form></div>';
 
-
-
-//----------------------------------------------------------------------------------------------------
-
-
-//イメージだったら
-} else if ($tagList[2] == '2') {
-
-	echo '<h2>イメージで探す</h2>';
-
-	//イメージ名SQL文セット
-	$imgResult = tagSelectAllKubun('2');
-
-	//セレクトタグ表示
-	echo '<form action="./subjectImageSearch.php" method="POST">';
-	echo '<select name="image">';
-	echo '<option value="">選択してください</option>';
-
-	foreach ($imgResult as $value) {
-		echo '<option value="'.$value[0]./*タグID*/'">'.$value[1]./*タグ名*/'</option>';
-	}
-
-	echo '</select>';
-	echo '<input type="submit" value="検索"></form></div>';
-
-}
 
 //----------------------------------------------------------------------------------------------------
 
@@ -396,42 +366,62 @@ for($i = $startPoint; $i < $endPoint; $i++){
 			</div>
 		</main>
 
+<!--先頭に戻る-->
 <p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></p>
+	
 
-<?php
-//メインメニュー
-//フリーワード
-echo "<form action=\"freewordSearch.php\" method=\"POST\">";
-echo "<input type=\"text\" name=\"message\">";
-echo "<input type=\"submit\">";
-echo "</form>";
-//分野画面遷移
-echo "<form action=\"bunya.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"分野から探す\">";
-echo "</form>";
-//イメージ画面遷移
-echo "<form action=\"image.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"イメージから探す\">";
-echo "</form>";
-//50音画面遷移
-echo "<form action=\"gojyu.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"五十音から探す\">";
-echo "</form>";
-//気になるランキング画面遷移
-echo "<form action=\"ranking.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"気になるランキング\">";
-echo "</form>";
-//最近気になった仕事画面遷移
-echo "<form action=\"recently.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"最近気になった仕事\">";
-echo "</form>";
-//HOME画面遷移
-echo "<form action=\"topPage.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"HOME\">";
-echo "</form>";
-?>
+<!--フリーワード-->
+<form action="freewordSearch.php" method="POST">
+<input type="text" name="message" pattern='[^\\x22\\x27]*'  required>
+<input type="submit">
+</form>
 
-		<small>Copyright (c) shigotobu.All Right Reserved.</small>
+<!--分野画面遷移-->
+<form action="bunya.PHP" method="POST">
+<input type="submit"  value="分野から探す">
+</form>
+
+<!--イメージ画面遷移-->
+<form action="image.PHP" method="POST">
+<input type="submit"  value="イメージから探す">
+</form>
+
+<!--50音画面遷移-->
+<form action="gojyu.PHP" method="POST">
+<input type="submit"  value="五十音から探す">
+</form>
+
+<!--気になるランキング画面遷移-->
+<form action="ranking.PHP" method=\"POST\">
+<input type="submit"  value="気になるランキング">
+</form>
+
+<!--最近気になった仕事画面遷移-->
+<form action="recently.PHP" method="POST">
+<input type="submit"  value="最近気になった仕事">
+</form>
+
+<!--HOME画面遷移-->
+<form action="topPage.PHP" method="POST">
+<input type="submit"  value="HOME">
+</form>
+
+<!--サイトについて-->
+<a href="">サイトについて</a>
+
+<!--メンバー-->
+<a href="">メンバー</a>
+
+<!--サポート会社-->
+<a href="">サポート会社</a>
+
+<!--お問い合わせ-->
+<a href="">お問い合わせ</a>
+
+<p>将来なりたい仕事、決まっていますか？シゴト部では、進路で悩んでいる高校生向けに２００以上のお仕事を分かりやすく紹介！たくさんのお仕事の中からあなたの気になるお仕事を探しましょう！</p>
+
+
+<p><small>Copyright (c) shigotobu.All Right Reserved.</small></p>
 
 	</body>
 

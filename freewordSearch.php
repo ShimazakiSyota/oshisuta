@@ -103,7 +103,7 @@ $(document).ready(function() {
     				<li><a href="gojyu.php">五十音から探す</a></li>
     				<li><a href="ranking.php">気になるランキング</a></li>
     				<li><a href="recently.php">最近気になった仕事</a></li>
-    				<li><form action="freewordSearch.php" method="POST"><input type="text" name="message"><input type="submit"></form></li>
+    				<li><form action="freewordSearch.php" method="POST"><input type="text" name="message" pattern='[^\\x22\\x27]*'  required><input type="submit"></form></li>
     				</ul>
 			</div>
 		</header>
@@ -284,11 +284,13 @@ for($i = $startPoint; $i < $endPoint; $i++){
 <p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></p>
 	
 
-<!--フリーワード-->
-<form action="freewordSearch.php" method="POST">
-<input type="text" name="message">
-<input type="submit">
-</form>
+<?php
+//フリーワード
+echo '<form action="freewordSearch.php" method="POST">';
+echo '<input type="search" name="message" pattern="[^\\x22\\x27]*"  required >';
+echo '<input type="submit">';
+echo '</form>';
+?>
 
 <!--分野画面遷移-->
 <form action="bunya.PHP" method="POST">

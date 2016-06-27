@@ -112,8 +112,9 @@ $(function($) {
     <li><a href="ranking.php">気になるランキング</a></li>
     <li><a href="recently.php">最近気になった仕事</a></li>
     <li><form action="freewordSearch.php" method="POST">
-	<input type="search" name="message" pattern="[^\\x22\\x27]*"  required >
+	<input type="search" name="message" pattern="[^\\x22\\x27]*"  required>
 	<input type="submit">
+
 	</form>
 	</li>
     </ul>
@@ -127,77 +128,91 @@ require_once 'DBmanager.php'; //関数呼び出しより手前に記述する
 //DB接続
 $con = connect();
 
-//メニューボタン
-
-echo "<div id=\"box.genre\">";
-echo "<h3>";
-
-echo "</h3>";
-
+$b=1;
 	//分野検索
 	echo "<div id=\"box_genre\">";
 	echo "<ul>";
 	echo "<li id=\"btn_z\">";
 	echo "<b>分野別から探す</b>";
 	$BigTadList = tagSelectAllKubun('0');
-	echo "<form action='./subjectImageSearch.php' method = 'POST'>";
 	foreach( $BigTadList as $value ){
+	$b++;
+	echo "<form name='Form2".$b."' action='./subjectImageSearch.php' method = 'POST'>";
 	echo "<li id=\"btn_z\">";
-		echo "<button type='submit' name='bunya' value='".$value[0]."'>".$value[1]."</button><br>";
+	echo "<input type='hidden' name='bunya' value=".$value[0].">";
+	echo "<a href='javascript:Form2".$b.".submit()'>";
+	echo "<img height='100' img src='./create_image.php?id=".$value[3]."' /></a>";
+//	echo "<button type='submit' name='bunya' value='".$value[0]."'>".$value[1]."</button><br>";
 	echo "</li>";
+	echo "</form>";
 	}
 	echo "</ul>";
 	echo "</div>";
-	echo "</form>";
-
-echo "</div>";
-
-
-//先頭に戻る
-echo '<p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></p>';
-echo '<p><small>Copyright (c) shigotobu.All Right Reserved.</small></p>';
-
-
-//メニューボタン
-//フリーワード
-echo "<form action=\"freewordSearch.php\" method=\"POST\">";
-echo "<input type=\"search\" name=\"message\" pattern='[^\\x22\\x27]*'  required >";
-echo "<input type=\"submit\">";
-echo "</form>";
-//分野画面遷移
-echo "<form action=\"bunya.PHP\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"分野から探す\">";
-echo "</form>";
-//イメージ画面遷移
-echo "<form action=\"image.PHP\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"イメージから探す\">";
-echo "</form>";
-//50音画面遷移
-echo "<form action=\"gojyu.PHP\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"五十音から探す\">";
-echo "</form>";
-//気になるランキング画面遷移
-echo "<form action=\"ranking.PHP\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"気になるランキング\">";
-echo "</form>";
-//最近気になった仕事画面遷移
-echo "<form action=\"recently.PHP\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"最近気になった仕事\">";
-echo "</form>";
-//HOME画面遷移
-echo "<form action=\"topPage.php\" method=\"POST\">";
-echo "<input type=\"submit\"  value=\"HOME\">";
-echo "</form>";
-
-
-
 
 
 //DB切断
 dconnect($con);
 
-
 ?>
+
+
+<!--先頭に戻る-->
+<p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></p>
+	
+<?php
+//フリーワード
+echo '<form action="freewordSearch.php" method="POST">';
+echo '<input type="search" name="message" pattern="[^\\x22\\x27]*"  required >';
+echo '<input type="submit">';
+echo '</form>';
+?>
+
+<!--分野画面遷移-->
+<form action="bunya.PHP" method="POST">
+<input type="submit"  value="分野から探す">
+</form>
+
+<!--イメージ画面遷移-->
+<form action="image.PHP" method="POST">
+<input type="submit"  value="イメージから探す">
+</form>
+
+<!--50音画面遷移-->
+<form action="gojyu.PHP" method="POST">
+<input type="submit"  value="五十音から探す">
+</form>
+
+<!--気になるランキング画面遷移-->
+<form action="ranking.PHP" method=\"POST\">
+<input type="submit"  value="気になるランキング">
+</form>
+
+<!--最近気になった仕事画面遷移-->
+<form action="recently.PHP" method="POST">
+<input type="submit"  value="最近気になった仕事">
+</form>
+
+<!--HOME画面遷移-->
+<form action="topPage.PHP" method="POST">
+<input type="submit"  value="HOME">
+</form>
+
+<!--サイトについて-->
+<a href="">サイトについて</a>
+
+<!--メンバー-->
+<a href="">メンバー</a>
+
+<!--サポート会社-->
+<a href="">サポート会社</a>
+
+<!--お問い合わせ-->
+<a href="">お問い合わせ</a>
+
+<p>将来なりたい仕事、決まっていますか？シゴト部では、進路で悩んでいる高校生向けに２００以上のお仕事を分かりやすく紹介！たくさんのお仕事の中からあなたの気になるお仕事を探しましょう！</p>
+
+
+<p><small>Copyright (c) shigotobu.All Right Reserved.</small></p>
 	</body>
 </html>
 
