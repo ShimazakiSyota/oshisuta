@@ -1055,7 +1055,7 @@ function departmentUpdate($school){
 function recently($re){//最近気になった仕事
 
     try {
-		$queryset = mysql_query("SELECT job.JOBID,job.JOBNAME FROM job,good WHERE job.JOBID =good.JOBID AND good.TINFO LIKE '%".$re."%' GROUP BY good.JOBID ");
+		$queryset = mysql_query("SELECT job.JOBID,job.JOBNAME FROM job,good WHERE job.JOBID =good.JOBID AND good.TINFO LIKE '%".$re."%'");
 		$arr = array();
 			while ($data = mysql_fetch_array($queryset)){
 			array_push($arr, $data);
