@@ -506,17 +506,23 @@ for($i = $startPoint; $i < $endPoint; $i++){
 
 
 		$stdnt = studentnull($data[$i][0]);
-		if (/*専門家*/$stdnt !== '0') {
+		$stdnt1 = count($stdnt);
+
+		if (/*専門家*/$stdnt1 !== 0) {
 			echo '<li><img src="./"></li>';
 		}
 
 		$exprt = expertnull($data[$i][0]);
-		if (/*学生*/ $exprt !== '0') {
+		$exprt1 = count($exprt);
+
+		if (/*学生*/ $exprt1 !== 0) {
 			echo '<li><img src="./"></li>';
 		}
 
 		$wrkrp = workrpnull($data[$i][0]);
-		if (/*レポート*/$wrkrp !== '0') {
+		$wrkrp1 = count($wrkrp);
+
+		if (/*レポート*/$wrkrp1 !== 0) {
 			echo '<li><img src="./"></li>';
 		}
 	}
