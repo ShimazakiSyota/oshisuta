@@ -1191,9 +1191,14 @@ function tagFileIDUpdate ($tagID,$fileID){
 ////////////////////////////////////////書き直し
 function interviewInsert($interview,$upfile,$time,$KanriName){//学生インタビュー登録
     try {
-	$fileID = picSet($upfile);
+		if (is_uploaded_file($_FILES["upfile"]["tmp_name"])) {
+
+			$fileID = picSet($upfile);
 	//SQL文をセット//
 		$result_flag = mysql_query("INSERT INTO studentiv (JOBID,IHEAD,IATTIME,STNAME,IDATE,INAME,SIMAGE,IUPTIME,IUPNAME) VALUES ('$interview[0]','$interview[1]','$interview[2]','$interview[3]','$interview[4]','$interview[5]','$fileID','$time','$KanriName')");
+		} else {
+		$result_flag = mysql_query("INSERT INTO studentiv (JOBID,IHEAD,IATTIME,STNAME,IDATE,INAME,SIMAGE,IUPTIME,IUPNAME) VALUES ('$interview[0]','$interview[1]','$interview[2]','$interview[3]','$interview[4]','$interview[5]','0','$time','$KanriName')");
+		}
 			if (!$result_flag) {
 	    	die('INSERTクエリーが失敗しました。'.mysql_error());
 			}
@@ -1206,9 +1211,14 @@ function interviewInsert($interview,$upfile,$time,$KanriName){//学生インタ�
 ///////////////////////////////////////////書き直し
 function expertInsert($expert,$upfile2,$time,$KanriName){//専門家登録
     try {
-	$fileID = picSet($upfile2);
+		if (is_uploaded_file($_FILES["upfile2"]["tmp_name"])) {
+
+			$fileID = picSet($upfile2);
 	//SQL文をセット//
-		$result_flag = mysql_query("INSERT INTO expert (JOBID,EHEAD,EXNAME,EDATE,ENAME,EIMAGE,EUPTIME,EUPNAME) VALUES ('$expert[0]','$expert[1]','$expert[2]','$expert[3]','$expert[4]','$fileID','$time','$KanriName')");
+			$result_flag = mysql_query("INSERT INTO expert (JOBID,EHEAD,EXNAME,EDATE,ENAME,EIMAGE,EUPTIME,EUPNAME) VALUES ('$expert[0]','$expert[1]','$expert[2]','$expert[3]','$expert[4]','$fileID','$time','$KanriName')");
+		} else {
+			$result_flag = mysql_query("INSERT INTO expert (JOBID,EHEAD,EXNAME,EDATE,ENAME,EIMAGE,EUPTIME,EUPNAME) VALUES ('$expert[0]','$expert[1]','$expert[2]','$expert[3]','$expert[4]','0','$time','$KanriName')");
+		}
 			if (!$result_flag) {
 	    	die('INSERTクエリーが失敗しました。'.mysql_error());
 			}
@@ -1221,9 +1231,15 @@ function expertInsert($expert,$upfile2,$time,$KanriName){//専門家登録
 ///////////////////////////////////////////書き直し
 function reportInsert($report,$upfile4,$time,$KanriName){//レポート登録
     try {
-	$fileID = picSet($upfile4);
-	//SQL文をセット//
-		$result_flag = mysql_query("INSERT INTO workrp (JOBID,WHEAD,WDATE,WNAME,WIMAGE,WUPTIME,WUPNAME) VALUES ('$report[0]','$report[1]','$report[2]','$report[3]','$fileID','$time','$KanriName')");
+
+		if (is_uploaded_file($_FILES["upfile4"]["tmp_name"])) {
+			$fileID = picSet($upfile4);
+			//SQL文をセット//
+			$result_flag = mysql_query("INSERT INTO workrp (JOBID,WHEAD,WDATE,WNAME,WIMAGE,WUPTIME,WUPNAME) VALUES ('$report[0]','$report[1]','$report[2]','$report[3]','$fileID','$time','$KanriName')");
+		}else{
+			$result_flag = mysql_query("INSERT INTO workrp (JOBID,WHEAD,WDATE,WNAME,WIMAGE,WUPTIME,WUPNAME) VALUES ('$report[0]','$report[1]','$report[2]','$report[3]','0','$time','$KanriName')");
+		}
+
 			if (!$result_flag) {
 	    	die('INSERTクエリーが失敗しました。'.mysql_error());
 			}
