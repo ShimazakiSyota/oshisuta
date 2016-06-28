@@ -631,19 +631,13 @@ $(function($) {
 </HEAD>
 
 <BODY>
-<a class="btn"></a>
-<div class="drawr">
-    <ul id="menu" style="list-style:none;">
-    <li><a href="topPage.php">HOME</a></li>
-    <li><a href="bunya.php">分野から探す</a></li>
-    <li><a href="image.php">イメージから探す</a></li>
-    <li><a href="gojyu.php">五十音から探す</a></li>
-    <li><a href="ranking.php">気になるランキング</a></li>
-    <li><a href="recently.php">最近気になった仕事</a></li>
-    <li><a href="freeword.php">フリーワード</a></li>
-    </ul>
-</div>
 
+<!--シゴト部-->
+<header>
+<div id="header">
+<img src="">
+</div>
+</header>
 
 <?php
 session_destroy();
@@ -668,7 +662,9 @@ if (!empty($ranking)) {
 			if(!empty($ranking[$ci][0])){
 
 	echo "<li id=\"list_rank1\">";
-//	echo "<img>";
+	//順位
+	echo "<img>";
+	//職業名
 	echo "<form name='Form".$ci."' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[0][0].">";
 	echo "<a href='javascript:Form".$ci.".submit()'>".$ranking[0][1]."</a>";
@@ -680,7 +676,9 @@ if (!empty($ranking)) {
 			if(!empty($ranking[$ci][0])){
 
 	echo "<li id=\"list_rank2\">";
-//	echo "<img>";
+	//順位
+	echo "<img>";
+	//職業名
 	echo "<form name='Form".$ci."' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[1][0].">";
 	echo "<a href='javascript:Form".$ci.".submit()'>".$ranking[1][1]."</a>";
@@ -692,7 +690,9 @@ if (!empty($ranking)) {
 			if(!empty($ranking[$ci][0])){
 
 	echo "<li id=\"list_rank3\">";
-//	echo "<img>";
+	//順位
+	echo "<img>";
+	//職業名
 	echo "<form name='Form".$ci."' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[2][0].">";
 	echo "<a href='javascript:Form".$ci.".submit()'>".$ranking[2][1]."</a>";
@@ -702,24 +702,28 @@ if (!empty($ranking)) {
 			}
 		}
 	}
-	echo "</ol>";
-	echo "</div>";
 
+	echo "</ol>";
 
 	echo "<p id=\"btn_more\">";
 	echo "<a href ='ranking.PHP'>";
-	echo ("もっと見る");
-//	echo "<img>";
+	//もっと見る画像
+	echo "<img>";
 	echo "</a>";
 	echo "</p>";
+	echo "</div>";
+
+
 }
+
+//早速お仕事を探そう
+echo "<h2><img src=""></h2>";
 
 $b=1;
 	//分野検索
 	echo "<div id=\"box_genre\">";
+	echo "<h3>分野別から探す</h3>";
 	echo "<ul>";
-	echo "<li id=\"btn_z\">";
-	echo "<b>分野別から探す</b>";
 	$BigTadList = tagSelectAllKubun('0');
 	foreach( $BigTadList as $value ){
 	$b++;
@@ -728,7 +732,6 @@ $b=1;
 	echo "<input type='hidden' name='bunya' value=".$value[0].">";
 	echo "<a href='javascript:Form2".$b.".submit()'>";
 	echo "<img height='100' img src='./create_image.php?id=".$value[3]."' /></a>";
-//	echo "<button type='submit' name='bunya' value='".$value[0]."'>".$value[1]."</button><br>";
 	echo "</li>";
 	echo "</form>";
 	}
@@ -739,10 +742,8 @@ $b=1;
 	
 	//イメージ検索
 	echo "<div id=\"box_image\">";
+	echo "<h3>イメージから探す</h3>";
 	echo "<ul>";
-	echo "<h3>";
-	echo "</h3>";
-	echo "<b>イメージから探す</b>";
 	$ImageList = tagSelectAllKubun('2');
 	foreach( $ImageList as $value ){
 	echo "<form action='./subjectImageSearch2.php' method = 'POST'>";
@@ -756,11 +757,10 @@ $b=1;
 
 	//フリーワード
 	echo "<div id=\"box_keyword\">";
-	echo "<h3>";
-	echo "</h3>";
+	echo "<h3>フリーワードから探す</h3>";
 	echo "<form action=\"freewordSearch.PHP\" method=\"POST\">";
-	echo "<input type=\"text\" name=\"message\">";
-	echo "<input type=\"submit\">";
+	echo "<input type=\"seach\" name=\"message\" pattern=\"[^\\x22\\x27]*\"  required >";
+	echo "<input type=\"submit\"><img src='./img.jpg'>";
 	echo "</form>";
 	echo "</div>";
 	
