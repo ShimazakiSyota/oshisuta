@@ -99,22 +99,25 @@ $(function($) {
 		<title>　気になる仕事　</title>
 	</head>
 	<body>
-<a class="btn"></a>
-<div class="drawr">
-    <ul id="menu" style="list-style:none;">
-    <li><a href="topPage.php">HOME</a></li>
-    <li><a href="bunya.php">分野から探す</a></li>
-    <li><a href="image.php">イメージから探す</a></li>
-    <li><a href="gojyu.php">五十音から探す</a></li>
-    <li><a href="ranking.php">気になるランキング</a></li>
-    <li><a href="recently.php">最近気になった仕事</a></li>
-    <li><form action="freewordSearch.php" method="POST">
-	<input type="text" name="message" pattern='[^\\x22\\x27]*'  required>
-	<input type="submit">
-	</form>
-	</li>
-    </ul>
-</div>
+		<header>
+			<div id="header">
+				<!--タイトル-->
+				<h1><img src="//シゴト部"></h1>
+
+				<!--メインメニュー-->
+				<a class="btn"></a>
+				<div class="drawr">
+    				<ul id="menu" style="list-style:none;">
+    				<li><a href="topPage.php">HOME</a></li>
+    				<li><a href="bunya.php">分野から探す</a></li>
+    				<li><a href="image.php">イメージから探す</a></li>
+    				<li><a href="gojyu.php">五十音から探す</a></li>
+    				<li><a href="ranking.php">気になるランキング</a></li>
+    				<li><a href="recently.php">最近気になった仕事</a></li>
+    				<li><form action="freewordSearch.php" method="POST"><input type="text" name="message" pattern='[^\\x22\\x27]*'  required><input type="submit"></form></li>
+    				</ul>
+			</div>
+		</header>
 
 
 		<h1>気になる仕事</h1>
@@ -146,12 +149,12 @@ $con = connect();
 $arr = recently($tid);
 
 //逆にする
-$arr = array_reverse($arr);
+$arr1 = array_reverse($arr);
 
 //件数
-$dataCount = count($arr);
+$dataCount = count($arr1);
 
-if (!empty($arr)){
+if (!empty($arr1)){
 
 
 echo '<div id="box_">';
@@ -209,8 +212,8 @@ else{
 //最近気になった仕事
 		echo "<li id=\"list\">";
 		echo "<form name='Form".$i."' method='post' action='jobdetail.php'>";
-		echo "<input type='hidden' name='jobid' value=".$arr[$i][0].">";
-		echo "<a href='javascript:Form".$i.".submit()'>".$arr[$i][1]."</a>";
+		echo "<input type='hidden' name='jobid' value=".$arr1[$i][0].">";
+		echo "<a href='javascript:Form".$i.".submit()'>".$arr1[$i][1]."</a>";
 		echo "</form>";
 		echo "</li>";
 	}
@@ -238,7 +241,7 @@ else{
 
 }else{
 	echo '<div id="list_result">';
-	echo '検索結果0件';
+	echo 'お気に入りを登録していません。';
 	echo '</div>';
 }
 
@@ -247,45 +250,59 @@ dconnect($con);
 
 ?>
 
-<!--先頭に戻る-->
-<p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></p>
-	
+<footer>
+<div id="footer">
 
-<!--フリーワード-->
-<form action="freewordSearch.php" method="POST">
-<input type="text" name="message"pattern='[^\\x22\\x27]*'  required >
-<input type="submit">
-</form>
+<!--先頭に戻る-->
+<p id="page_top" style="display: block;"><a href="#wrap">トップ</a></p>
+
+<?php
+//フリーワード
+echo '<form action="freewordSearch.php" method="POST">';
+echo '<input type="search" name="message" pattern="[^\\x22\\x27]*"  required >';
+echo '<input type="submit">';
+echo '</form>';
+?>
+
+<ul id="menu_ft">
 
 <!--分野画面遷移-->
-<form action="bunya.PHP" method="POST">
-<input type="submit"  value="分野から探す">
-</form>
+<li>
+<a href="bunya.PHP">分野から探す</a>
+<a href="bunya.PHP"><img></a>
+</li>
 
 <!--イメージ画面遷移-->
-<form action="image.PHP" method="POST">
-<input type="submit"  value="イメージから探す">
-</form>
+<li>
+<a href="image.PHP">イメージから探す</a>
+<a href="image.PHP"><img></a>
+</li>
 
-<!--50音画面遷移-->
-<form action="gojyu.PHP" method="POST">
-<input type="submit"  value="五十音から探す">
-</form>
+<!--50音画面遷移--><li>
+
+<a href="gojyu.PHP">50音から探す</a>
+<a href="gojyu.PHP"><img></a>
+</li>
 
 <!--気になるランキング画面遷移-->
-<form action="ranking.PHP" method=\"POST\">
-<input type="submit"  value="気になるランキング">
-</form>
+<li>
+<a href="ranking.PHP">気になるランキング</a>
+<a href="ranking.PHP"><img></a>
+</li>
 
 <!--最近気になった仕事画面遷移-->
-<form action="recently.PHP" method="POST">
-<input type="submit"  value="最近気になった仕事">
-</form>
+<li>
+<a href="recently.PHP">最近気になった仕事</a>
+<a href="recently.PHP"><img></a>
+</li>
 
 <!--HOME画面遷移-->
-<form action="topPage.PHP" method="POST">
-<input type="submit"  value="HOME">
-</form>
+<li>
+<a href="topPage.PHP">HOME</a>
+<a href="topPage.PHP"><img></a>
+</li>
+
+</ul>
 
 <!--サイトについて-->
 <a href="">サイトについて</a>
@@ -301,8 +318,11 @@ dconnect($con);
 
 <p>将来なりたい仕事、決まっていますか？シゴト部では、進路で悩んでいる高校生向けに２００以上のお仕事を分かりやすく紹介！たくさんのお仕事の中からあなたの気になるお仕事を探しましょう！</p>
 
-<p><small>Copyright (c) shigotobu.All Right Reserved.</small></p>
+<p id="copy"><small>Copyright (c) shigotobu.All Right Reserved.</small></p>
 
+</div>
 
-	</body>
+</footer>
+
+</body>
 </html>

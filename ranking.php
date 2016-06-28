@@ -100,25 +100,31 @@ $(function($) {
 		<title>　ランキング　</title>
 	</head>
 	<body>
-<a class="btn"></a>
-<div class="drawr">
-    <ul id="menu" style="list-style:none;">
-    <li><a href="topPage.php">HOME</a></li>
-    <li><a href="bunya.php">分野から探す</a></li>
-    <li><a href="image.php">イメージから探す</a></li>
-    <li><a href="gojyu.php">五十音から探す</a></li>
-    <li><a href="ranking.php">気になるランキング</a></li>
-    <li><a href="recently.php">最近気になった仕事</a></li>
-    <li><form action="freewordSearch.php" method="POST">
-	<input type="text" name="message" pattern='[^\\x22\\x27]*'  required>
-	<input type="submit">
-	</form>
-	</li>
-    </ul>
-</div>
+		<header>
+			<div id="header">
+				<!--タイトル-->
+				<h1><img src="//シゴト部"></h1>
 
+				<!--メインメニュー-->
+				<a class="btn"></a>
+				<div class="drawr">
+    				<ul id="menu" style="list-style:none;">
+    				<li><a href="topPage.php">HOME</a></li>
+    				<li><a href="bunya.php">分野から探す</a></li>
+    				<li><a href="image.php">イメージから探す</a></li>
+    				<li><a href="gojyu.php">五十音から探す</a></li>
+    				<li><a href="ranking.php">気になるランキング</a></li>
+    				<li><a href="recently.php">最近気になった仕事</a></li>
+    				<li><form action="freewordSearch.php" method="POST"><input type="text" name="message" pattern='[^\\x22\\x27]*'  required><input type="submit"></form></li>
+    				</ul>
+			</div>
+		</header>
 
-		<h1>ランキング</h1>
+	<p id="mv"><img></p>
+
+		<div id="box_rank">
+
+		<h2>今月の気になる仕事</h2>
 <?php
 
 //----------------------------------------------------------------------------------------------------
@@ -126,17 +132,18 @@ require_once 'DBmanager.php'; //関数呼び出しより手前に記述する
 
 //DB接続
 $con = connect();
-	$ranking = rank();
 
-//メニューボタン
+//SQL実行
+$ranking = rank();
 
-echo "<p id=\"mv\">";
-//echo "<img>";
-echo "</p>";
-echo "<div id=\"box.rank\">";
-echo "<h2>";
-echo "</h2>";
+if (!empty($ranking)) {
+
 echo "<table>";
+echo "<tr>";
+echo "<th>順位</th>";
+echo "<th>職業名</th>";
+echo "</tr>";
+
 //トップページのランキング
 	$ranking = rank();
 	
@@ -144,295 +151,516 @@ echo "<table>";
 		if($ci==0){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank1\">";
-	echo "<img>";
+	echo "<tr id=\"rank1\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form1' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[0][0].">";
 	echo "<a href='javascript:Form1.submit()'>".$ranking[0][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form1.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 	
 			}
 		}else if($ci==1){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank2\">";
-	echo "<img>";
+	echo "<tr id=\"rank2\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form2' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[1][0].">";
 	echo "<a href='javascript:Form2.submit()'>".$ranking[1][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form2.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
               }
 		}else if($ci==2){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank3\">";
-	echo "<img>";
+	echo "<tr id=\"rank3\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form3' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[2][0].">";
 	echo "<a href='javascript:Form3.submit()'>".$ranking[2][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form3.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 			}
 				}else if($ci==3){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank4\">";
-	echo "<img>";
+	echo "<tr id=\"rank4\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form4' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[3][0].">";
 	echo "<a href='javascript:Form4.submit()'>".$ranking[3][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form4.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==4){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank5\">";
-	echo "<img>";
+	echo "<tr id=\"rank5\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form5' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[4][0].">";
 	echo "<a href='javascript:Form5.submit()'>".$ranking[4][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form5.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==5){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank6\">";
-	echo "<img>";
+	echo "<tr id=\"rank6\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form6' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[5][0].">";
 	echo "<a href='javascript:Form6.submit()'>".$ranking[5][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form6.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==6){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank7\">";
-	echo "<img>";
+	echo "<tr id=\"rank7\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form7' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[6][0].">";
 	echo "<a href='javascript:Form7.submit()'>".$ranking[6][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form7.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==7){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank8\">";
-	echo "<img>";
+	echo "<tr id=\"rank8\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form8' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[7][0].">";
 	echo "<a href='javascript:Form8.submit()'>".$ranking[7][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form8.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==8){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank9\">";
-	echo "<img>";
+	echo "<tr id=\"rank9\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form9' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[8][0].">";
 	echo "<a href='javascript:Form9.submit()'>".$ranking[8][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form9.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==9){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank10\">";
-	echo "<img>";
+	echo "<tr id=\"rank10\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form10' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[9][0].">";
 	echo "<a href='javascript:Form10.submit()'>".$ranking[9][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form10.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==10){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank11\">";
-	echo "<img>";
+	echo "<tr id=\"rank11\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form11' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[10][0].">";
 	echo "<a href='javascript:Form11.submit()'>".$ranking[10][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form11.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==11){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank12\">";
-	echo "<img>";
+	echo "<tr id=\"rank12\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form12' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[11][0].">";
 	echo "<a href='javascript:Form12.submit()'>".$ranking[11][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form12.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==12){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank13\">";
-	echo "<img>";
+	echo "<tr id=\"rank13\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form13' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[12][0].">";
 	echo "<a href='javascript:Form13.submit()'>".$ranking[12][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form13.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==13){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank14\">";
-	echo "<img>";
+	echo "<tr id=\"rank14\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form14' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[13][0].">";
 	echo "<a href='javascript:Form14.submit()'>".$ranking[13][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form14.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==14){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank15\">";
-	echo "<img>";
+	echo "<tr id=\"rank15\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form15' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[14][0].">";
 	echo "<a href='javascript:Form15.submit()'>".$ranking[14][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form15.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==15){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank16\">";
-	echo "<img>";
+	echo "<tr id=\"rank16\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form16' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[15][0].">";
 	echo "<a href='javascript:Form16.submit()'>".$ranking[15][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form16.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==16){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank17\">";
-	echo "<img>";
+	echo "<tr id=\"rank17\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form17' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[16][0].">";
 	echo "<a href='javascript:Form17.submit()'>".$ranking[16][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form17.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==17){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank18\">";
-	echo "<img>";
+	echo "<tr id=\"rank18\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form18' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[17][0].">";
 	echo "<a href='javascript:Form18.submit()'>".$ranking[17][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form18.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==18){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank19\">";
-	echo "<img>";
+	echo "<tr id=\"rank19\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form19' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[18][0].">";
 	echo "<a href='javascript:Form19.submit()'>".$ranking[18][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form19.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}else if($ci==19){
 			if(!empty($ranking[$ci][0])){
 
-	echo "<li id=\"list_rank20\">";
-	echo "<img>";
+	echo "<tr id=\"rank20\">";
+	//順位
+	echo "<td>";
+	echo "<img src=\"\">";
+	echo "</td>";
+	//職業名
+	echo "<td>";
 	echo "<form name='Form20' method='post' action='jobdetail.php'>";
 	echo "<input type='hidden' name='jobid' value=".$ranking[19][0].">";
 	echo "<a href='javascript:Form20.submit()'>".$ranking[19][1]."</a>";
 	echo "</form>";
-	echo "</li>";
+	echo "</td>";
+	//矢印
+	echo "<td>";
+	echo "<a href='javascript:Form20.submit()'><img src=\"\"></a>";
+	echo "</td>";
+	echo "</tr>";
 
 	              }
 				}
 	}
 
+} else {
+echo '<p>ランキングはありません。</p>';
+}
+
 
 echo "</table>";
-echo "</div>";
+//日付
 echo "<p id=\"date\">";
 echo "</p>";
+
+echo "</div>";
+
 
 //DB切断
 dconnect($con);
 ?>
 
-<!--先頭に戻る-->
-<p class="pagetop" style="display: block;"><a href="#wrap">トップ</a></p>
-	
+<footer>
+<div id="footer">
 
-<!--フリーワード-->
-<form action="freewordSearch.php" method="POST">
-<input type="text" name="message" pattern='[^\\x22\\x27]*'  required>
-<input type="submit">
-</form>
+<!--先頭に戻る-->
+<p id="page_top" style="display: block;"><a href="#wrap">トップ</a></p>
+
+<?php
+//フリーワード
+echo '<form action="freewordSearch.php" method="POST">';
+echo '<input type="search" name="message" pattern="[^\\x22\\x27]*"  required >';
+echo '<input type="submit">';
+echo '</form>';
+?>
+
+<ul id="menu_ft">
 
 <!--分野画面遷移-->
-<form action="bunya.PHP" method="POST">
-<input type="submit"  value="分野から探す">
-</form>
+<li>
+<a href="bunya.PHP">分野から探す</a>
+<a href="bunya.PHP"><img></a>
+</li>
 
 <!--イメージ画面遷移-->
-<form action="image.PHP" method="POST">
-<input type="submit"  value="イメージから探す">
-</form>
+<li>
+<a href="image.PHP">イメージから探す</a>
+<a href="image.PHP"><img></a>
+</li>
 
-<!--50音画面遷移-->
-<form action="gojyu.PHP" method="POST">
-<input type="submit"  value="五十音から探す">
-</form>
+<!--50音画面遷移--><li>
+
+<a href="gojyu.PHP">50音から探す</a>
+<a href="gojyu.PHP"><img></a>
+</li>
 
 <!--気になるランキング画面遷移-->
-<form action="ranking.PHP" method=\"POST\">
-<input type="submit"  value="気になるランキング">
-</form>
+<li>
+<a href="ranking.PHP">気になるランキング</a>
+<a href="ranking.PHP"><img></a>
+</li>
 
 <!--最近気になった仕事画面遷移-->
-<form action="recently.PHP" method="POST">
-<input type="submit"  value="最近気になった仕事">
-</form>
+<li>
+<a href="recently.PHP">最近気になった仕事</a>
+<a href="recently.PHP"><img></a>
+</li>
 
 <!--HOME画面遷移-->
-<form action="topPage.PHP" method="POST">
-<input type="submit"  value="HOME">
-</form>
+<li>
+<a href="topPage.PHP">HOME</a>
+<a href="topPage.PHP"><img></a>
+</li>
+
+</ul>
 
 <!--サイトについて-->
 <a href="">サイトについて</a>
@@ -447,6 +675,13 @@ dconnect($con);
 <a href="">お問い合わせ</a>
 
 <p>将来なりたい仕事、決まっていますか？シゴト部では、進路で悩んでいる高校生向けに２００以上のお仕事を分かりやすく紹介！たくさんのお仕事の中からあなたの気になるお仕事を探しましょう！</p>
-	</body>
+
+<p id="copy"><small>Copyright (c) shigotobu.All Right Reserved.</small></p>
+
+</div>
+
+</footer>
+
+</body>
 </html>
 
