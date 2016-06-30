@@ -1,6 +1,10 @@
 <html>
 	<head>
+<<<<<<< HEAD
 		<meta http-equiv="REFRESH" content="2;URL=./jobTop.php">
+=======
+		<meta http-equiv="REFRESH" content="10000000;URL=./jobTop.php">
+>>>>>>> 629f913cece58849706fe648d13085d3c6d77efa
 		<title>職業追加</title>
 	</head>
 	<body>
@@ -25,6 +29,7 @@
 				picUpd($_FILES['upfile'],$_POST['picID']);
 			}
 		for ($i=0; $i<10; $i++){
+<<<<<<< HEAD
 				$delflag = 0;
 				if((isset($_POST['deleteall'])) && (isset($comment[$i][3]))){
 					foreach($_POST['deleteall'] as $del){
@@ -68,6 +73,30 @@
 					}
 				}
 			}			
+=======
+			if (isset($_POST['interview2'][$i] ) && ($_POST['interview2'][$i] != "")){
+			if (isset($comment[$i][3])){
+				//コメントの更新
+				studentviewUpdate($_POST['interview2'][$i],$_POST['interview3'][$i],$comment[$i][3]);
+				}else{
+				//コメントの追加
+				studentviewInsert2($_POST['interview2'][$i],$_POST['interview3'][$i],$_FILES['upfile1'],$_POST['studentID'],$i);
+				}
+			}
+		}
+
+		for ($i=0; $i<10; $i++){
+			//コメントの画像更新
+			if(isset($comment[$i][0])){
+				//画像ファイルの更新
+				if (is_uploaded_file($_FILES["upfile1"]["tmp_name"][$i])) {
+					picUpd2($_FILES['upfile1'],$i,$comment[$i][0]);
+			}else{
+				$picIn = picSet2($_FILES['upfile1'],$i);
+				picInsert($picIn);
+				}
+			}
+>>>>>>> 629f913cece58849706fe648d13085d3c6d77efa
 		}
 
 		echo "コメントを更新しました";

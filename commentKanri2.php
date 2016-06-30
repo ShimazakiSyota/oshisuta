@@ -45,11 +45,19 @@ function disp(){
 		$interviewlist2 = stviewlist2($_POST['studentID']);
 
 				echo "<form action='./interviewUpdate.php' method='post' enctype='multipart/form-data' onsubmit='return disp()'>";
+<<<<<<< HEAD
 				echo "<b>見出し:</b><input type='text' name='interview[]' value='".$interviewlist2[0][3]."' required><br><br>";
 				echo "<b>学生名</b><input type='text' name='interview[]' value='".$interviewlist2[0][4]."' required><br /><br />";
 				echo "<b>取材日</b><input type='date' name='interview[]' value='".$interviewlist2[0][5]."' required><br><br>";
 				echo "<b>取材者</b><input type='text' name='interview[]' value='".$interviewlist2[0][6]."' required><br><br>";
 				echo "<b>インタビュー時</b><input type='text' name='interview[]' value='".$interviewlist2[0][7]."' required><br /><br />";
+=======
+				echo "<h4>見出し</h4><input type='text' name='interview[]' value='".$interviewlist2[0][3]."' required><br>";
+				echo "<h4>学生名</h4><input type='text' name='interview[]' value='".$interviewlist2[0][4]."' required><br /><br />";
+				echo "<h4>取材日</h4><input type='date' name='interview[]' value='".$interviewlist2[0][5]."' required><br>";
+				echo "<h4>取材者</h4><input type='text' name='interview[]' value='".$interviewlist2[0][6]."' required><br>";
+				echo "<h4>インタビュー時</h4><input type='text' name='interview[]' value='".$interviewlist2[0][7]."' required><br /><br />";
+>>>>>>> 629f913cece58849706fe648d13085d3c6d77efa
 
 				echo "<h4>変更する場合は画像を選択してください</h4>";
 				echo "写真：<input type='file' name='upfile' size='30' /><br /><br />";
@@ -64,22 +72,35 @@ function disp(){
 		//コメント変更用情報取得
 		$studentcomment = cstviewlist($interviewlist2[0][0]);
 			for ($i=0; $i<10; $i++){
+<<<<<<< HEAD
 			echo "<hr color='#FF69B4' size='1'>";
+=======
+>>>>>>> 629f913cece58849706fe648d13085d3c6d77efa
 				//$KakuninFlag=0;//コメントがあるか確認するフラグ
 				//コメントがある場合
 				if(isset($studentcomment[$i][3])){
 					//画像がある場合のみ
+<<<<<<< HEAD
 	       			 if($studentcomment[$i][0] != 0) {
 					 echo "<img height='100' src='./create_image.php?id=".$studentcomment[$i][0]."' />";
 					 echo"<input type='checkbox' name='deletepic[]' value='".$studentcomment[$i][3]."'>この画像を削除<br><br>";
 					 }
 					
+=======
+   					 if($studentcomment[$i][0] != 0) {
+	       					echo "画像1<br><img height='100' src='./create_image.php?id=".$studentcomment[$i][0]."' />";
+						echo"<input type='checkbox' name='delete[]' value='".$i."'>削除<br /><br />";
+					}
+>>>>>>> 629f913cece58849706fe648d13085d3c6d77efa
 						echo "写真：<input type='file' name='upfile1[]' size='30' /><br /><br />";
 						echo "<h4>Q</h4><input type='text' name='interview2[]' value='".$studentcomment[$i][1]."'><br>";
 						echo "<h4>A</h4><textarea name='interview3[]' cols=50 rows=5>".$studentcomment[$i][2]."</textarea><br /><br />";
 						echo "<input type='hidden' name='commentID[]' value='".$studentcomment[$i][3]."'>";
+<<<<<<< HEAD
 						echo"<input type='checkbox' name='deleteall[]' value='".$studentcomment[$i][3]."'>このコメントを削除";
 
+=======
+>>>>>>> 629f913cece58849706fe648d13085d3c6d77efa
 				}else{
 						//新しいコメントの追加
 						echo "<h3>コメント追加</h3>";
@@ -89,6 +110,10 @@ function disp(){
 						
 						echo "<input type='hidden' name='count' value='".$i."'>";
 				}
+<<<<<<< HEAD
+=======
+				
+>>>>>>> 629f913cece58849706fe648d13085d3c6d77efa
 		}
 				echo "<br /><input type=submit value='変更'><br /><br />";
 				echo"</form>";
