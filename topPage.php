@@ -717,7 +717,7 @@ if (!empty($ranking)) {
 }
 
 //早速お仕事を探そう
-echo "<h2><img src=""></h2>";
+echo "<h2><img src=\"\"></h2>";
 
 $b=1;
 	//分野検索
