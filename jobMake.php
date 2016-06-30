@@ -23,10 +23,6 @@
 ?>
 	<center>
 		<form action="./jobMake2.php" method="post">
-			<button type='submit' name='jobUpd' value="0"><h1>職業詳細<h1></button><br /><br />
-			<button type='submit' name='jobUpd' value="1"><h1>学生インタビュー</h1></button><br /><br />
-			<button type='submit' name='jobUpd' value="2"><h1>専門家のコメント</h1></button><br /><br />
-			<button type='submit' name='jobUpd' value="3"><h1>レポート</h1></button><br /><br />
 			<button type='submit' name='jobUpd' value="0"><h1>職業詳細追加<h1></button><br /><br /></form>
 		<form action="./jobSelect2.php" method="post">			
 			<button type='submit' name='jobUpd' value="1"><h1>学生インタビュー追加</h1></button><br /><br />

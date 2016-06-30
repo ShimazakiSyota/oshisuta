@@ -1343,4 +1343,141 @@ function picSet2($upfile,$i){//画像の設定
     }
 }
 
+
+////////////////////追加
+function interviewUpdate($interview,$time,$KanriName,$studentID){//学生インタビューの更新
+
+    try {
+	//SQL文をセット//
+		$result_flag = mysql_query("UPDATE studentiv SET IHEAD = '$interview[0]',STNAME = '$interview[1]', IDATE = '$interview[2]', INAME = '$interview[3]',IATTIME = '$interview[4]',IUPTIME = '$time',IUPNAME = '$KanriName'  WHERE STUDENTID = '$studentID'");
+			if (!$result_flag) {
+	    	die('UPDATEクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+////////////////////追加
+function stviewlist2($studentid){//学生インタビュー情報取得
+
+    try {
+	//SQL文をセット//00
+		$queryset = mysql_query('SELECT * FROM studentiv WHERE STUDENTID ='.$studentid);
+		$arr = array();
+		while ($data = mysql_fetch_array($queryset)){
+		array_push($arr, $data);
+		}
+		return $arr;
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+
+////////////////////追加
+function jobstadiumlist2($workid){//お仕事スタジアムレポート情報取得
+
+    try {
+	//SQL文をセット//00
+		$queryset = mysql_query('SELECT * FROM workrp WHERE WORKID ='.$workid);
+		$arr = array();
+		while ($data = mysql_fetch_array($queryset)){
+		array_push($arr, $data);
+		}
+		return $arr;
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+////////////////////追加
+function expertlist2($expertid){//専門家情報取得
+
+    try {
+	//SQL文をセット//00
+		$queryset = mysql_query('SELECT * FROM expert WHERE EXPERTID ='.$expertid);
+		$arr = array();
+		while ($data = mysql_fetch_array($queryset)){
+		array_push($arr, $data);
+		}
+		return $arr;
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+
+///////////////////////////////////////////書き直し
+function studentviewUpdate($interview2,$interview3,$commentID){//学生インタビューの登録　コメント
+    try {
+		//SQL文をセット//
+		$result_flag = mysql_query("UPDATE studentview SET ICHEAD = '$interview2',INTERVIEW = '$interview3' WHERE SCOMMENT = '$commentID'");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+////////////追加
+function studentviewInsert2($interview2,$interview3,$upfile1,$interview,$i){//学生インタビューの登録　コメント
+    try {
+		if (is_uploaded_file($_FILES["upfile1"]["tmp_name"][$i])) {
+		$fileID = picSet2($upfile1,$i);
+		//SQL文をセット//
+		$result_flag = mysql_query("INSERT INTO studentview (ICHEAD,INTERVIEW,SVIMAGE,STUDENTID) VALUES ('$interview2','$interview3','$fileID','$interview')");
+		}else{
+		$result_flag = mysql_query("INSERT INTO studentview (ICHEAD,INTERVIEW,SVIMAGE,STUDENTID) VALUES ('$interview2','$interview3','0','$interview')");
+		}
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+function picUpd2($upfile,$i,$id){//画像の更新
+
+    try {
+    //バイナリデータ
+    $fp = fopen($upfile["tmp_name"][$i], "rb");
+    $imgdat = fread($fp, filesize($upfile["tmp_name"][$i]));
+    fclose($fp);
+    $imgdat = addslashes($imgdat);
+
+    //拡張子
+    $dat = pathinfo($upfile["name"][$i]);
+    $extension = $dat['extension'];
+
+    // MIMEタイプ
+    if ( $extension == "jpg" || $extension == "jpeg" ) $mime = "image/jpeg";
+    else if( $extension == "gif" ) $mime = "image/gif";
+    else if ( $extension == "png" ) $mime = "image/png";
+	
+		$result_flag = mysql_query("UPDATE image SET IMAGE='$imgdat' , MIME='$mime' WHERE IMAID = '$id'");
+			if (!$result_flag) {
+	    	die('UPDATEクエリーが失敗しました。'.mysql_error());
+			}
+    }catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+///////////////////////////////////////////書き直し
+function picInsert($fileID){
+    try {
+	//SQL文をセット//
+		$result_flag = mysql_query("UPDATE studentview SET SVIMAGE = '$fileID'");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+
 ?>   
