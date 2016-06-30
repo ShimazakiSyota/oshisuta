@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<meta http-equiv="REFRESH" content="10000000000;URL=./jobTop.php">
+		<meta http-equiv="REFRESH" content="2;URL=./jobTop.php">
 		<title>職業追加</title>
 	</head>
 	<body>

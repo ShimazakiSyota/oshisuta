@@ -1422,18 +1422,14 @@ function studentviewUpdate($interview2,$interview3,$commentID){//学生インタ
 }
 
 ////////////追加
-function studentviewInsert2($interview2,$interview3,$upfile1,$interview,$i){//学生インタビューの登録　コメント
+function studentviewInsert2($interview2,$interview3,$interview){//学生インタビューの登録　コメント
     try {
-		if (is_uploaded_file($_FILES["upfile1"]["tmp_name"][$i])) {
-		$fileID = picSet2($upfile1,$i);
 		//SQL文をセット//
-		$result_flag = mysql_query("INSERT INTO studentview (ICHEAD,INTERVIEW,SVIMAGE,STUDENTID) VALUES ('$interview2','$interview3','$fileID','$interview')");
-		}else{
 		$result_flag = mysql_query("INSERT INTO studentview (ICHEAD,INTERVIEW,SVIMAGE,STUDENTID) VALUES ('$interview2','$interview3','0','$interview')");
-		}
 			if (!$result_flag) {
 	    	die('INSERTクエリーが失敗しました。'.mysql_error());
 			}
+		return mysql_insert_id();
     } catch (Exception $e) {
             echo ('システムエラーが発生しました');
     }
@@ -1471,6 +1467,43 @@ function picInsert($fileID){
     try {
 	//SQL文をセット//
 		$result_flag = mysql_query("UPDATE studentview SET SVIMAGE = '$fileID'");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+function studentviewDelete($ID){//選択されたのタグの削除
+
+    try {
+	//SQL文をセット//
+		$result_flag = mysql_query('DELETE FROM studentview WHERE SCOMMENT ='.$ID);
+			if (!$result_flag) {
+	    	die('DELETEクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+function picDelete($ID){//選択されたのタグの削除
+
+    try {
+	//SQL文をセット//
+		$result_flag = mysql_query('DELETE FROM image WHERE IMAID ='.$ID);
+			if (!$result_flag) {
+	    	die('DELETEクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+function commentPicIDUpd($commentID,$picID){//学生インタビューの登録　コメント
+    try {
+		//SQL文をセット//
+		$result_flag = mysql_query("UPDATE studentview SET SVIMAGE = '$picID' WHERE SCOMMENT = '$commentID'");
 			if (!$result_flag) {
 	    	die('INSERTクエリーが失敗しました。'.mysql_error());
 			}

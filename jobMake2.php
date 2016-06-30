@@ -79,15 +79,18 @@ if($_POST['jobUpd'] != 0){
 				echo "<input type='hidden' name='interview[]' value ='".$jobKanri[0]."'>";
 				echo "見出し:<input type='text' size='20' NAME='interview[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
 				echo "写真：<input type='file' name='upfile' size='30' /><br /><br />";		
-				echo "インタビュー時 <br /><input type='text' size='20' NAME='interview[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />"; 
+				echo "インタビュー時の肩書(例：Webクリエイター科２年) <br /><input type='text' size='20' NAME='interview[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />"; 
 				echo "学生名:<input type='text' size='20' NAME='interview[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
-			for ($i=0; $i<10; $i++){echo "<h4>コメント追加</h4>";
+				echo "取材日：<input type='date' name='interview[]'><br /><br />";		
+				echo "取材者：<input type='text' size='20' NAME='interview[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
+
+			for ($i=0; $i<10; $i++){
+				echo "<hr color='#FF69B4' size='1'>";
+				echo "<h4>コメント追加</h4>";
 				echo "写真：<input type='file' name='upfile1[]' size='30' /><br /><br />";		
 				echo "Q:<input type='text' size='20' NAME='interview2[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' ><br /><br />";
 				echo "A:<textarea name='interview3[]' cols='50' rows='5' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' ></textarea><br /><br />";
 			}
-				echo "取材日：<input type='text' size='20' NAME='interview[]' ><br /><br />";		
-				echo "取材者：<input type='text' size='20' NAME='interview[]' style='font-family:Tahoma; ime-mode:auto;' pattern='^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。! ！\n\r\s]+$' title='入力してください' required><br /><br />";
 				echo "<br /></div><center><input type =submit value=追加>";
 				echo "</form>";
 			}

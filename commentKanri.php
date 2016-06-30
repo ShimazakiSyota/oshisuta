@@ -36,11 +36,11 @@
 
 			foreach( $interviewlist as $value ){
 				echo "<form action='./commentKanri2.php' method='post' enctype='multipart/form-data' onsubmit='return disp()'>";
-				echo "<h4>見出し</h4>".$value['IHEAD']."<br>";
-				echo "<h4>インタビュー時</h4>".$value['IATTIME']."<br />";
-				echo "<h4>学生名</h4>".$value['STNAME']."<br /><br />";
-				echo "<h4>取材日</h4>".$value['IDATE']."<br>";
-				echo "<h4>取材者</h4>".$value['INAME']."<br><br />";
+				echo "<b>見出し:</b> ".$value['IHEAD']."<br>";
+				echo "<b>インタビュー時:</b> ".$value['IATTIME']."<br />";
+				echo "<b>学生名:</b> ".$value['STNAME']."<br /><br />";
+				echo "<b>取材日:</b> ".$value['IDATE']."<br>";
+				echo "<b>取材者:</b> ".$value['INAME']."<br><br />";
 			//画像がある場合のみ
 	   		if($value['SIMAGE'] != 0) {
 	       			echo "画像1<br><img height='100' src='./create_image.php?id=".$value['SIMAGE']."' /><br />";
