@@ -5,6 +5,9 @@ function connect(){//データベースに接続
 //データベースに接続 //
 $con = mysql_connect("sddb0040191940.cgidb", "sddbODQ3MzQz","2OcR#n7m");
 
+// エラー出力しない場合
+ini_set('display_errors', 0);
+
 //データベースを選択//
 mysql_select_db("sddb0040191940", $con);
 
