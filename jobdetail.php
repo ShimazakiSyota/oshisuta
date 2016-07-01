@@ -1,6 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-	"http://www.w3.org/TR/html4/loose.dtd">
-<?php
+﻿<?php
 
 	require_once 'DBmanager.php';//クラスファイル呼び出し
 	//DB接続
@@ -23,6 +21,9 @@
 
 $jobid=$_POST['jobid'];
 ?>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <head>
