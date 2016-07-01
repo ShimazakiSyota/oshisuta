@@ -1,5 +1,4 @@
 ﻿<?php
-bn 
 	require_once 'DBmanager.php';//クラスファイル呼び出し
 	//DB接続
 	$con = connect();
