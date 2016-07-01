@@ -5,8 +5,6 @@
 <html>
 
 <head>
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
@@ -14,7 +12,6 @@
 <?php
 
 	require_once 'DBmanager.php';//クラスファイル呼び出し
-
 	//DB接続
 	$con = connect();
 //---------------------------------------------------------------------------------------------------
@@ -31,15 +28,9 @@
 		//端末番号最後尾更新
 		terminalup($queryset);
 		$tid = $queryset;
-
 	}
 
 $jobid=$_POST['jobid'];
-//---------------------------------------------------------------------------------------------------
-		//CSS埋め込み
-		//アコーディオン
-		//ハンバーガーメニュー
-
 ?>
 <style type="text/css">
 
@@ -94,10 +85,6 @@ $jobid=$_POST['jobid'];
 }        
 
 </style>
-
-
-
-
 <script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
 <script type="text/javascript">
 //ハンバーガーメニュー
@@ -154,10 +141,6 @@ $(document).ready(function() {
     });
 })(jQuery);
 </SCRIPT>
-
-
-
-
 <!-- 画像がクリックされたら画像を入れ替えるJSP ------------------------------------------------------->
 <?PHP
 	$quryset=goodSearch($jobid,$tid);
@@ -208,8 +191,6 @@ $(document).ready(function() {
 
 
 </head>
-
-
 <!-------------------body-------------------------------------------------------------------------------->
 
 <body>
@@ -234,6 +215,7 @@ $(document).ready(function() {
 
 
 	<?php 
+//変更
 		//階層表示
 		echo "<div><ul>";
 		echo "<li><a href=\"./topPage.php\">HOME</a></li>＞";
