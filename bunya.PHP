@@ -1,6 +1,14 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 	"http://www.w3.org/TR/html4/loose.dtd">
 
+<?php
+//セッション開始
+if(!isset($_SESSION)){
+session_start();
+}
+?>
+
+
 <html>
 	<head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
@@ -8,12 +16,6 @@
 <script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
 <script type="text/javascript">
 
-<?php
-//セッション開始
-if(!isset($_SESSION)){
-session_start();
-}
-?>
 
 
 //ページトップ
