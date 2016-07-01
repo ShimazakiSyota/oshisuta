@@ -13,7 +13,7 @@
 <title>（職業詳細）</title>
 
 
-	<?php
+<?php
 
 	require_once 'DBmanager.php';//クラスファイル呼び出し
 
@@ -42,7 +42,7 @@ $jobid=$_POST['jobid'];
 		//アコーディオン
 		//ハンバーガーメニュー
 
-	?>
+?>
 <style type="text/css">
 
 .displayNone {
