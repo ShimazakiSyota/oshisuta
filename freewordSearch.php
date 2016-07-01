@@ -1,4 +1,7 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+﻿<?php
+session_start();
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 	"http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
@@ -120,7 +123,6 @@ require_once 'DBmanager.php';
 $con = connect();
 
 //セッション
-session_start();
 
 if (isset($_POST['message'])) {
 
