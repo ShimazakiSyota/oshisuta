@@ -1,5 +1,5 @@
 ﻿<?php
-
+bn 
 	require_once 'DBmanager.php';//クラスファイル呼び出し
 	//DB接続
 	$con = connect();
@@ -589,8 +589,8 @@ echo '</form>';
 
 <!--分野画面遷移-->
 <li>
-<a href="bunya.php">分野から探す</a>
-<a href="bunya.php"><img></a>
+<a href="bunya.PHP">分野から探す</a>
+<a href="bunya.PHP"><img></a>
 </li>
 
 <!--イメージ画面遷移-->
