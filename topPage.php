@@ -760,7 +760,7 @@ $b=1;
 	echo "<h3>フリーワードから探す</h3>";
 	echo "<form action=\"freewordSearch.PHP\" method=\"POST\">";
 	echo "<input type=\"seach\" name=\"message\" pattern=\"[^\\x22\\x27]*\"  required >";
-	echo "<input type=\"submit\"><img src='./img.jpg'>";
+	echo "<input type=\"submit\">";
 	echo "</form>";
 	echo "</div>";
 	
