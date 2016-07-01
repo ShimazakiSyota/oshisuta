@@ -1519,4 +1519,133 @@ function commentPicIDUpd($commentID,$picID){//学生インタビューの登録�
 }
 
 
+function expartviewDelete($ID){//選択されたのタグの削除
+
+    try {
+	//SQL文をセット//
+		$result_flag = mysql_query('DELETE FROM expartview WHERE ECOMMENT ='.$ID);
+			if (!$result_flag) {
+	    	die('DELETEクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+function workrpdateDelete($ID){//選択されたのタグの削除
+
+    try {
+	//SQL文をセット//
+		$result_flag = mysql_query('DELETE FROM workrpdate WHERE WCOMMENTID ='.$ID);
+			if (!$result_flag) {
+	    	die('DELETEクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+///////////////////////////////////////////書き直し
+function expartviewUpdate($expert2,$expert3,$commentID){//学生インタビューの登録　コメント
+    try {
+		//SQL文をセット//
+		$result_flag = mysql_query("UPDATE expartview SET ECHEAD = '$expert2',EXPERTCOM = '$expert3' WHERE ECOMMENT = '$commentID'");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+////////////追加
+function expertviewInsert2($expert2,$expert3,$expert){//学生インタビューの登録　コメント
+    try {
+		//SQL文をセット//
+		$result_flag = mysql_query("INSERT INTO expartview (ECHEAD,EXPERTCOM,EVIMAGE,EXPERTID) VALUES ('$expert2','$expert3','0','$expert')");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+///////////////////////////////////////////書き直し
+function picInsert2($fileID){
+    try {
+	//SQL文をセット//
+		$result_flag = mysql_query("UPDATE expartview SET EVIMAGE = '$fileID'");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+///////////////////////////////////////////書き直し
+function picInsert3($fileID){
+    try {
+	//SQL文をセット//
+		$result_flag = mysql_query("UPDATE workrpdate SET WIMAGE = '$fileID'");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+function commentPicIDUpd2($commentID,$picID){//学生インタビューの登録　コメント
+    try {
+		//SQL文をセット//
+		$result_flag = mysql_query("UPDATE expartview SET EVIMAGE = '$picID' WHERE ECOMMENT = '$commentID'");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+function commentPicIDUpd3($commentID,$picID){//学生インタビューの登録　コメント
+    try {
+		//SQL文をセット//
+		$result_flag = mysql_query("UPDATE workrpdate SET WIMAGE = '$picID' WHERE WCOMMENTID = '$commentID'");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+///////////////////////////////////////////書き直し
+function workrpdateUpdate($report2,$report3,$commentID){//学生インタビューの登録　コメント
+    try {
+		//SQL文をセット//
+		$result_flag = mysql_query("UPDATE workrpdate SET WCHEAD = '$report2',REPORT = '$report3' WHERE WCOMMENTID = '$commentID'");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+////////////追加
+function workrpdateInsert2($report2,$report3,$report){//学生インタビューの登録　コメント
+    try {
+		//SQL文をセット//
+		$result_flag = mysql_query("INSERT INTO workrpdate (WCHEAD,REPORT,WIMAGE,WORKID) VALUES ('$report2','$report3','0','$report')");
+			if (!$result_flag) {
+	    	die('INSERTクエリーが失敗しました。'.mysql_error());
+			}
+    } catch (Exception $e) {
+            echo ('システムエラーが発生しました');
+    }
+}
+
+
 ?>   
