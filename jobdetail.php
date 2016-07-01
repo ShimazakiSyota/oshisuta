@@ -27,6 +27,18 @@
 $jobid=$_POST['jobid'];
 	?>
 
+<?PHP
+	$quryset=goodSearch($jobid,$tid);
+	$data = mysql_fetch_row($quryset);
+
+	if($data>0){
+		$cnt=1;
+	}else{
+		$cnt=0;
+}
+?>
+
+
 <html>
 
 <head>
@@ -162,16 +174,6 @@ $(document).ready(function() {
 
 
 <!-- 画像がクリックされたら画像を入れ替えるJSP ------------------------------------------------------->
-<?PHP
-	$quryset=goodSearch($jobid,$tid);
-	$data = mysql_fetch_row($quryset);
-
-	if($data>0){
-		$cnt=1;
-	}else{
-		$cnt=0;
-}
-?>
 
 		<script type="text/javascript">
 		var cnt = "<?php echo $cnt ?>";
