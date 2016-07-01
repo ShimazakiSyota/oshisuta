@@ -44,7 +44,7 @@
 					$picID = picSet2($_FILES["upfile1"],$i);
 					commentPicIDUpd($comment[$i][3],$picID);
 					}else{
-					picUpd2($_FILES["upfile1"],$i);
+					picUpd2($_FILES["upfile1"],$i,$comment[$i][0]);
 					}
 				}else{
 				$delflag = 0;
