@@ -1,18 +1,6 @@
 ﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 	"http://www.w3.org/TR/html4/loose.dtd">
 
-
-<html>
-
-<head>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
-
-<title>（職業詳細）</title>
-
-
 	<?php
 
 	require_once 'DBmanager.php';//クラスファイル呼び出し
@@ -37,12 +25,25 @@
 	}
 
 $jobid=$_POST['jobid'];
+	?>
+
+<html>
+
+<head>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+<title>（職業詳細）</title>
+
+
+
 //---------------------------------------------------------------------------------------------------
 		//CSS埋め込み
 		//アコーディオン
 		//ハンバーガーメニュー
 
-	?>
 <style type="text/css">
 
 .displayNone {
