@@ -46,10 +46,10 @@ function disp(){
 
 				echo "<form action='./interviewUpdate.php' method='post' enctype='multipart/form-data' onsubmit='return disp()'>";
 				echo "<b>見出し:</b><input type='text' name='interview[]' value='".$interviewlist2[0][3]."' required><br><br>";
-				echo "<b>学生名</b><input type='text' name='interview[]' value='".$interviewlist2[0][4]."' required><br /><br />";
-				echo "<b>取材日</b><input type='date' name='interview[]' value='".$interviewlist2[0][5]."' required><br><br>";
-				echo "<b>取材者</b><input type='text' name='interview[]' value='".$interviewlist2[0][6]."' required><br><br>";
-				echo "<b>インタビュー時</b><input type='text' name='interview[]' value='".$interviewlist2[0][7]."' required><br /><br />";
+				echo "<b>学生名:</b><input type='text' name='interview[]' value='".$interviewlist2[0][4]."' required><br /><br />";
+				echo "<b>取材日:</b><input type='date' name='interview[]' value='".$interviewlist2[0][5]."' required><br><br>";
+				echo "<b>取材者:</b><input type='text' name='interview[]' value='".$interviewlist2[0][6]."' required><br><br>";
+				echo "<b>インタビュー時:</b><input type='text' name='interview[]' value='".$interviewlist2[0][7]."' required><br /><br />";
 
 				echo "<h4>変更する場合は画像を選択してください</h4>";
 				echo "写真：<input type='file' name='upfile' size='30' /><br /><br />";
@@ -102,10 +102,10 @@ function disp(){
 		$expertlist2 = expertlist2($_POST['expertID']);
 
 				echo "<form action='./expertUpdate.php' method='post' enctype='multipart/form-data' onsubmit='return disp()'>";
-				echo "<h4>見出し</h4><input type='text' name='expert[]' value='".$expertlist2[0][3]."' required><br>";
-				echo "<h4>専門家名</h4><input type='text' name='expert[]' value='".$expertlist2[0][4]."' required><br /><br />";
-				echo "<h4>取材日</h4><input type='date' name='expert[]' value='".$expertlist2[0][5]."' required><br>";
-				echo "<h4>取材者</h4><input type='text' name='expert[]' value='".$expertlist2[0][6]."' required><br>";
+				echo "<b>見出し:</b><input type='text' name='expert[]' value='".$expertlist2[0][3]."' required><br>";
+				echo "<b>専門家名:</b><input type='text' name='expert[]' value='".$expertlist2[0][4]."' required><br /><br />";
+				echo "<b>取材日:</b><input type='date' name='expert[]' value='".$expertlist2[0][5]."' required><br>";
+				echo "<b>取材者:</b><input type='text' name='expert[]' value='".$expertlist2[0][6]."' required><br>";
 
 				echo "<H4>変更する場合は画像を選択してください</H4>";
 				echo "写真：<input type='file' name='upfile' size='30' /><br /><br />";
@@ -120,21 +120,28 @@ function disp(){
 		//コメント変更用情報取得
 		$expertcomment = cexpertlist($expertlist2[0][0]);
 			for ($i=0; $i<10; $i++){
+			echo "<hr color='#FF69B4' size='1'>";
 				//コメントがある場合
-				if(isset($studentcomment[$i][3])){
+				if(isset($expertcomment[$i][3])){
 					//画像がある場合のみ
 		   			if($expertcomment[$i][0] != 0) {
-			       			echo "画像1<br><img height='100' src='./create_image.php?id=".$expertcomment[$i][0]."' />";
+			       			echo "<img height='100' src='./create_image.php?id=".$expertcomment[$i][0]."' />";
+					 	echo"<input type='checkbox' name='deletepic[]' value='".$expertcomment[$i][3]."'>この画像を削除<br><br>";					
 					}
 						echo "写真：<input type='file' name='upfile2[]' size='30' /><br /><br />";
 						echo "<h4>Q</h4><input type='text' name='expert2[]' value='".$expertcomment[$i][1]."'><br>";
 						echo "<h4>A</h4><textarea name='expert3[]' cols=50 rows=5>".$expertcomment[$i][2]."</textarea><br /><br />";
+						echo "<input type='hidden' name='commentID[]' value='".$expertcomment[$i][3]."'>";
+						echo"<input type='checkbox' name='deleteall[]' value='".$expertcomment[$i][3]."'>このコメントを削除";
+
 				}else{
 						//新しいコメントの追加
 						echo "<h3>コメント追加</h3>";
 						echo "写真：<input type='file' name='upfile2[]' size='30' /><br /><br />";		
 						echo "Q:<input type='text' size='20' NAME='expert2[]'><br /><br />";
 						echo "A:<textarea name='expert3[]' cols='50' rows='5'></textarea><br /><br />";
+
+						echo "<input type='hidden' name='count' value='".$i."'>";
 				}
 
 
@@ -151,9 +158,9 @@ function disp(){
 		//レポートコメントテーブルの取得
 		$jobstadiumlist2 = jobstadiumlist2($_POST['workID']);
 				echo "<form action='./reportUpdate.php' method='post' enctype='multipart/form-data' onsubmit='return disp()'>";
-				echo "<h4>見出し</h4><input type='text' name='report[]' value='".$jobstadiumlist2[0][3]."' required><br>";
-				echo "<h4>取材日</h4><input type='date' name='report[]' value='".$jobstadiumlist2[0][4]."' required><br>";
-				echo "<h4>取材者</h4><input type='text' name='report[]' value='".$jobstadiumlist2[0][5]."' required><br>";
+				echo "<b>見出し:</b><input type='text' name='report[]' value='".$jobstadiumlist2[0][3]."' required><br>";
+				echo "<b>取材日:</b><input type='date' name='report[]' value='".$jobstadiumlist2[0][4]."' required><br>";
+				echo "<b>取材者:</b><input type='text' name='report[]' value='".$jobstadiumlist2[0][5]."' required><br>";
 
 				echo "<H4>変更する場合は画像を選択してください</H4>";
 				echo "写真：<input type='file' name='upfile' size='30' /><br /><br />";
@@ -169,24 +176,28 @@ function disp(){
 		//コメント変更用情報取得
 		$reportcomment = cjobstadiumlist($jobstadiumlist2[0][0]);
 			for ($i=0; $i<10; $i++){
+			echo "<hr color='#FF69B4' size='1'>";
 				//コメントがある場合
 				if(isset($reportcomment[$i][3])){
 					//画像がある場合のみ
 		   			if($reportcomment[$i][0] != 0) {
-			       			echo "画像1<br><img height='100' src='./create_image.php?id=".$reportcomment[$i][0]."' />";
+			       			echo "<img height='100' src='./create_image.php?id=".$reportcomment[$i][0]."' />";
+					 	echo"<input type='checkbox' name='deletepic[]' value='".$reportcomment[$i][3]."'>この画像を削除<br><br>";
 					}
 						echo "写真：<input type='file' name='upfile3[]' size='30' /><br /><br />";
 						echo "<h4>Q</h4><input type='text' name='report2[]' value='".$reportcomment[$i][1]."'><br>";
 						echo "<h4>A</h4><textarea name='report3[]' cols=50 rows=5>".$reportcomment[$i][2]."</textarea><br /><br />";
+						echo "<input type='hidden' name='commentID[]' value='".$reportcomment[$i][3]."'>";
+						echo"<input type='checkbox' name='deleteall[]' value='".$reportcomment[$i][3]."'>このコメントを削除";
 				}else{
 						//新しいコメントの追加
 						echo "<h3>コメント追加</h3>";
 						echo "写真：<input type='file' name='upfile3[]' size='30' /><br /><br />";		
 						echo "Q:<input type='text' size='20' NAME='report2[]'><br /><br />";
 						echo "A:<textarea name='report3[]' cols='50' rows='5'></textarea><br /><br />";
+				
+						echo "<input type='hidden' name='count' value='".$i."'>";
 				}
-					echo "<input type='hidden' name='commentID' value='".$reportcomment[$i][3]."'>";
-
 		}
 				echo "<br /><input type=submit value='変更'><br /><br />";
 				echo"</form>";
