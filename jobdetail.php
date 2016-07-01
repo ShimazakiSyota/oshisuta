@@ -11,8 +11,6 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
 <title>（職業詳細）</title>
-
-
 <?php
 
 	require_once 'DBmanager.php';//クラスファイル呼び出し
