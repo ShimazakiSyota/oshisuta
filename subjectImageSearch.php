@@ -1,7 +1,6 @@
 ﻿<?php
 //セッション
 session_start();
-
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 	"http://www.w3.org/TR/html4/loose.dtd">
@@ -389,38 +388,38 @@ echo '</form>';
 
 <!--分野画面遷移-->
 <li>
-<a href="bunya.PHP">分野から探す</a>
-<a href="bunya.PHP"><img></a>
+<a href="bunya.php">分野から探す</a>
+<a href="bunya.php"><img></a>
 </li>
 
 <!--イメージ画面遷移-->
 <li>
-<a href="image.PHP">イメージから探す</a>
-<a href="image.PHP"><img></a>
+<a href="image.php">イメージから探す</a>
+<a href="image.php"><img></a>
 </li>
 
 <!--50音画面遷移--><li>
 
-<a href="gojyu.PHP">50音から探す</a>
-<a href="gojyu.PHP"><img></a>
+<a href="gojyu.php">50音から探す</a>
+<a href="gojyu.php"><img></a>
 </li>
 
 <!--気になるランキング画面遷移-->
 <li>
-<a href="ranking.PHP">気になるランキング</a>
-<a href="ranking.PHP"><img></a>
+<a href="ranking.php">気になるランキング</a>
+<a href="ranking.php"><img></a>
 </li>
 
 <!--最近気になった仕事画面遷移-->
 <li>
-<a href="recently.PHP">最近気になった仕事</a>
-<a href="recently.PHP"><img></a>
+<a href="recently.php">最近気になった仕事</a>
+<a href="recently.php"><img></a>
 </li>
 
 <!--HOME画面遷移-->
 <li>
-<a href="topPage.PHP">HOME</a>
-<a href="topPage.PHP"><img></a>
+<a href="topPage.php">HOME</a>
+<a href="topPage.php"><img></a>
 </li>
 
 </ul>
