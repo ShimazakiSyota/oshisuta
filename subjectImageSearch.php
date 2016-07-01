@@ -1,4 +1,9 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+﻿<?php
+//セッション
+session_start();
+
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 	"http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
@@ -54,11 +59,6 @@
 
 </style>
 
-<?php
-//セッション
-session_start();
-
-?>
 
 <script type="text/javascript">
 //ハンバーガーメニュー
@@ -101,7 +101,7 @@ $(document).ready(function() {
 
 
 <?php
-require_once 'DBManager.php';
+require_once 'DBmanager.php';
 
 
 //DB接続
