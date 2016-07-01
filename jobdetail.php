@@ -1,6 +1,18 @@
 ﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 	"http://www.w3.org/TR/html4/loose.dtd">
 
+
+<html>
+
+<head>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+<title>（職業詳細）</title>
+
+
 	<?php
 
 	require_once 'DBmanager.php';//クラスファイル呼び出し
@@ -25,37 +37,12 @@
 	}
 
 $jobid=$_POST['jobid'];
-	?>
-
-<?PHP
-	$quryset=goodSearch($jobid,$tid);
-	$data = mysql_fetch_row($quryset);
-
-	if($data>0){
-		$cnt=1;
-	}else{
-		$cnt=0;
-}
-?>
-
-
-<html>
-
-<head>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
-
-<title>（職業詳細）</title>
-
-
-
 //---------------------------------------------------------------------------------------------------
 		//CSS埋め込み
 		//アコーディオン
 		//ハンバーガーメニュー
 
+	?>
 <style type="text/css">
 
 .displayNone {
@@ -174,6 +161,16 @@ $(document).ready(function() {
 
 
 <!-- 画像がクリックされたら画像を入れ替えるJSP ------------------------------------------------------->
+<?PHP
+	$quryset=goodSearch($jobid,$tid);
+	$data = mysql_fetch_row($quryset);
+
+	if($data>0){
+		$cnt=1;
+	}else{
+		$cnt=0;
+}
+?>
 
 		<script type="text/javascript">
 		var cnt = "<?php echo $cnt ?>";
