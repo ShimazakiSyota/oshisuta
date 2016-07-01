@@ -1,3 +1,9 @@
+<?php
+if(!isset($_SESSION)){
+session_start();
+}
+?>
+
 <HTML>
 <HEAD>
 
@@ -6,11 +12,6 @@
 <script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
 
 
-<?php
-if(!isset($_SESSION)){
-session_start();
-}
-?>
 
 
 <script type="text/javascript">
@@ -760,7 +761,7 @@ $b=1;
 	echo "<h3>フリーワードから探す</h3>";
 	echo "<form action=\"freewordSearch.PHP\" method=\"POST\">";
 	echo "<input type=\"seach\" name=\"message\" pattern=\"[^\\x22\\x27]*\"  required >";
-	echo "<input type=\"submit\">";
+	echo "<input type=\"submit\"><img src='./img.jpg'>";
 	echo "</form>";
 	echo "</div>";
 	

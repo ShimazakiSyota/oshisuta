@@ -1,9 +1,9 @@
 <?php
 //データベースに接続 //
-$con = mysql_connect("localhost", "root","");
+$con = mysql_connect("sddb0040191940.cgidb", "sddbODQ3MzQz","2OcR#n7m");
 
 //データベースを選択//
-mysql_select_db("test2", $con);
+mysql_select_db("sddb0040191940", $con);
 
 //文字コードをセット//
 mysql_query('SET NAMES utf8', $con);
