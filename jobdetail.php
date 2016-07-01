@@ -588,8 +588,8 @@ echo '</form>';
 
 <!--分野画面遷移-->
 <li>
-<a href="bunya.PHP">分野から探す</a>
-<a href="bunya.PHP"><img></a>
+<a href="http://shigotobu.jp/oshisuta/bunya.PHP">分野から探す</a>
+<a href="http://shigotobu.jp/oshisuta/bunya.PHP"><img></a>
 </li>
 
 <!--イメージ画面遷移-->
