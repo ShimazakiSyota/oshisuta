@@ -11,7 +11,7 @@
 		$queryset=terminal();
 		$queryset=$queryset+1;
 		//cookie登録↓
-		$flag = setcookie('Terminalid',"$queryset",time()+ 2 * 365 * 24 * 3600);
+		setcookie('Terminalid',"$queryset",time()+ 2 * 365 * 24 * 3600);
 		//端末番号最後尾更新
 		terminalup($queryset);
 		$tid = $queryset;
