@@ -1,10 +1,18 @@
 ﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 	"http://www.w3.org/TR/html4/loose.dtd">
+
+
 <html>
+
 <head>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
 <title>（職業詳細）</title>
+
+
 	<?php
 
 	require_once 'DBmanager.php';//クラスファイル呼び出し
@@ -35,6 +43,8 @@ $jobid=$_POST['jobid'];
 		//ハンバーガーメニュー
 
 	?>
+<style type="text/css">
+
 .displayNone {
     display: none;
 }
@@ -86,6 +96,10 @@ $jobid=$_POST['jobid'];
 }        
 
 </style>
+
+
+
+
 <script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
 <script type="text/javascript">
 //ハンバーガーメニュー
@@ -142,6 +156,10 @@ $(document).ready(function() {
     });
 })(jQuery);
 </SCRIPT>
+
+
+
+
 <!-- 画像がクリックされたら画像を入れ替えるJSP ------------------------------------------------------->
 <?PHP
 	$quryset=goodSearch($jobid,$tid);
@@ -192,6 +210,8 @@ $(document).ready(function() {
 
 
 </head>
+
+
 <!-------------------body-------------------------------------------------------------------------------->
 
 <body>
@@ -206,7 +226,7 @@ $(document).ready(function() {
     <li><a href="ranking.php">気になるランキング</a></li>
     <li><a href="recently.php">最近気になった仕事</a></li>
     <li><form action="freewordSearch.php" method="POST">
-	<input type="text" name="message" pattern='[^\\x22\\x27]*'  required>
+	<input type="text" name="message">
 	<input type="submit">
 	</form>
 	</li>
@@ -216,24 +236,23 @@ $(document).ready(function() {
 
 
 	<?php 
-//変更
 		//階層表示
 		echo "<div><ul>";
 		echo "<li><a href=\"./topPage.php\">HOME</a></li>＞";
 		echo "<li><a href=\"./bunya.php\">分野別</a></li>＞";
 		$quryset = lowtagName($jobid);
-		if(isset($quryset[0][1])){
+
 		echo "<form  name='Form1' method='post' action='./subjectImageSearch.php' style=\"display:inline;\">";
 		echo "<input type='hidden' name='sbjct' value=".$quryset[0][0].">";
-		echo "<li><a href='javascript:Form1.submit()'>".$quryset[0][1]."</a></li>＞";
-		}
+		echo "<li><a href='javascript:Form1.submit()'>".$quryset[0][1]."</a></li>";
+
 //---------------------------------------------------------------------------------------------------
 	//職業情報取得
 	$data = joblist($jobid);
 
 		//１ループで１行データが取り出され、データが無くなるとループを抜けます。
 		//階層表示職業名
-		echo  "<li>".$data[1] ."</li><br />";//職業名
+		echo  "＞<li>".$data[1] ."</li><br />";//職業名
 		echo "</ul></div>";
 		echo "</form>";
 
@@ -317,8 +336,8 @@ $(document).ready(function() {
 	$cnt++;
 
 		echo "<li class=\"btn_tag\">";
-		echo "<form  name='Form".$cnt."' method='post' action='./subjectImageSearch2.php' style=\"display:inline;\">";
-		echo "<input type='hidden' name='image' value=".$data[0].">";
+		echo "<form  name='Form".$cnt."' method='post' action='./subjectImageSearch.php' style=\"display:inline;\">";
+		echo "<input type='hidden' name='sbjct' value=".$data[0].">";
 		echo "<li><a href='javascript:Form".$cnt.".submit()'>".$data[1]."</a></li></form>";
 
 
@@ -364,18 +383,15 @@ $(document).ready(function() {
 		echo "<p class=\"title\">";
 		echo $data[3]."<br />";//大見出し(p title)
 		echo "</p>";
-			if ($data[2]!=0) {
-
        		echo "<img class=\"main_v\"  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
-}
 		echo "<p class=\"date\">";
 		echo $data[4]."<br />";//取材日(p date)
 		echo "</p>";
 	$quryset=cjobstadiumlist($data[0]);
 		foreach ($quryset as $cdata){
 
-			if ($cdata[0]!=0) {
-       					echo "<img class=\"artwork\" height='100' src='./create_image.php?id=".$cdata[0] ."' /><br />";//お仕事スタジアム内容中の画像(main_v)?
+			if (isset($cdata[0])) {
+       					echo "<img class=\"artwork\" height='100' src='./create_image.php?id=".$cdata[2] ."' /><br />";//お仕事スタジアム内容中の画像(main_v)?
 			}
 			echo "<h4>";
 			echo  $cdata[1] ."<br />";//小見出し
@@ -412,12 +428,12 @@ $(document).ready(function() {
 		echo "<p class=\"title\">";
 		echo $data[3]."<br />";//大見出し(p title)
 		echo "</p>";
-			if ($data[2]!=0) {
-
-       		echo "<img class=\"main_v\"  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
-}
+       		echo "<img class=main_v  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
 		echo "<p class=\"position\">";
 		echo $data[4]."<br />";//専門家名(p position)
+		echo "</p>";
+		echo "<p class=\"date\">";
+		echo $data[5]."<br />";//取材日(p date)
 		echo "</p>";
 
 	$quryset=cexpertlist($data[0]);
@@ -425,8 +441,8 @@ $(document).ready(function() {
 	//１ループで１行データが取り出され、データが無くなるとループを抜けます。
 	foreach ( $quryset as $cdata){
 
-			if ($cdata[0]!=0) {
-       				echo "<img class=artwork  height='100' src='./create_image.php?id=".$cdata[0] ."' />";//内容中の専門家写真
+			if (isset($cdata[0])) {
+       				echo "<img class=artwork  height='100' src='./create_image.php?id=".$data[3] ."' />";//内容中の専門家写真
 			}
 			echo "<h4>";
 			echo  $cdata[1] ."<br />";//学生見出し
@@ -436,10 +452,6 @@ $(document).ready(function() {
 			echo  $cdata[2]."<br />";//コメント
 			echo "</p>";
 		}
-		echo "<p class=\"date\">";
-		echo $data[5]."<br />";//取材日(p date)
-		echo "</p>";
-
 		echo "<p class=\"interviewer\">";
 		echo $data[6];//取材者名(p interviewer)
 		echo "</p>";
@@ -469,10 +481,7 @@ $(document).ready(function() {
 		echo "<p class=\"title\">";
 		echo $data[3]."<br />";//大見出し(p title)
 		echo "</p>";
-			if ($data[2] != 0) {
-
        		echo "<img class=\"main_v\"  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
-}
 
 		echo "<p class=\"position\">";
 		echo $data[4]."<br />";//学生HN(p position)
@@ -482,8 +491,8 @@ $(document).ready(function() {
 	$quryset=cstviewlist($data[0]);
 	foreach ( $quryset as $cdata){
 
-			if ($cdata[0] != 0) {
-       				echo "<img class=\"artwork\"  height='100' src='./create_image.php?id=".$cdata[0] ."' />";//内容中の専門家写真
+			if (isset($cdata[0])) {
+       				echo "<img class=\"artwork\"  height='100' src='./create_image.php?id=".$data[3] ."' />";//内容中の専門家写真
 			}
 			echo "<h4>";
 			echo  $cdata[1] ."<br />";//学生見出し
