@@ -1,15 +1,23 @@
 ﻿<?php
-	require_once 'DBmanager.php';
+	ob_start();
+	require_once 'DBmanager.php';//クラスファイル呼び出し
+	//DB接続
 	$con = connect();
+	//cookie確認登録
 	if(isset($_COOKIE['Terminalid'])){
+		//cookie登録されている
 		$tid=$_COOKIE['Terminalid'];
 	}else{
+		//cookie登録されていない
 		$queryset=terminal();
 		$queryset=$queryset+1;
+		//cookie登録↓
 		setcookie('Terminalid',"$queryset",time()+ 2 * 365 * 24 * 3600);
+		//端末番号最後尾更新
 		terminalup($queryset);
 		$tid = $queryset;
 	}
+ob_end_flush();
 $jobid=$_POST['jobid'];
 //---------------------------------------------------------------------------------------------------
 ?>
