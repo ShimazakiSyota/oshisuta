@@ -11,6 +11,7 @@
 		//cookie登録されていない
 		$queryset=terminal();
 		$queryset=$queryset+1;
+
 		//cookie登録↓
 		setcookie('Terminalid',"$queryset",time()+ 2 * 365 * 24 * 3600);
 		//端末番号最後尾更新
@@ -371,15 +372,18 @@ $(document).ready(function() {
 		echo "<p class=\"title\">";
 		echo $data[3]."<br />";//大見出し(p title)
 		echo "</p>";
+		if ($data[2]!=0) {
+
        		echo "<img class=\"main_v\"  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
+		}
 		echo "<p class=\"date\">";
 		echo $data[4]."<br />";//取材日(p date)
 		echo "</p>";
 	$quryset=cjobstadiumlist($data[0]);
 		foreach ($quryset as $cdata){
 
-			if (isset($cdata[0])) {
-       					echo "<img class=\"artwork\" height='100' src='./create_image.php?id=".$cdata[2] ."' /><br />";//お仕事スタジアム内容中の画像(main_v)?
+			if ($cdata[0]!=0) {
+       					echo "<img class=\"artwork\" height='100' src='./create_image.php?id=".$cdata[0] ."' /><br />";//お仕事スタジアム内容中の画像(main_v)?
 			}
 			echo "<h4>";
 			echo  $cdata[1] ."<br />";//小見出し
@@ -416,7 +420,10 @@ $(document).ready(function() {
 		echo "<p class=\"title\">";
 		echo $data[3]."<br />";//大見出し(p title)
 		echo "</p>";
+		if ($data[2]!=0) {
+
        		echo "<img class=main_v  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
+		}
 		echo "<p class=\"position\">";
 		echo $data[4]."<br />";//専門家名(p position)
 		echo "</p>";
@@ -429,8 +436,8 @@ $(document).ready(function() {
 	//１ループで１行データが取り出され、データが無くなるとループを抜けます。
 	foreach ( $quryset as $cdata){
 
-			if (isset($cdata[0])) {
-       				echo "<img class=artwork  height='100' src='./create_image.php?id=".$data[3] ."' />";//内容中の専門家写真
+			if ($cdata[0]!=0) {
+       				echo "<img class=artwork  height='100' src='./create_image.php?id=".$data[0] ."' />";//内容中の専門家写真
 			}
 			echo "<h4>";
 			echo  $cdata[1] ."<br />";//学生見出し
@@ -469,8 +476,10 @@ $(document).ready(function() {
 		echo "<p class=\"title\">";
 		echo $data[3]."<br />";//大見出し(p title)
 		echo "</p>";
-       		echo "<img class=\"main_v\"  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
+		if ($data[2]!=0) {
 
+       		echo "<img class=\"main_v\"  height='100' src='./create_image.php?id=".$data[2] ."' /><br />";//メイン画像(img main_v)
+		}
 		echo "<p class=\"position\">";
 		echo $data[4]."<br />";//学生HN(p position)
 		echo "</p>";
@@ -479,8 +488,8 @@ $(document).ready(function() {
 	$quryset=cstviewlist($data[0]);
 	foreach ( $quryset as $cdata){
 
-			if (isset($cdata[0])) {
-       				echo "<img class=\"artwork\"  height='100' src='./create_image.php?id=".$data[3] ."' />";//内容中の専門家写真
+			if ($cdata[0]!=0) {
+       				echo "<img class=\"artwork\"  height='100' src='./create_image.php?id=".$data[0] ."' />";//内容中の専門家写真
 			}
 			echo "<h4>";
 			echo  $cdata[1] ."<br />";//学生見出し
